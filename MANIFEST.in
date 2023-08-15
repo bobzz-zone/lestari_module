@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include lestari *.css
+recursive-include lestari *.csv
+recursive-include lestari *.html
+recursive-include lestari *.ico
+recursive-include lestari *.js
+recursive-include lestari *.json
+recursive-include lestari *.md
+recursive-include lestari *.png
+recursive-include lestari *.py
+recursive-include lestari *.svg
+recursive-include lestari *.txt
+recursive-exclude lestari *.pyc

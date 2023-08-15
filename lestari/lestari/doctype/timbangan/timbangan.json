@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-06-13 10:15:02.378232",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "connectserial",
+  "serialresult"
+ ],
+ "fields": [
+  {
+   "fieldname": "connectserial",
+   "fieldtype": "Button",
+   "label": "connectSerial",
+   "options": "connectSerial()"
+  },
+  {
+   "fieldname": "serialresult",
+   "fieldtype": "Text",
+   "label": "serialResult"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-06-13 10:19:25.530824",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Timbangan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

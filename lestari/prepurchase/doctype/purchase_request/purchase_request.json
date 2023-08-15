@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PR-.#####",
+ "creation": "2023-02-14 09:04:31.540387",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "template",
+  "items",
+  "request_by",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Nama Template",
+   "options": "Purchase Request Template"
+  },
+  {
+   "fetch_from": "template.items",
+   "fetch_if_empty": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Detail",
+   "options": "Purchase Request Detail"
+  },
+  {
+   "fieldname": "request_by",
+   "fieldtype": "Link",
+   "label": "Request By",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Purchase Request",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-02-14 09:31:32.892774",
+ "modified_by": "Administrator",
+ "module": "PrePurchase",
+ "name": "Purchase Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

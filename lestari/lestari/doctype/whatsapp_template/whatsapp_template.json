@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:id_template",
+ "creation": "2022-09-09 14:57:19.245203",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id_template",
+  "name_template",
+  "status",
+  "column_break_3",
+  "category",
+  "language",
+  "section_break_7",
+  "components",
+  "detail"
+ ],
+ "fields": [
+  {
+   "fieldname": "name_template",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name Template",
+   "reqd": 1
+  },
+  {
+   "fieldname": "id_template",
+   "fieldtype": "Data",
+   "label": "ID Template",
+   "unique": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Data",
+   "label": "Language"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "components",
+   "fieldtype": "Code",
+   "label": "Components",
+   "options": "Whatsapp Template Component"
+  },
+  {
+   "fieldname": "detail",
+   "fieldtype": "Table",
+   "label": "Detail",
+   "options": "Whatsapp Template Component"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-09-15 10:51:14.811285",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Whatsapp Template",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

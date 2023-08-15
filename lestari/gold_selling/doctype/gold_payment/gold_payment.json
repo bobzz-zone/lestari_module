@@ -1,0 +1,460 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-08-22 14:10:34.762165",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "customer_group",
+  "territory",
+  "sales_bundle",
+  "sales_warehouse",
+  "type_emas",
+  "piutang_gold",
+  "column_break_2",
+  "naming_series",
+  "posting_date",
+  "posting_time",
+  "company",
+  "due_date",
+  "warehouse",
+  "invoice_section",
+  "get_gold_invoice",
+  "invoice_table",
+  "payment_detail_sec",
+  "gold_payment_col",
+  "stock_payment",
+  "total_gold_payment",
+  "bruto_discount",
+  "discount",
+  "discount_amount",
+  "bonus",
+  "idr_payment_col",
+  "idr_payment",
+  "total_idr_payment",
+  "total_idr_gold",
+  "tutupan",
+  "write_off_account",
+  "write_off",
+  "write_off_idr",
+  "write_off_total",
+  "total_payment",
+  "invoice_sb",
+  "total_invoice",
+  "allocated_payment",
+  "tax_sb",
+  "allocated_idr_payment",
+  "total_pajak",
+  "additional_price_section",
+  "total_extra_charges",
+  "total_sisa_invoice",
+  "column_break_36",
+  "total_advance",
+  "unallocated_idr_payment",
+  "idr_converted",
+  "unallocated_payment",
+  "jadi_deposit",
+  "auto_distribute",
+  "writeoff_sisa",
+  "jadikan_deposit",
+  "reset_alokasi",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Kode Seri",
+   "no_copy": 1,
+   "options": "GP-GOLD-.YYYY.-\nGP-STOCK-.YYYY.-",
+   "print_hide": 1
+  },
+  {
+   "fetch_from": "subcustomer.parent_customer",
+   "fetch_if_empty": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "invoice_section",
+   "fieldtype": "Section Break",
+   "label": "Invoice List"
+  },
+  {
+   "fieldname": "invoice_table",
+   "fieldtype": "Table",
+   "in_standard_filter": 1,
+   "label": "Gold Payment Invoice",
+   "options": "Gold Payment Invoice"
+  },
+  {
+   "fieldname": "stock_payment",
+   "fieldtype": "Table",
+   "label": "Stock Payment",
+   "options": "Stock Payment"
+  },
+  {
+   "fieldname": "idr_payment",
+   "fieldtype": "Table",
+   "label": "IDR Payment",
+   "options": "IDR Payment"
+  },
+  {
+   "fieldname": "additional_price_section",
+   "fieldtype": "Section Break",
+   "label": "Summary Gold Payment"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_gold_payment",
+   "fieldtype": "Float",
+   "label": "Total Gold Payment",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "bonus",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Bonus in 24K",
+   "precision": "3"
+  },
+  {
+   "default": "0",
+   "depends_on": "write_off_account",
+   "fieldname": "write_off",
+   "fieldtype": "Float",
+   "label": "Write Off",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gold Payment",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_detail_sec",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "gold_payment_col",
+   "fieldtype": "Section Break",
+   "label": "Gold Payment"
+  },
+  {
+   "fieldname": "idr_payment_col",
+   "fieldtype": "Section Break",
+   "label": "IDR Payment"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_idr_gold",
+   "fieldtype": "Float",
+   "label": "Total IDR in Gold",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "default": "900.270.000 - Beban Selisih Pembulatan - LMS",
+   "fieldname": "write_off_account",
+   "fieldtype": "Link",
+   "label": "Write Off Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "total_payment",
+   "fieldtype": "Float",
+   "label": "Total Payment In Gold",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "discount_amount",
+   "fieldtype": "Float",
+   "label": "Discount Amount",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_invoice",
+   "fieldtype": "Float",
+   "label": "Total Invoice",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unallocated_payment",
+   "fieldtype": "Float",
+   "label": "UnAllocated",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_idr_payment",
+   "fieldtype": "Currency",
+   "label": "Total IDR Payment",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
+  },
+  {
+   "fieldname": "auto_distribute",
+   "fieldtype": "Button",
+   "label": "Auto Distribute Payment",
+   "options": "auto_distribute"
+  },
+  {
+   "fieldname": "allocated_payment",
+   "fieldtype": "Float",
+   "label": "Allocated Emas",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "get_gold_invoice",
+   "fieldtype": "Button",
+   "label": "Get Gold Invoice",
+   "options": "get_gold_invoice"
+  },
+  {
+   "default": "Today",
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Percent",
+   "label": "Discount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "bruto_discount",
+   "fieldtype": "Float",
+   "label": "Total Bruto Discounted",
+   "precision": "3"
+  },
+  {
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse",
+   "fieldname": "sales_warehouse",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Sales Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_sisa_invoice",
+   "fieldtype": "Float",
+   "label": "Total Perlu Dibayar",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "writeoff_sisa",
+   "fieldtype": "Button",
+   "label": "Writeoff Sisa",
+   "options": "writeoff_sisa"
+  },
+  {
+   "fieldname": "jadi_deposit",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Jadi Deposit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "jadikan_deposit",
+   "fieldtype": "Button",
+   "label": "Jadikan Sisa Deposit",
+   "options": "jadikan_deposit"
+  },
+  {
+   "fieldname": "total_advance",
+   "fieldtype": "Float",
+   "label": "Total Advance",
+   "read_only": 1
+  },
+  {
+   "description": "Total Biaya Tambahan - Bonus + Writeoff - Discount",
+   "fieldname": "total_extra_charges",
+   "fieldtype": "Float",
+   "label": "Total Extra Charges",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reset_alokasi",
+   "fieldtype": "Button",
+   "label": "Reset Alokasi Pembayaran",
+   "options": "reset_alokasi"
+  },
+  {
+   "default": "LD",
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas"
+  },
+  {
+   "fieldname": "allocated_idr_payment",
+   "fieldtype": "Currency",
+   "label": "Allocated For Tax",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unallocated_idr_payment",
+   "fieldtype": "Currency",
+   "label": "UnAllocated IDR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Pajak Perlu Di Bayar",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "type_emas.piutang_emas",
+   "fieldname": "piutang_gold",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Piutang Gold",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "write_off_idr",
+   "fieldtype": "Currency",
+   "label": "Write Off in IDR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "write_off_total",
+   "fieldtype": "Currency",
+   "label": "Write Off Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoice_sb",
+   "fieldtype": "Section Break",
+   "label": "Invoice Summary"
+  },
+  {
+   "fieldname": "idr_converted",
+   "fieldtype": "Currency",
+   "label": "IDR Converted to Pay Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_sb",
+   "fieldtype": "Section Break",
+   "label": "Summary Tax"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-15 14:05:26.541311",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Payment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

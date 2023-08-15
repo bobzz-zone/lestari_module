@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-04-11 09:59:44.910658",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "form_order",
+  "tanggal_order",
+  "so_type",
+  "customer",
+  "column_break_4",
+  "kategori",
+  "sub_kategori",
+  "produk_id",
+  "kadar",
+  "section_break_10",
+  "qty",
+  "qty_isi_pohon",
+  "jumlah_pohon",
+  "keterangan_variasi",
+  "keterangan_batu",
+  "target_berat"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "columns": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "qty_isi_pohon",
+   "fieldtype": "Int",
+   "label": "Qty Isi Pohon"
+  },
+  {
+   "fieldname": "jumlah_pohon",
+   "fieldtype": "Int",
+   "label": "Jumlah Pohon"
+  },
+  {
+   "fieldname": "target_berat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target Berat"
+  },
+  {
+   "columns": 1,
+   "fieldname": "so_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Order Type"
+  },
+  {
+   "columns": 2,
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Produk ID",
+   "options": "Item"
+  },
+  {
+   "columns": 1,
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sub Kategori",
+   "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "tanggal_order",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Tanggal Order"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "keterangan_variasi",
+   "fieldtype": "Small Text",
+   "label": "Keterangan Variasi"
+  },
+  {
+   "fieldname": "keterangan_batu",
+   "fieldtype": "Small Text",
+   "label": "Keterangan Batu"
+  },
+  {
+   "columns": 1,
+   "fieldname": "form_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Form Order",
+   "options": "Form Order",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-08-07 15:17:47.935388",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPK Produksi Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

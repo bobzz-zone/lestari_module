@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-10-30 23:03:30.345524",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "model",
+  "item_name",
+  "kadar",
+  "sub_kategori",
+  "kategori",
+  "kategori_pohon",
+  "qty_isi_pohon",
+  "no_pohon",
+  "qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "model",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Model",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "model.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "model.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "model.item_group",
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "label": "Sub Kategori",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "model.kategori_pohon",
+   "fieldname": "kategori_pohon",
+   "fieldtype": "Link",
+   "label": "Kategori Pohon",
+   "options": "Penggolongan Pohon",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "model.qty_isi_pohon",
+   "fieldname": "qty_isi_pohon",
+   "fieldtype": "Int",
+   "label": "Qty Isi Pohon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "no_pohon",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No Pohon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty Sisa",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-10-30 23:29:01.515474",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Invalid Pohon Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

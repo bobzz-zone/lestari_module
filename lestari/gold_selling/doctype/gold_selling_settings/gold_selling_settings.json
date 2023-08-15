@@ -1,0 +1,136 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-31 22:13:11.894687",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "piutang_gold",
+  "piutang_idr",
+  "selisih_kurs",
+  "discount_payment",
+  "bonus_payment",
+  "cost_center",
+  "item_ct",
+  "uang_buat_beli_emas",
+  "payment_deposit_coa",
+  "default_warehouse",
+  "default_kas_kantor",
+  "ppn_account",
+  "pph_account"
+ ],
+ "fields": [
+  {
+   "fieldname": "piutang_gold",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Piutang Gold",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "piutang_idr",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Piutang IDR",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "selisih_kurs",
+   "fieldtype": "Link",
+   "label": "Selisih Kurs",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_ct",
+   "fieldtype": "Link",
+   "label": "CT Gold Code",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "default_warehouse",
+   "fieldtype": "Link",
+   "label": "Default Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "discount_payment",
+   "fieldtype": "Link",
+   "label": "Discount Pembayaran",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bonus_payment",
+   "fieldtype": "Link",
+   "label": "Bonus Pembayaran",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "description": "Saat Conversi tidak nambah stock sehingga , perlu penampung uang rupiah yang harusnya di keluarkan",
+   "fieldname": "uang_buat_beli_emas",
+   "fieldtype": "Link",
+   "label": "Hutang Pembelian Emas",
+   "options": "Account"
+  },
+  {
+   "fieldname": "default_kas_kantor",
+   "fieldtype": "Link",
+   "label": "Default Kas Kantor",
+   "options": "Account"
+  },
+  {
+   "fieldname": "payment_deposit_coa",
+   "fieldtype": "Link",
+   "label": "Transit Deposit Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "ppn_account",
+   "fieldtype": "Link",
+   "label": "PPN Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "pph_account",
+   "fieldtype": "Link",
+   "label": "PPH Account",
+   "options": "Account"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-06-23 13:18:33.710979",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Selling Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

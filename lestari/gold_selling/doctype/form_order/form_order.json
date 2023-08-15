@@ -1,0 +1,351 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-10-27 09:45:30.366290",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "naming_series",
+  "customer",
+  "customer_name",
+  "customer_group",
+  "kadar",
+  "kategori",
+  "sub_kategori",
+  "column_break_4",
+  "pic",
+  "pic_name",
+  "posting_date",
+  "edit_posting_date",
+  "due_date",
+  "production_period_week",
+  "production_period_month",
+  "production_period_year",
+  "detail_item_section",
+  "sku",
+  "item_code",
+  "item_name",
+  "kategori_pohon",
+  "qty_isi_pohon",
+  "gambar_produk",
+  "image",
+  "qty",
+  "remark",
+  "pilih",
+  "reset",
+  "column_break_21",
+  "gambar",
+  "section_break_8",
+  "sorting_type",
+  "sorting",
+  "section_break_17",
+  "match",
+  "items",
+  "section_break_12",
+  "total_pohon",
+  "invalid_sec",
+  "items_invalid",
+  "valid_sec",
+  "items_valid",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "STA\nSTO\nSTP\nCustomer"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Customer\"",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pic",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "PIC",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Form Order Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Form Order",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Sorting Item"
+  },
+  {
+   "fieldname": "production_period_week",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Production Period Week"
+  },
+  {
+   "fieldname": "production_period_month",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Production Period Month"
+  },
+  {
+   "fieldname": "production_period_year",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Production Period Year"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_pohon",
+   "fieldtype": "Int",
+   "label": "Total Pohon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "pic_name",
+   "fieldtype": "Data",
+   "label": "PIC Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "STO-FORD-.YYYY.-\nSTA-FORD-.YYYY.-\nSTP-FORD-.YYYY.-\nCUST-FORD-.YYYY.-"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sorting_type",
+   "fieldtype": "Select",
+   "label": "Sorting Type",
+   "options": "\nModel\nKadar\nSub Kategori\nKategori\nKategori Pohon\nNo Pohon\nValid"
+  },
+  {
+   "fieldname": "sorting",
+   "fieldtype": "Button",
+   "label": "Sorting"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break",
+   "label": "Form Order Item"
+  },
+  {
+   "fieldname": "match",
+   "fieldtype": "Button",
+   "label": "Match",
+   "options": "match_data"
+  },
+  {
+   "fieldname": "valid_sec",
+   "fieldtype": "Section Break",
+   "label": "Data Pohon Yang Valid"
+  },
+  {
+   "fieldname": "items_valid",
+   "fieldtype": "Table",
+   "label": "Valid Items Recap",
+   "options": "Valid Pohon Items"
+  },
+  {
+   "fieldname": "invalid_sec",
+   "fieldtype": "Section Break",
+   "label": "Data Pohon Yang Tidak Valid"
+  },
+  {
+   "fieldname": "items_invalid",
+   "fieldtype": "Table",
+   "label": "Invalid",
+   "options": "Invalid Pohon Items"
+  },
+  {
+   "fieldname": "detail_item_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "fieldname": "sku",
+   "fieldtype": "Link",
+   "label": "SKU",
+   "options": "Item"
+  },
+  {
+   "fieldname": "gambar_produk",
+   "fieldtype": "Image",
+   "hidden": 1,
+   "label": "Gambar Produk",
+   "options": "image"
+  },
+  {
+   "fetch_from": "sku.image",
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Image",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gambar",
+   "fieldtype": "HTML",
+   "label": "Gambar",
+   "options": "<img id=\"gambar-produk\" width=\"450px\">"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "label": "Sub Kategori",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pilih",
+   "fieldtype": "Button",
+   "label": "Pilih"
+  },
+  {
+   "fetch_from": "sku.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sku.kategori_pohon",
+   "fieldname": "kategori_pohon",
+   "fieldtype": "Link",
+   "label": "Kategori Pohon",
+   "options": "Penggolongan Pohon",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sku.qty_isi_pohon",
+   "fieldname": "qty_isi_pohon",
+   "fieldtype": "Int",
+   "label": "Qty Isi Pohon"
+  },
+  {
+   "fetch_from": "sku.name",
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reset",
+   "fieldtype": "Button",
+   "label": "Reset"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "Remark"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1,
+   "read_only_depends_on": "eval: doc.edit_posting_date == 0"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_posting_date",
+   "fieldtype": "Check",
+   "label": "Edit Posting Date"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-07-03 11:09:38.899849",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Form Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

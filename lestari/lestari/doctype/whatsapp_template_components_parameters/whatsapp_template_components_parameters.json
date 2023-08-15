@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-09-12 13:35:31.289423",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "text",
+  "currency",
+  "datetime",
+  "image",
+  "document",
+  "video"
+ ],
+ "fields": [
+  {
+   "fieldname": "text",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "text",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Currency",
+   "label": "currency"
+  },
+  {
+   "fieldname": "datetime",
+   "fieldtype": "Datetime",
+   "label": "datetime"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "image"
+  },
+  {
+   "fieldname": "document",
+   "fieldtype": "Attach",
+   "label": "document"
+  },
+  {
+   "fieldname": "video",
+   "fieldtype": "Attach",
+   "label": "video"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-09-12 13:37:39.509130",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Whatsapp Template Components Parameters",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,39 @@
+
+
+{% if(!doc) { %}
+	<div class="row">
+        <div class="col-sm-2 col-xs-2 text-center">{%= __("No Nota") %}</div>
+		<div class="col-sm-2 col-xs-2 text-center">{%= __("Tanggal Nota") %}</div>
+		<div class="col-sm-4 col-xs-4 text-center">{%= __("Customer") %}</div>
+		<div class="col-sm-2 col-xs-2 text-center">{%= __("Berat Invoice 24K") %}</div>
+		<div class="col-sm-2 col-xs-2 text-center">{%= __("Sisa Tagihan 24K") %}</div>
+	</div>
+{% } else { %}
+	<div class="row">
+		<div class="col-sm-2 col-xs-2 text-center">
+                <strong>{%= doc.gold_invoice %}</strong>
+		</div>
+
+		<!-- tanggal -->
+		<div class="col-sm-2 col-xs-2 text-center">
+			{%= doc.get_formatted("tanggal") %}
+		</div>
+
+		<!-- customer -->
+		<div class="col-sm-4 col-xs-4 text-center">
+				{%= doc.get_formatted("customer") %} <br/>
+                {%= doc.get_formatted("sub_customer") %} <br/>
+                {%= doc.get_formatted("end_user") %} <br/>
+		</div>
+
+		<!-- total -->
+		<div class="col-sm-2 col-xs-2 text-center">
+				{%= doc.get_formatted("total") %}
+		</div>
+
+		<!-- outstanding -->
+		<div class="col-sm-2 col-xs-2 text-center">
+				{%= doc.get_formatted("outstanding") %}
+		</div>
+	</div>
+{% } %}

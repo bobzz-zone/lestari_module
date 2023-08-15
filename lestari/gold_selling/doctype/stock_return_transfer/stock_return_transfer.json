@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:SRT{YY}{MM}{######}",
+ "creation": "2023-04-11 15:49:25.307900",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "type",
+  "no_doc",
+  "column_break_3",
+  "sales_bundle",
+  "sales",
+  "warehouse",
+  "section_break_7",
+  "customer",
+  "get_details",
+  "column_break_11",
+  "sub_customer",
+  "section_break_13",
+  "transfer_details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Masuk\"",
+   "fieldname": "no_doc",
+   "fieldtype": "Link",
+   "label": "No Doc",
+   "mandatory_depends_on": "eval:doc.type == \"Masuk\"",
+   "options": "Stock Return Transfer"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "no_doc.sales_bundle",
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fetch_from": "sales_bundle.sales",
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sales",
+   "options": "Sales Partner",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "transfer_details",
+   "fieldtype": "Table",
+   "label": "Transfer Details",
+   "options": "Stock Return Transfer Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Return Transfer",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "\nMasuk\nKeluar",
+   "reqd": 1
+  },
+  {
+   "fieldname": "get_details",
+   "fieldtype": "Button",
+   "label": "Get Details"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sub_customer",
+   "fieldtype": "Link",
+   "label": "Sub Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-04 16:11:50.604418",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Stock Return Transfer",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

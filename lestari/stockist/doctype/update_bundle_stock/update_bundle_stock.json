@@ -1,0 +1,354 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{########}",
+ "color": "red",
+ "creation": "2022-10-17 07:48:43.016130",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "bundle",
+  "type",
+  "keterangan",
+  "cb1",
+  "id_employee",
+  "pic",
+  "nama_stokist",
+  "s_warehouse",
+  "purpose",
+  "sales",
+  "warehouse",
+  "get_bundle",
+  "item_selector_section",
+  "kadar",
+  "column_break_13",
+  "category",
+  "column_break_15",
+  "bruto",
+  "add",
+  "detail_timbangan_section",
+  "berat",
+  "id_row",
+  "field_row",
+  "timbang",
+  "column_break_26",
+  "status_timbangan",
+  "jenis_timbangan",
+  "sb1",
+  "total_perkadar",
+  "items",
+  "section_break_31",
+  "total_bruto",
+  "total_per_kadar_section",
+  "per_kadar",
+  "total_per_sub_category_section",
+  "per_sub_category",
+  "section_break_13",
+  "status",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Type",
+   "options": "\nNew Stock\nAdd Stock\nDeduct Stock",
+   "reqd": 1
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "id_employee",
+   "fieldtype": "Data",
+   "label": "ID Employee"
+  },
+  {
+   "fieldname": "pic",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Stokist",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "nama_stokist",
+   "fieldtype": "Data",
+   "label": "Nama Stokist",
+   "read_only": 1
+  },
+  {
+   "default": "Stockist - LMS",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fetch_from": "bundle.purpose",
+   "fieldname": "purpose",
+   "fieldtype": "Data",
+   "label": "Purpose",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bundle.sales",
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bundle.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.type != \"\" && doc.bundle != \"\"",
+   "fieldname": "get_bundle",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Get Bundle",
+   "options": "get_bundle_sales"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval: doc.type != \"\" && doc.bundle != \"\"",
+   "fieldname": "item_selector_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Item Selector"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bruto",
+   "fieldtype": "Float",
+   "label": "Berat",
+   "precision": "2"
+  },
+  {
+   "fieldname": "add",
+   "fieldtype": "Button",
+   "label": "Add",
+   "options": "add_row_action"
+  },
+  {
+   "depends_on": "eval: doc.status_timbangan == \"Connected\"",
+   "fieldname": "detail_timbangan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Timbangan"
+  },
+  {
+   "bold": 1,
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat Timbangan",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "id_row",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "ID Row"
+  },
+  {
+   "fieldname": "field_row",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Field Row"
+  },
+  {
+   "fieldname": "timbang",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Timbang"
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Not Connect",
+   "fieldname": "status_timbangan",
+   "fieldtype": "Select",
+   "label": "Status Timbangan",
+   "options": "Not Connect\nConnected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "jenis_timbangan",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Jenis Timbangan",
+   "options": "\nShinko\nVibra\nMettler\nAND"
+  },
+  {
+   "fieldname": "sb1",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "depends_on": "eval:doc.bundle",
+   "fieldname": "total_perkadar",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Total Perkadar",
+   "options": "calculate_total"
+  },
+  {
+   "depends_on": "eval:doc.bundle",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Detail Penambahan Stock",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_31",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Berat",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_per_kadar_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Total Per Kadar"
+  },
+  {
+   "fieldname": "per_kadar",
+   "fieldtype": "Table",
+   "label": "Per Kadar`",
+   "options": "Update Bundle Stock Kadar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_per_sub_category_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Sub Category"
+  },
+  {
+   "fieldname": "per_sub_category",
+   "fieldtype": "Table",
+   "label": "Per Sub Category",
+   "options": "Update Bundle Stock Sub",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Update Bundle Stock",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "depends_on": "eval: doc.docstatus != 0",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nCancelled",
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-14 13:12:23.079781",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Update Bundle Stock",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

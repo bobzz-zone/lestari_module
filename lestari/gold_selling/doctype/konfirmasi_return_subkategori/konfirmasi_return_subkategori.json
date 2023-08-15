@@ -1,0 +1,173 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:KRS{YY}{MM}{#######}",
+ "creation": "2023-04-18 01:47:21.205837",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "no_konfirmasi",
+  "kadar",
+  "kategori",
+  "terima_berat",
+  "total_berat_input",
+  "column_break_7",
+  "sales_bundle",
+  "sales",
+  "source_warehouse",
+  "target_warehouse",
+  "customer",
+  "customer_group",
+  "territory",
+  "section_break_12",
+  "items",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "no_konfirmasi",
+   "fieldtype": "Link",
+   "label": "No Konfirmasi",
+   "options": "Konfirmasi Payment Return"
+  },
+  {
+   "fetch_from": "item.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item.item_group",
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "terima_berat",
+   "fieldtype": "Float",
+   "label": "Terima Berat",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "no_konfirmasi.sales_bundle",
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fetch_from": "sales_bundle.sales",
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse",
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "default": "Stockist - LMS",
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Konfirmasi Stock Subkategori Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Konfirmasi Return Subkategori",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_berat_input",
+   "fieldtype": "Float",
+   "label": "Total Berat Input"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-07-31 14:06:54.337089",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Konfirmasi Return Subkategori",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

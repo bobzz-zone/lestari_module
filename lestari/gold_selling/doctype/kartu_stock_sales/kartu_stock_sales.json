@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:KSS-{YYYY}-{#######}",
+ "creation": "2023-03-28 14:22:21.217060",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "bundle",
+  "kategori",
+  "sub_kategori",
+  "kadar",
+  "warehouse",
+  "qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Gold Selling Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Bundle",
+   "options": "Sales Stock Bundle",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "item.item_group",
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "label": "Sub Kategori",
+   "options": "Item Group"
+  },
+  {
+   "fetch_from": "item.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bundle.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-05-09 10:41:18.187316",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Kartu Stock Sales",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

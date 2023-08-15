@@ -1,0 +1,94 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:GR-{customer_group}-{type}-{####}",
+ "creation": "2022-08-24 23:38:17.325313",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_group",
+  "type",
+  "type_emas",
+  "category",
+  "item",
+  "nilai_tukar",
+  "valid_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "nilai_tukar",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Nilai Tukar",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Selling\"",
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Category",
+   "mandatory_depends_on": "eval:doc.type==\"Selling\"",
+   "options": "Gold Selling Item"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Selling\nBuying"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Buying\"",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "mandatory_depends_on": "eval:doc.type==\"Buying\"",
+   "options": "Item"
+  },
+  {
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-06-22 16:01:07.672836",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Customer Group Rates",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

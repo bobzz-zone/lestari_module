@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "creation": "2022-08-31 08:43:45.014149",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_deposit",
+  "date",
+  "gold_deposit",
+  "gold_allocated",
+  "tutupan",
+  "customer"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_deposit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Deposit",
+   "options": "Customer Deposit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer_deposit.gold_left",
+   "fieldname": "gold_deposit",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Titipan 24K",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer_deposit.gold_left",
+   "fieldname": "gold_allocated",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "24K Teralokasi"
+  },
+  {
+   "fetch_from": "customer_deposit.tutupan",
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan"
+  },
+  {
+   "fetch_from": "customer_deposit.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-04-05 22:47:26.490213",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Invoice Advance Gold",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

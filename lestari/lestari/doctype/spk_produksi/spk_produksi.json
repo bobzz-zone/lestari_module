@@ -1,0 +1,176 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:SPK{YY}{MM}{#####}",
+ "creation": "2022-04-11 10:00:37.059091",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tanggal_spk",
+  "column_break_2",
+  "sw",
+  "form_order",
+  "idworksuggestion",
+  "detail_perencana_section",
+  "employee_id",
+  "column_break_4",
+  "nama",
+  "jabatan",
+  "detail_spk_section",
+  "area",
+  "column_break_9",
+  "proses",
+  "detail_rencana_section",
+  "tabel_rencana_produksi",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "tanggal_spk",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tanggal SPK"
+  },
+  {
+   "fieldname": "detail_perencana_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama"
+  },
+  {
+   "fetch_from": "employee_id.department",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan"
+  },
+  {
+   "fieldname": "detail_spk_section",
+   "fieldtype": "Section Break",
+   "label": "Detail SPK"
+  },
+  {
+   "default": "Lilin - L",
+   "fieldname": "area",
+   "fieldtype": "Link",
+   "label": "Area",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Persiapan",
+   "fieldname": "proses",
+   "fieldtype": "Link",
+   "label": "Proses",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "detail_rencana_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Rencana"
+  },
+  {
+   "fieldname": "tabel_rencana_produksi",
+   "fieldtype": "Table",
+   "label": "Tabel Rencana Produksi",
+   "options": "SPK Produksi Detail"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "SPK Produksi",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "form_order",
+   "fieldtype": "Data",
+   "label": "Form Order"
+  },
+  {
+   "fieldname": "sw",
+   "fieldtype": "Data",
+   "label": "SW"
+  },
+  {
+   "fieldname": "idworksuggestion",
+   "fieldtype": "Data",
+   "label": "IDWorkSuggestion"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-07 16:30:18.474793",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPK Produksi",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "LMS Pohon Lilin Staff",
+   "select": 1,
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "LMS PPIC Supervisor",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

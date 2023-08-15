@@ -1,0 +1,395 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-08-18 11:53:36.191287",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "no_invoice",
+  "type_emas",
+  "piutang_gold",
+  "is_skb",
+  "non_pph",
+  "company",
+  "customer",
+  "customer_name",
+  "customer_group",
+  "territory",
+  "column_break_2",
+  "posting_date",
+  "due_date",
+  "bundle",
+  "sales_partner",
+  "warehouse",
+  "tutupan_section",
+  "tutupan",
+  "column_break_10",
+  "item_sel_sec",
+  "kadar",
+  "cbb",
+  "category",
+  "cbc",
+  "add_bruto",
+  "add",
+  "items_section",
+  "items",
+  "tax_sb",
+  "ppn",
+  "pph",
+  "total_pajak",
+  "sisa_pajak",
+  "column_break_40",
+  "total_sebelum_pajak",
+  "total_setelah_pajak",
+  "sb_bill",
+  "total_bruto",
+  "column_break_33",
+  "total",
+  "summary_sec",
+  "grand_total",
+  "outstanding",
+  "column_break_48",
+  "invoice_status",
+  "gold_payment",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Kode Seri",
+   "no_copy": 1,
+   "options": "GINV-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "subcustomer.parent_customer",
+   "fetch_if_empty": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "mandatory_depends_on": "eval:doc.is_titipan===0;"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "tutupan_section",
+   "fieldtype": "Section Break",
+   "label": "Tutupan",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Harga 24K"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "depends_on": "eval:doc.customer",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Gold Invoice Item"
+  },
+  {
+   "fieldname": "sb_bill",
+   "fieldtype": "Section Break",
+   "label": "Bills"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total 24K",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Float",
+   "label": "Grand Total",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Belum Terbayar",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gold Invoice",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Lestari Mulia Sentosa",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "item_sel_sec",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Item Selector"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "cbb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "cbc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "add",
+   "fieldtype": "Button",
+   "label": "Add Row",
+   "options": "add_row_action"
+  },
+  {
+   "fieldname": "summary_sec",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Summary"
+  },
+  {
+   "fieldname": "invoice_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Unpaid\nPaid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bundle.sales",
+   "fieldname": "sales_partner",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner",
+   "read_only": 1
+  },
+  {
+   "fieldname": "no_invoice",
+   "fieldtype": "Data",
+   "label": "No Invoice",
+   "reqd": 1
+  },
+  {
+   "fieldname": "add_bruto",
+   "fieldtype": "Float",
+   "label": "Bruto"
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Sales Stock Bundle",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bundle.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gold_payment",
+   "fieldtype": "Data",
+   "label": "Gold Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_48",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_sb",
+   "fieldtype": "Section Break",
+   "label": "Tax Section"
+  },
+  {
+   "fieldname": "ppn",
+   "fieldtype": "Currency",
+   "label": "PPN"
+  },
+  {
+   "fieldname": "pph",
+   "fieldtype": "Currency",
+   "label": "PPH"
+  },
+  {
+   "default": "0",
+   "depends_on": "tax_status==\"Tax\"",
+   "fetch_from": "customer.is_skb",
+   "fieldname": "is_skb",
+   "fieldtype": "Check",
+   "label": "is SKB",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "tax_status==\"Tax\";\nis_skb===0;",
+   "description": "jika di centang maka akan kena PPN 1,65%",
+   "fieldname": "non_pph",
+   "fieldtype": "Check",
+   "label": "Non PPH"
+  },
+  {
+   "default": "LD",
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Satuan",
+   "options": "Basic Nilai Tukar Emas",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "type_emas.piutang_emas",
+   "fieldname": "piutang_gold",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Pajak",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sisa_pajak",
+   "fieldtype": "Currency",
+   "label": "Sisa Pajak",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_sebelum_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Sebelum Pajak"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_setelah_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Setelah Pajak"
+  },
+  {
+   "fieldname": "column_break_40",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-15 14:09:17.835990",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Invoice",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1
+}

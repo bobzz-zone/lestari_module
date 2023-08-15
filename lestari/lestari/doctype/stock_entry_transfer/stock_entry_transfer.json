@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:transfer_nama",
+ "creation": "2023-05-11 12:27:44.672398",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "transfer_nama",
+  "gudang_sumber",
+  "gudang_tujuan",
+  "type"
+ ],
+ "fields": [
+  {
+   "fieldname": "transfer_nama",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Transfer Nama",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "gudang_sumber",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Gudang Sumber",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gudang_tujuan",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Gudang Tujuan",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Material Issue\nMaterial Receipt\nMaterial Transfer\nMaterial Transfer for Manufacture\nMaterial Consumption for Manufacture\nManufacture\nRepack\nSend to Subcontractor"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-05-11 12:44:16.630519",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Stock Entry Transfer",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

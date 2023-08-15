@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-07-27 10:17:58.880977",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "batu",
+  "uom",
+  "qty",
+  "color"
+ ],
+ "fields": [
+  {
+   "fieldname": "batu",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Batu",
+   "options": "Item"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Select",
+   "label": "Color",
+   "options": "\nApple Green\nBiru Muda\nBiru Tua\nCoklat\nDark Canary\nFancy Pink\nHijau\nHijau Pupus\nHijau SC\nHitam\nJade Green\nKuning\nKuning Muda\nLight Pink\nMerah\nMerah Muda\nMerah SC\nOrange\nOranye Tua\nPadma\nPadparadscha\nParaiba Blue\nPutih\nPutih Apple Green\nPutih Biru\nPutih Biru Muda\nPutih Biru Tua\nPutih Coklat\nPutih Dark Canary\nPutih Hijau\nPutih Hijau Pupus\nPutih Hitam\nPutih Jade Green\nPutih Kuning\nPutih Kuning Muda\nPutih Light Pink\nPutih Merah\nPutih Merah Merah Muda\nPutih Merah Muda\nPutih Orange\nPutih Oranye Tua\nPutih Padma\nPutih Padparadscha\nPutih Paraiba Blue\nPutih Sky Blue\nPutih Tanzanite\nPutih Ungu Muda\nPutih Ungu Terong\nPutih Ungu Tua\nPutih Violet\nRainbow\nSky Blue\nTanpa Batu\nTanzanite\nUngu\nUngu Muda\nUngu Terong\nUngu Tua\nViolet"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-02-28 13:37:14.985893",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Resep Mul Karet Batu",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

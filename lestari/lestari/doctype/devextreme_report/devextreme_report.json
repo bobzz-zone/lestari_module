@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:report_name",
+ "creation": "2023-07-10 14:12:32.602630",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "report_name",
+  "report_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "report_name",
+   "fieldtype": "Link",
+   "label": "Report Name",
+   "options": "Report",
+   "unique": 1
+  },
+  {
+   "fieldname": "report_html",
+   "fieldtype": "HTML",
+   "label": "Report Html"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-07-11 10:42:57.585969",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "DevExtreme Report",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1
+}

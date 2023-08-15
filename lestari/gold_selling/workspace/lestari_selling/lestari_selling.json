@@ -1,0 +1,152 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2022-08-24 22:19:34.333983",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 1,
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Lestari Selling",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Invoice",
+   "link_to": "Gold Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Deposit",
+   "link_to": "Gold Invoice Advance IDR",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Payment",
+   "link_to": "Gold Payment",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Deposit",
+   "link_to": "Customer Deposit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Bill Summary",
+   "link_to": "Customer Bill Summary",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Rates",
+   "link_to": "Gold Rates",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Rates",
+   "link_to": "Customer Rates",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Group Rates",
+   "link_to": "Customer Group Rates",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Stock Category",
+   "link_to": "Gold Selling Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Selling Settings",
+   "link_to": "Gold Selling Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-07-18 13:12:37.436538",
+ "modified_by": "dendro@lms.com",
+ "module": "Gold Selling",
+ "name": "Lestari Selling",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 0,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Gold Invoice",
+   "link_to": "Gold Invoice",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Customer Deposit",
+   "link_to": "Customer Deposit",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Sales",
+   "link_to": "Report Sales",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Pembayaran Penjualan",
+   "link_to": "Pembayaran Penjualan",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Serah Terima Payment Cash",
+   "link_to": "Serah Terima Payment Cash",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Serah Terima Payment Stock",
+   "link_to": "Serah Terima Payment Stock",
+   "type": "Report"
+  }
+ ]
+}

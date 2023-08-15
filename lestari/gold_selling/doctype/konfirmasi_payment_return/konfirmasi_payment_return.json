@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:KPR{YY}{MM}{#######}",
+ "creation": "2023-04-11 15:24:41.646981",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "sales_bundle",
+  "sales",
+  "column_break_3",
+  "serah_terima",
+  "s_warehouse",
+  "t_warehouse",
+  "section_break_6",
+  "detail_perhiasan",
+  "detail_rongsok",
+  "summary_section",
+  "total_berat",
+  "column_break_13",
+  "total_terima",
+  "total_tolak",
+  "summary_per_kadar_section",
+  "detail_kadar",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "serah_terima",
+   "fieldtype": "Link",
+   "label": "No Serah Terima Stock",
+   "options": "Serah Terima Payment Stock"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "serah_terima.sales_bundle",
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "detail_perhiasan",
+   "fieldtype": "Table",
+   "label": "Detail Perhiasan",
+   "options": "Konfirmasi Payment Return Perhiasan"
+  },
+  {
+   "fieldname": "detail_rongsok",
+   "fieldtype": "Table",
+   "label": "Detail Rongsok",
+   "options": "Konfirmasi Payment Return Rongsok"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Konfirmasi Payment Return",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Retur Marketing - LMS",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "default": "Retur Kembali - LMS",
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fetch_from": "sales_bundle.sales",
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_kadar",
+   "fieldtype": "Table",
+   "label": "Detail Kadar",
+   "options": "Konfirmasi Payment Return Kadar"
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_terima",
+   "fieldtype": "Float",
+   "label": "Total Terima",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_tolak",
+   "fieldtype": "Float",
+   "label": "Total Tolak",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_per_kadar_section",
+   "fieldtype": "Section Break",
+   "label": "Summary Per Kadar"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-06-26 14:12:29.833211",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Konfirmasi Payment Return",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

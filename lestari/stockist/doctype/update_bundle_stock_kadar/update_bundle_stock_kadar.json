@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-01-30 15:49:05.809259",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kadar",
+  "bruto"
+ ],
+ "fields": [
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "bruto",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Berat",
+   "precision": "2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-04-27 10:30:12.611616",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Update Bundle Stock Kadar",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

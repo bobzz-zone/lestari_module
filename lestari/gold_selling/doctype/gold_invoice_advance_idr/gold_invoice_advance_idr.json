@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-22 12:14:14.352487",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_deposit",
+  "date",
+  "idr_deposit",
+  "idr_allocated",
+  "customer",
+  "account_piutang"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_deposit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Deposit",
+   "options": "Customer Deposit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer_deposit.idr_left",
+   "fieldname": "idr_deposit",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Titipan IDR",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer_deposit.idr_left",
+   "fetch_if_empty": 1,
+   "fieldname": "idr_allocated",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "IDR Teralokasi"
+  },
+  {
+   "fetch_from": "customer_deposit.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer_deposit.account_piutang",
+   "fieldname": "account_piutang",
+   "fieldtype": "Link",
+   "label": "Account Piutang",
+   "options": "Account"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-05-16 01:13:39.635489",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Invoice Advance IDR",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

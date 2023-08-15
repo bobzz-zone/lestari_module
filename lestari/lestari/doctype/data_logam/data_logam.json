@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:jenis_logam",
+ "creation": "2022-01-07 14:38:26.425333",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "jenis_logam",
+  "koefisien",
+  "label_warna",
+  "sku",
+  "alloy",
+  "alloy_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "jenis_logam",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Jenis Logam",
+   "options": "Item",
+   "unique": 1
+  },
+  {
+   "fieldname": "koefisien",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Koefisien"
+  },
+  {
+   "fieldname": "label_warna",
+   "fieldtype": "Color",
+   "in_list_view": 1,
+   "label": "Label Warna"
+  },
+  {
+   "fieldname": "sku",
+   "fieldtype": "Data",
+   "label": "SKU"
+  },
+  {
+   "fieldname": "alloy",
+   "fieldtype": "Data",
+   "label": "Alloy"
+  },
+  {
+   "fieldname": "alloy_description",
+   "fieldtype": "Data",
+   "label": "Alloy Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-11-23 14:17:57.454269",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Logam",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

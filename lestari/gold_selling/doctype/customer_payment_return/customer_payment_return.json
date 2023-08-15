@@ -1,0 +1,271 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-08-22 16:03:18.386317",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "no_nota",
+  "saldo_awal",
+  "company",
+  "customer",
+  "customer_name",
+  "customer_group",
+  "territory",
+  "column_break",
+  "posting_date",
+  "posting_time",
+  "due_date",
+  "no_pembayaran",
+  "sales",
+  "warehouse",
+  "return_detail_sb",
+  "gold_payment",
+  "get_from_bundle",
+  "column_break_15",
+  "section_break_17",
+  "get_stock_return",
+  "items",
+  "summary_sb",
+  "total",
+  "total_terima",
+  "total_tolak",
+  "column_break_21",
+  "outstanding",
+  "tutupan",
+  "invoice_status",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Kode Seri",
+   "no_copy": 1,
+   "options": "PAY-RET-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "no_nota",
+   "fieldtype": "Data",
+   "label": "No Nota"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "bold": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "return_detail_sb",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Return Detail"
+  },
+  {
+   "fieldname": "gold_payment",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Gold Payment",
+   "options": "Gold Payment"
+  },
+  {
+   "fieldname": "get_from_bundle",
+   "fieldtype": "Button",
+   "label": "Get From Bundle",
+   "options": "get_sales_bundle"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "sales.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break",
+   "label": "Return Detail"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Returned Stock",
+   "options": "Stock Payment Return Item"
+  },
+  {
+   "fieldname": "summary_sb",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_terima",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Total Terima",
+   "no_copy": 1,
+   "precision": "3",
+   "print_hide": 1,
+   "read_only": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "total_tolak",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Total Tolak",
+   "no_copy": 1,
+   "precision": "3",
+   "print_hide": 1,
+   "read_only": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Outstanding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan"
+  },
+  {
+   "default": "Unpaid",
+   "fieldname": "invoice_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Unpaid\nPaid"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Customer Payment Return",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_awal",
+   "fieldtype": "Check",
+   "label": "Saldo Awal"
+  },
+  {
+   "fieldname": "no_pembayaran",
+   "fieldtype": "Data",
+   "label": "No Pembayaran"
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner"
+  },
+  {
+   "fieldname": "get_stock_return",
+   "fieldtype": "Button",
+   "label": "Get Stock Return",
+   "options": "get_stock_return"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-01 11:34:03.628249",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Customer Payment Return",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

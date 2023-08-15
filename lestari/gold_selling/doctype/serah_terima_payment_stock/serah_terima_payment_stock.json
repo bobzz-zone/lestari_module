@@ -1,0 +1,147 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:STS-{MM}-{YYYY}-{####}",
+ "creation": "2022-11-13 22:58:11.096255",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "category",
+  "saldo_awal",
+  "keterangan",
+  "column_break_3",
+  "sales",
+  "sales_bundle",
+  "s_warehouse",
+  "t_warehouse",
+  "get_detail",
+  "reset",
+  "section_break_7",
+  "details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Serah Terima Payment Stock",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Serah Terima Payment Stock",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "label": "Category",
+   "options": "Emas 24\nNon Emas 24"
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Table",
+   "label": "Details",
+   "options": "Serah Terima Stock Item Detail"
+  },
+  {
+   "fieldname": "get_detail",
+   "fieldtype": "Button",
+   "label": "Get Detail",
+   "options": "get_detail"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.sales",
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "reset",
+   "fieldtype": "Button",
+   "label": "Reset"
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_awal",
+   "fieldtype": "Check",
+   "label": "Include Saldo Awal"
+  },
+  {
+   "depends_on": "eval:doc.sales",
+   "fetch_from": "sales.warehouse",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "default": "Retur Marketing - LMS",
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-06-16 13:16:14.320332",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Serah Terima Payment Stock",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

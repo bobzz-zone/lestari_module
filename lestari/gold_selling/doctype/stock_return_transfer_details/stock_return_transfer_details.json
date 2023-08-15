@@ -1,0 +1,155 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-04-11 15:45:47.724703",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "column_break_2",
+  "sub_customer",
+  "section_break_4",
+  "item",
+  "column_break_6",
+  "kadar",
+  "kategori",
+  "berat",
+  "type",
+  "section_break_11",
+  "voucher_type",
+  "voucher_no",
+  "column_break_9",
+  "child_type",
+  "child_name",
+  "is_out"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Type",
+   "options": "\nMasuk\nKeluar"
+  },
+  {
+   "fieldname": "voucher_type",
+   "fieldtype": "Link",
+   "label": "Voucher Type",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "voucher_no",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Voucher No",
+   "options": "voucher_type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "child_type",
+   "fieldtype": "Link",
+   "label": "Child Type",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "fieldname": "child_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Child Name",
+   "options": "child_type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "voucher_no.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sub_customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sub Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "item.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "item.item_group",
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_out",
+   "fieldtype": "Check",
+   "label": "Is Out"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-07-14 15:50:01.328131",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Stock Return Transfer Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

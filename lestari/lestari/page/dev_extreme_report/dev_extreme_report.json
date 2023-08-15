@@ -1,0 +1,25 @@
+{
+ "content": null,
+ "creation": "2023-06-08 14:40:44.570337",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2023-06-08 14:40:44.570337",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "dev-extreme-report",
+ "owner": "Administrator",
+ "page_name": "dev-extreme-report",
+ "roles": [
+  {
+   "role": "Administrator"
+  },
+  {
+   "role": "IT DAS"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 1
+}

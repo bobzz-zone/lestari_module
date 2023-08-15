@@ -1,0 +1,267 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{bundle}-{###}",
+ "creation": "2023-02-01 02:16:13.250129",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "bundle",
+  "type",
+  "keterangan",
+  "cb1",
+  "pic",
+  "nama_stokist",
+  "s_warehouse",
+  "purpose",
+  "sales",
+  "warehouse",
+  "item_selector_section",
+  "kadar",
+  "column_break_13",
+  "category",
+  "column_break_15",
+  "bruto",
+  "add",
+  "detail_timbangan_section",
+  "berat",
+  "column_break_21",
+  "status_timbangan",
+  "sb1",
+  "items",
+  "total_bruto",
+  "total_per_kadar_section",
+  "per_kadar",
+  "total_per_sub_category_section",
+  "per_sub_category",
+  "section_break_13",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "pic",
+   "fieldtype": "Link",
+   "label": "Stokist",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Close Stock",
+   "read_only": 1
+  },
+  {
+   "default": "Stockist - LMS",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Stokist Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "bundle.purpose",
+   "fieldname": "purpose",
+   "fieldtype": "Data",
+   "label": "Purpose",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bundle.sales",
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bundle.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_selector_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Item Selector"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bruto",
+   "fieldtype": "Float",
+   "label": "Bruto",
+   "precision": "3"
+  },
+  {
+   "fieldname": "add",
+   "fieldtype": "Button",
+   "label": "Add",
+   "options": "add_row_action"
+  },
+  {
+   "fieldname": "sb1",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "depends_on": "eval:doc.bundle",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Detail Close Stock"
+  },
+  {
+   "fieldname": "total_per_kadar_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Kadar"
+  },
+  {
+   "fieldname": "per_kadar",
+   "fieldtype": "Table",
+   "label": "Per Kadar",
+   "options": "Close Bundle Stock Kadar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_per_sub_category_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Sub Category"
+  },
+  {
+   "fieldname": "per_sub_category",
+   "fieldtype": "Table",
+   "label": "Per Sub Category",
+   "options": "Update Bundle Stock Sub",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Close Bundle Stock",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "nama_stokist",
+   "fieldtype": "Data",
+   "label": "Nama Stokist",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_timbangan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Timbangan"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat Timbangan"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Not Connect",
+   "fieldname": "status_timbangan",
+   "fieldtype": "Select",
+   "label": "Status Timbangan",
+   "options": "Not Connect\nConnected"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-06-05 11:11:16.155644",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Close Bundle Stock",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

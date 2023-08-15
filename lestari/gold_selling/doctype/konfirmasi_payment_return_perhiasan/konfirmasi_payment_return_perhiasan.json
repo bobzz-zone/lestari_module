@@ -1,0 +1,154 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-04-11 13:27:34.565121",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "qty",
+  "kadar",
+  "terima_qty",
+  "tolak_qty",
+  "total_berat",
+  "rate",
+  "amount",
+  "is_out",
+  "is_confirm",
+  "sub_kategori",
+  "voucher_type",
+  "voucher_no",
+  "child_id",
+  "customer"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "terima_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Terima Berat",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "tolak_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Tolak Berat",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat",
+   "precision": "2",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "rate",
+   "fieldtype": "Percent",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Rate",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "24k",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "is_out",
+   "fieldtype": "Check",
+   "label": "Is Out"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "is_confirm",
+   "fieldtype": "Check",
+   "label": "Is Confirm"
+  },
+  {
+   "fieldname": "voucher_type",
+   "fieldtype": "Link",
+   "label": "Voucher Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "voucher_no",
+   "fieldtype": "Dynamic Link",
+   "label": "Voucher No",
+   "options": "voucher_type"
+  },
+  {
+   "columns": 2,
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Sub Kategori",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Berat",
+   "precision": "2"
+  },
+  {
+   "fetch_from": "item.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "child_id",
+   "fieldtype": "Data",
+   "label": "Child ID"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-06-26 14:24:44.117267",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Konfirmasi Payment Return Perhiasan",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

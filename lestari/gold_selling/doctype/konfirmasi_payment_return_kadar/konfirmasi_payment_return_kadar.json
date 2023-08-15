@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-05-02 05:38:56.917263",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kadar",
+  "qty",
+  "terima_qty",
+  "tolak_qty",
+  "total_berat"
+ ],
+ "fields": [
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat",
+   "precision": "2",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "terima_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Terima Berat",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "tolak_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Tolak Berat",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Berat",
+   "precision": "3"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-05-02 06:41:35.540881",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Konfirmasi Payment Return Kadar",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

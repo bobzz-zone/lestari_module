@@ -1,0 +1,303 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:WOL{MM}{YY}{DD}{#####}",
+ "creation": "2022-01-21 09:20:30.934257",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "kadar",
+  "color_22",
+  "column_break_2",
+  "pohon_id",
+  "barcode",
+  "section_break_2",
+  "employee_id",
+  "column_break_4",
+  "nama",
+  "jabatan",
+  "section_break_7",
+  "operator",
+  "column_break_12",
+  "no_line",
+  "no_kotak",
+  "detail_pohon_section",
+  "sprue_utama",
+  "ukuran_base_karet",
+  "nomor_base_karet",
+  "berat_base_karet",
+  "column_break_20",
+  "warehouse_tujuan",
+  "catatan",
+  "section_break_15",
+  "tabel_pohon",
+  "section_break_26",
+  "total_qty_inject",
+  "column_break_28",
+  "total_qty",
+  "detail_batu_section",
+  "tabel_batu",
+  "section_break_30",
+  "column_break_33",
+  "total_batu",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Created Date",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "label": "Operator",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "no_line",
+   "fieldtype": "Data",
+   "label": "No Line"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "fieldname": "tabel_pohon",
+   "fieldtype": "Table",
+   "label": "Tabel Pohon",
+   "options": "Work Order Lilin Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Work Order Lilin",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "no_kotak",
+   "fieldtype": "Int",
+   "label": "No Kotak"
+  },
+  {
+   "fieldname": "detail_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pohon"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "kadar.label_warna",
+   "fieldname": "color_22",
+   "fieldtype": "Color",
+   "hidden": 1,
+   "label": "Label Warna",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_batu_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Batu"
+  },
+  {
+   "fieldname": "tabel_batu",
+   "fieldtype": "Table",
+   "label": "Tabel Batu",
+   "options": "Work Order Lilin Batu"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin",
+   "reqd": 1
+  },
+  {
+   "default": "Work In Progress - L",
+   "fieldname": "warehouse_tujuan",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Warehouse Tujuan",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Barcode",
+   "hidden": 1,
+   "label": "Barcode",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sprue_utama",
+   "fieldtype": "Link",
+   "label": "Sprue Utama",
+   "options": "Data Jenis Sprue Utama",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "nomor_base_karet.item_code",
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "label": "Nomor Base Karet",
+   "options": "Serial No",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "nomor_base_karet.berat",
+   "fieldname": "berat_base_karet",
+   "fieldtype": "Float",
+   "label": "Berat Base Karet"
+  },
+  {
+   "fieldname": "section_break_26",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_30",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_batu",
+   "fieldtype": "Int",
+   "label": "Total Batu",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_qty_inject",
+   "fieldtype": "Int",
+   "label": "Total Qty Inject"
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "Catatan"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-12-13 12:28:56.839571",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "LMS Pohon Lilin Staff",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

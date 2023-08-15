@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-05-30 12:57:16.971286",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kadar",
+  "total_dibawa",
+  "total_dikembalikan",
+  "total_closing"
+ ],
+ "fields": [
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "total_dibawa",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Dibawa",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_dikembalikan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Dikembalikan"
+  },
+  {
+   "fieldname": "total_closing",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Closing"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-05-30 12:58:18.184201",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Close Bundle Stock Kadar",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

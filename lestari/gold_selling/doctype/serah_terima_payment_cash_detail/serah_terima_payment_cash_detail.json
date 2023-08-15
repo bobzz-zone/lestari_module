@@ -1,0 +1,64 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-11-15 11:43:43.582785",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "voucher_type",
+  "voucher_no",
+  "child_table",
+  "child_id",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "voucher_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Voucher Type",
+   "options": "Customer Deposit\nGold Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voucher_no",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Voucher No",
+   "options": "voucher_type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "child_table",
+   "fieldtype": "Data",
+   "label": "Child Table",
+   "read_only": 1
+  },
+  {
+   "fieldname": "child_id",
+   "fieldtype": "Data",
+   "label": "Child ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "precision": "2",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-11-15 11:43:43.582785",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Serah Terima Payment Cash Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

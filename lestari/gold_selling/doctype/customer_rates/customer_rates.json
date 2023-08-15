@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:GR-{customer}-{category}-{####}",
+ "creation": "2022-08-24 23:38:42.142872",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "type",
+  "type_emas",
+  "item",
+  "category",
+  "nilai_tukar",
+  "valid_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "nilai_tukar",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Nilai Jual",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Selling\"",
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "mandatory_depends_on": "eval:doc.type==\"Selling\"",
+   "options": "Gold Selling Item"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Selling\nBuying"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Buying\"",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "mandatory_depends_on": "eval:doc.type==\"Buying\"",
+   "options": "Item"
+  },
+  {
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-06-22 16:00:53.833604",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Customer Rates",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,97 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2023-03-23 11:27:29.541986",
+ "developer_mode_only": 0,
+ "disable_user_customization": 1,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Stockist",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Update Bundle Stock",
+   "link_to": "Update Bundle Stock",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-07-21 11:02:35.158068",
+ "modified_by": "dendro@lms.com",
+ "module": "Stockist",
+ "name": "Stockist",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 1,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Transfer Salesman",
+   "link_to": "Update Bundle Stock",
+   "stats_filter": "{\n    \"status\" : \"Draft\"\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Transfer Salesman",
+   "link_to": "Sales Transfer",
+   "type": "Report"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist ke PCB",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke PCB\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer PCB ke Stockist",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer PCB ke Stockist\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist ke Barang Lama",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "    {\n        \"transfer\":\"Transfer Stockist ke Barang Lama\"\n    }",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Barang Lama ke Stockist",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Barang Lama ke Stockist\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist ke Produksi",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Produksi\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Dashboard Grafik",
+   "link_to": "dashboard-metabase",
+   "stats_filter": "",
+   "type": "Page"
+  },
+  {
+   "doc_view": "List",
+   "label": "List Transfer Stockist",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "{\n    \"docstatus\": 0\n}",
+   "type": "DocType"
+  }
+ ]
+}

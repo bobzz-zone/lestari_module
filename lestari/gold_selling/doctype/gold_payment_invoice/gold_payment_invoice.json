@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-25 10:32:30.641474",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "gold_invoice",
+  "tanggal",
+  "customer",
+  "sub_customer",
+  "end_user",
+  "total",
+  "outstanding",
+  "outstanding_tax",
+  "due_date",
+  "allocated",
+  "tutupan",
+  "total_bruto",
+  "tax_allocated"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "gold_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "No Nota",
+   "options": "Gold Invoice",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "gold_invoice.grand_total",
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "gold_invoice.outstanding",
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Outstanding",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "allocated",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Payment Allocated",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "gold_invoice.due_date",
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "gold_invoice.tutupan",
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Nilai Tutupan",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "gold_invoice.total_bruto",
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto",
+   "precision": "3"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "gold_invoice.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "gold_invoice.posting_date",
+   "fieldname": "tanggal",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "gold_invoice.subcustomer",
+   "fieldname": "sub_customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sub Customer",
+   "options": "Customer"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "gold_invoice.enduser",
+   "fieldname": "end_user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "End User",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "outstanding_tax",
+   "fieldtype": "Currency",
+   "label": "Outstanding Pajak",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_allocated",
+   "fieldtype": "Currency",
+   "label": "Tax Payment Allocated"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-07-25 00:29:25.874770",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Payment Invoice",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

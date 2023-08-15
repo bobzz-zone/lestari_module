@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-02-01 02:16:48.580919",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sub_kategori",
+  "kadar",
+  "total_dibawa_sales",
+  "timbang",
+  "total_dikembalikan",
+  "timbang1",
+  "total_closing",
+  "rencana_dibawa_kembali",
+  "item",
+  "kategori",
+  "gold_selling_item"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sub Kategori",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sub_kategori.parent_item_group",
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gold_selling_item",
+   "fieldtype": "Link",
+   "label": "Gold Selling Item",
+   "options": "Gold Selling Item",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "rencana_dibawa_kembali",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Rencana Dibawa Kembali"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_dikembalikan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Dikembalikan",
+   "precision": "3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_dibawa_sales",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Dibawa Sales",
+   "precision": "3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "timbang",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Timbang"
+  },
+  {
+   "columns": 1,
+   "fieldname": "timbang1",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Timbang"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_closing",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Closing",
+   "precision": "3",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-05-30 13:26:31.662523",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Detail Close Stock",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
