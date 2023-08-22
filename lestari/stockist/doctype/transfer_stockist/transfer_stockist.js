@@ -370,7 +370,7 @@ frappe.ui.form.on('Transfer Stockist', {
 				// Prompt user to select any serial port.
 			  }
 			} else {
-			  frappe.msgprint("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
+			  console.log("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
 			}
 		  }
 		  window.checkPort(false);

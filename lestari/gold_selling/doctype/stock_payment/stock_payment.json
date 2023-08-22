@@ -11,8 +11,6 @@
   "rate",
   "amount",
   "keterangan",
-  "in_supplier",
-  "supplier",
   "is_done"
  ],
  "fields": [
@@ -68,30 +66,12 @@
    "fieldtype": "Text",
    "in_list_view": 1,
    "label": "Keterangan"
-  },
-  {
-   "columns": 1,
-   "default": "0",
-   "fieldname": "in_supplier",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Tidak Terima Barang"
-  },
-  {
-   "columns": 1,
-   "depends_on": "in_supplier",
-   "fieldname": "supplier",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Supplier",
-   "mandatory_depends_on": "in_supplier",
-   "options": "Supplier"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-13 00:41:46.787178",
+ "modified": "2023-08-15 16:22:05.829114",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Payment",

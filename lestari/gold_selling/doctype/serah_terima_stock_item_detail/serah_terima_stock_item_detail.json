@@ -45,7 +45,7 @@
    "fieldname": "voucher_type",
    "fieldtype": "Select",
    "label": "Voucher Type",
-   "options": "Customer Deposit\nGold Payment",
+   "options": "Gold Payment",
    "read_only": 1
   },
   {
@@ -125,7 +125,7 @@
    "fetch_from": "voucher_no.subcustomer",
    "fieldname": "sub_customer",
    "fieldtype": "Link",
-   "in_list_view": 1,
+   "hidden": 1,
    "label": "Sub Customer",
    "options": "Customer"
   }
@@ -133,7 +133,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-06-16 13:09:02.028409",
+ "modified": "2023-08-16 15:31:00.872138",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Stock Item Detail",

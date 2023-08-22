@@ -62,10 +62,7 @@ class GoldPayment(StockController):
 		#update invoice
 		for row in self.invoice_table:
 			frappe.db.sql("""update `tabGold Invoice` set sisa_pajak=sisa_pajak+{} ,outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.tax_allocated,row.allocated,row.gold_invoice))
-		for row in self.customer_return:
-			frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.invoice))
 		
-	
 	@frappe.whitelist()
 	def get_gold_invoice(self):
 		#reset before add
@@ -77,8 +74,6 @@ class GoldPayment(StockController):
                       name,
                       posting_date,
                       customer,
-                      subcustomer,
-                      enduser,
                       outstanding,
                       due_date,
                       tutupan,
@@ -88,10 +83,9 @@ class GoldPayment(StockController):
                       FROM `tabGold Invoice`
                       WHERE invoice_status = "Unpaid"
                       and docstatus = 1
-                      and (
-                      customer = "{0}"
-                      or customer = "{1}" )
-                      """.format(self.customer, self.subcustomer),as_dict=1)
+                      and 
+                      customer = "{0}" 
+                      """.format(self.customer),as_dict=1)
 		# frappe.msgprint(str(doc))
 		if self.tutupan > 0:
 			tutupan = self.tutupan
@@ -117,8 +111,6 @@ class GoldPayment(StockController):
 					'gold_invoice':row.name,
 					'tanggal':row.posting_date,
 					'customer':row.customer,
-					'sub_customer':row.subcustomer,
-					'end_user':row.enduser,
 					'outstanding':row.outstanding,
 					'total':row.grand_total,
 					'due_date':row.due_date,
@@ -133,8 +125,7 @@ class GoldPayment(StockController):
 		sl=[]
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		for row in self.stock_payment:
-			if row.in_supplier==0:
-				sl.append({
+			sl.append({
 					"item_code":row.item,
 					"actual_qty":row.qty,
 					"fiscal_year":fiscal_years,
@@ -201,28 +192,6 @@ class GoldPayment(StockController):
 										"account":account,
 										"party_type":"",
 										"party":"",
-										"cost_center":cost_center,
-										"debit":debit,
-										"credit":credit,
-										"account_currency":"IDR",
-										"debit_in_account_currency":debit,
-										"credit_in_account_currency":credit,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Gold Payment",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
-	def gl_dict_with_sup(self,cost_center,account,debit,credit,fiscal_years,sup):
-		return {
-										"posting_date":self.posting_date,
-										"account":account,
-										"party_type":"Supplier",
-										"party":sup,
 										"cost_center":cost_center,
 										"debit":debit,
 										"credit":credit,
@@ -363,23 +332,12 @@ class GoldPayment(StockController):
 		if self.total_gold_payment>0:
 			warehouse_value=0
 			titip={}
-			supplier_list=[]
 			for row in self.stock_payment:
-				if row.in_supplier==1:
-					if row.supplier in supplier_list:
-						titip[row.supplier]=row.amount
-						supplier_list.append(row.supplier)
-					else:
-						titip[row.supplier]=titip[row.supplier]+row.amount
-				else :
-					warehouse_value=warehouse_value+row.amount
+				warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
-			if len(supplier_list)>0:
-				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
-				for sup in supplier_list:
-					gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
+			
 		#untuk payment IDR
 		if self.total_idr_payment>0:
 			#journal IDR nya aja

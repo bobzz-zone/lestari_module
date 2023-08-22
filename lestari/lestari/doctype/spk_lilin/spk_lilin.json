@@ -1,0 +1,188 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-08-16 13:06:53.925692",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "from_spk",
+  "to_spk",
+  "get_spk",
+  "column_break_2",
+  "employee_id",
+  "employee",
+  "employee_name",
+  "catatan",
+  "section_break_6",
+  "items",
+  "test",
+  "grid",
+  "section_break_12",
+  "total_inject",
+  "column_break_14",
+  "total_qty",
+  "section_break_16",
+  "stones",
+  "total_batu",
+  "amended_from",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "from_spk",
+   "fieldtype": "Link",
+   "label": "From SPK",
+   "options": "SPK Produksi"
+  },
+  {
+   "fieldname": "to_spk",
+   "fieldtype": "Link",
+   "label": "To SPK",
+   "options": "SPK Produksi"
+  },
+  {
+   "fieldname": "get_spk",
+   "fieldtype": "Button",
+   "label": "Get SPK"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee ID"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "Catatan"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "SPK Lilin Item"
+  },
+  {
+   "fieldname": "test",
+   "fieldtype": "HTML",
+   "label": "Test",
+   "options": "<div id=\"datatable\"></div>\n"
+  },
+  {
+   "fieldname": "grid",
+   "fieldtype": "HTML",
+   "label": "grid",
+   "options": "<div id=\"gridContainer\"></div>"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_inject",
+   "fieldtype": "Int",
+   "label": "Total Inject"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break",
+   "label": "Kebutuhan Batu"
+  },
+  {
+   "fieldname": "stones",
+   "fieldtype": "Table",
+   "label": "Stones",
+   "options": "SPK Lilin Stone"
+  },
+  {
+   "fieldname": "total_batu",
+   "fieldtype": "Int",
+   "label": "Total Batu"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "SPK Lilin",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "SPK Lilin",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-16 13:06:53.925692",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPK Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

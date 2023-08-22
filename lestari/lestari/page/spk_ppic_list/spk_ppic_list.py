@@ -59,5 +59,5 @@ def contoh_report():
                     'sub_kategori' : doc.sub_kategori,
             }
             fm.append(baris_baris)
-    # frappe.msgprint(str(fm))  
+    frappe.msgprint(str(fm))  
     return fm   

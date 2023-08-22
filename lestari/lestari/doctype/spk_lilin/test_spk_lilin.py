@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestAddBundleStock(unittest.TestCase):
+class TestSPKLilin(unittest.TestCase):
 	pass

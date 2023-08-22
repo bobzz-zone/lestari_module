@@ -24,6 +24,8 @@
   "bundle",
   "sales_partner",
   "warehouse",
+  "contact_and_address_section",
+  "contact_address",
   "tutupan_section",
   "tutupan",
   "column_break_10",
@@ -60,11 +62,11 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Kode Seri",
    "no_copy": 1,
    "options": "GINV-.YYYY.-",
-   "print_hide": 1,
-   "reqd": 1
+   "print_hide": 1
   },
   {
    "fetch_from": "subcustomer.parent_customer",
@@ -86,6 +88,7 @@
    "fetch_from": "customer.customer_group",
    "fieldname": "customer_group",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Customer Group",
    "options": "Customer Group",
    "read_only": 1
@@ -94,6 +97,7 @@
    "fetch_from": "customer.territory",
    "fieldname": "territory",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Territory",
    "options": "Territory",
    "read_only": 1
@@ -145,6 +149,7 @@
   {
    "fieldname": "sb_bill",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Bills"
   },
   {
@@ -268,6 +273,7 @@
    "fetch_from": "bundle.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Warehouse",
    "options": "Warehouse",
    "read_only": 1
@@ -345,6 +351,7 @@
   {
    "fieldname": "sisa_pajak",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Sisa Pajak",
    "read_only": 1
   },
@@ -363,11 +370,22 @@
   {
    "fieldname": "column_break_40",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_and_address_section",
+   "fieldtype": "Section Break",
+   "label": "Contact And Address"
+  },
+  {
+   "fieldname": "contact_address",
+   "fieldtype": "Link",
+   "label": "Contact Address",
+   "options": "Address"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-15 14:09:17.835990",
+ "modified": "2023-08-21 13:20:15.933524",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

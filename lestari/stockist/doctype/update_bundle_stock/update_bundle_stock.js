@@ -267,11 +267,11 @@ frappe.ui.form.on('Update Bundle Stock', {
 		await frappe.db.count('Update Bundle Stock', { bundle: cur_frm.doc.bundle, docstatus:['!=',2] })
 			.then(count => {
 				if(count > 0){
-					console.log(count)
+					// console.log(count)
 					frm.set_df_property('type','options',['Add Stock','Deduct Stock'])
 					frm.refresh()
 				}else{
-					console.log('as')
+					// console.log('as')
 					cur_frm.set_df_property('type','options',['New Stock'])
 					cur_frm.set_value('type','New Stock')
 					cur_frm.set_df_property('type','read_only',1)

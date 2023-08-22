@@ -52,14 +52,11 @@
   "total_extra_charges",
   "total_sisa_invoice",
   "column_break_36",
-  "total_advance",
   "unallocated_idr_payment",
   "idr_converted",
   "unallocated_payment",
-  "jadi_deposit",
   "auto_distribute",
   "writeoff_sisa",
-  "jadikan_deposit",
   "reset_alokasi",
   "amended_from"
  ],
@@ -161,6 +158,7 @@
    "fetch_from": "customer.customer_group",
    "fieldname": "customer_group",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Customer Group",
    "options": "Customer Group",
    "read_only": 1
@@ -206,9 +204,10 @@
    "options": "Account"
   },
   {
+   "description": "Total Pembayaran Emas + Total Nilai Emas atas pembayaran IDR",
    "fieldname": "total_payment",
    "fieldtype": "Float",
-   "label": "Total Payment In Gold",
+   "label": "Total Pembayaran Di Terima Dalam Emas",
    "precision": "3",
    "read_only": 1
   },
@@ -338,25 +337,6 @@
    "options": "writeoff_sisa"
   },
   {
-   "fieldname": "jadi_deposit",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Jadi Deposit",
-   "read_only": 1
-  },
-  {
-   "fieldname": "jadikan_deposit",
-   "fieldtype": "Button",
-   "label": "Jadikan Sisa Deposit",
-   "options": "jadikan_deposit"
-  },
-  {
-   "fieldname": "total_advance",
-   "fieldtype": "Float",
-   "label": "Total Advance",
-   "read_only": 1
-  },
-  {
    "description": "Total Biaya Tambahan - Bonus + Writeoff - Discount",
    "fieldname": "total_extra_charges",
    "fieldtype": "Float",
@@ -436,7 +416,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-15 14:05:26.541311",
+ "modified": "2023-08-16 14:53:21.996268",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

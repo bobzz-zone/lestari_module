@@ -89,7 +89,7 @@ DevExtreme = Class.extend({
 			//   }],
 			// ,{
 			},{
-				dataField: 'form_order',
+				dataField: 'name',
 				format: 'string',
 				alignment: 'left',
 				// width: 110,

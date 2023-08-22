@@ -1,13 +1,19 @@
-# Copyright (c) 2022, DAS and contributors
+# Copyright (c) 2023, DAS and contributors
 # For license information, please see license.txt
 
 import frappe
 from frappe.model.document import Document
 
-class SerahTerimaPaymentCash(Document):
+class SerahTerimaPaymentTransfer(Document):
 	@frappe.whitelist()
 	def get_payment(self):
-		payment = frappe.get_list('IDR Payment',filters={'docstatus': 1, 'mode_of_payment':"Cash",'is_done':["<",1]}, fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
+		list_bank = frappe.get_list("Mode of Payment", filters={'type': 'Bank', 'enabled': '1'})
+		# frappe.msgprint(str(list_bank))
+		bank = []
+		for row in list_bank:
+			bank.append(row.name)
+			# frappe.msgprint(str(bank))
+		payment = frappe.get_list('IDR Payment',filters={'docstatus': 1, 'mode_of_payment':["in",bank],'is_done':["<",1]}, fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
 		total_cash = 0
 		for row in payment:
 			# frappe.msgprint(row)

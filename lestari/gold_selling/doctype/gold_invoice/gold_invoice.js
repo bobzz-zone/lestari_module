@@ -117,8 +117,14 @@ frappe.ui.form.on("Gold Invoice", {
 		hitung_pajak(frm)
 	}
 });
+function hitung_ppn(frm){
+	
+}
+function hitung_pph(frm){
+	
+}
 function hitung_pajak(frm){
-	if (frm.doc.tax_status=="Tax"){
+	// if (frm.doc.tax_status=="Tax"){
 		//semua pajak di bagi 10.000
 		var ppn_rate=110;
 		var pph_rate=25;
@@ -144,7 +150,7 @@ function hitung_pajak(frm){
 		refresh_field("sisa_pajak");
 		refresh_field("total_sebelum_pajak");
 		refresh_field("total_setelah_pajak");
-	}
+	// }
 }
 
 function hitung_rate(frm,cdt,cdn){
@@ -165,9 +171,6 @@ function hitung_rate(frm,cdt,cdn){
 		}
 		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
 		hitung_pajak(frm);
-		if (!frm.doc.total_advance) {
-			frm.doc.total_advance = 0;
-		}
 		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
 		refresh_field("outstanding");
 		refresh_field("total");

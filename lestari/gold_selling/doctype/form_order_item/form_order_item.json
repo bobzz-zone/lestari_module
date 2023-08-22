@@ -25,12 +25,14 @@
   {
    "fieldname": "model",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Model",
    "options": "Item"
   },
   {
    "fieldname": "qty",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Qty"
   },
   {
@@ -42,6 +44,7 @@
    "fetch_from": "model.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Item Name",
    "read_only": 1
   },
@@ -49,6 +52,7 @@
    "fetch_from": "model.kadar",
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam",
    "read_only": 1
@@ -72,6 +76,7 @@
    "fetch_from": "model.item_group",
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sub Kategori",
    "options": "Item Group",
    "read_only": 1
@@ -79,6 +84,7 @@
   {
    "fieldname": "kategori",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kategori",
    "options": "Item Group",
    "read_only": 1
@@ -105,13 +111,14 @@
   {
    "fieldname": "view",
    "fieldtype": "Button",
+   "in_list_view": 1,
    "label": "View"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-08 14:22:57.499071",
+ "modified": "2023-08-16 13:21:15.385780",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Form Order Item",

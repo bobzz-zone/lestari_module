@@ -64,13 +64,14 @@
    "options": "Sales Stock Bundle"
   },
   {
+   "depends_on": "eval:doc.bundle!=\"\"",
    "fieldname": "type",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Type",
-   "options": "\nNew Stock\nAdd Stock\nDeduct Stock",
-   "reqd": 1
+   "mandatory_depends_on": "eval:doc.bundle!=\"\"",
+   "options": "\nNew Stock\nAdd Stock\nDeduct Stock"
   },
   {
    "fieldname": "keterangan",
@@ -84,7 +85,7 @@
   {
    "fieldname": "id_employee",
    "fieldtype": "Data",
-   "label": "ID Employee"
+   "label": "ID Stockist"
   },
   {
    "fieldname": "pic",
@@ -315,7 +316,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-14 13:12:23.079781",
+ "modified": "2023-08-21 13:27:06.334455",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",

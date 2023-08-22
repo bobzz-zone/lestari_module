@@ -1,0 +1,117 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-08-16 13:06:41.487982",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_spk",
+  "produk",
+  "kategori",
+  "kadar",
+  "qty",
+  "keterangan",
+  "column_break_7",
+  "resep_mul_karet",
+  "parts",
+  "inject",
+  "keterangan_batu",
+  "is_out"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "no_spk",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "No SPK",
+   "options": "SPK Produksi"
+  },
+  {
+   "fieldname": "produk",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Produk",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "resep_mul_karet",
+   "fieldtype": "Link",
+   "label": "Resep Mul Karet",
+   "options": "Resep Mul Karet"
+  },
+  {
+   "fieldname": "parts",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parts",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "inject",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Inject",
+   "read_only": 1
+  },
+  {
+   "fieldname": "keterangan_batu",
+   "fieldtype": "Small Text",
+   "label": "Keterangan Batu"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_out",
+   "fieldtype": "Check",
+   "label": "Is Out"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-08-16 13:06:41.487982",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPK Lilin Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

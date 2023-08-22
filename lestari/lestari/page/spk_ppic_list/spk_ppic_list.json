@@ -4,13 +4,17 @@
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2023-08-03 12:29:43.994063",
+ "modified": "2023-08-16 13:41:07.475317",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "spk-ppic-list",
  "owner": "Administrator",
  "page_name": "spk-ppic-list",
- "roles": [],
+ "roles": [
+  {
+   "role": "LMS PPIC Supervisor"
+  }
+ ],
  "script": null,
  "standard": "Yes",
  "style": null,

@@ -43,13 +43,48 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "SPK PPIC",
+   "link_to": "spk-ppic-list",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SPK PPIC List",
    "link_to": "SPK Produksi",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SPK Lilin ",
+   "link_to": "SPK Lilin",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Final QC",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transfer Barang Jadi",
+   "link_to": "Transfer Barang Jadi",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2023-08-15 15:27:01.814536",
+ "modified": "2023-08-16 16:27:06.032870",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Lestari Production Tools",

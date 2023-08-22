@@ -111,7 +111,7 @@ function reset_allocated(frm){
 	refresh_field("jadi_deposit");
 	//frappe.msgprint("Reset Called");
 	refresh_total_and_charges(frm);
-	frappe.msgprint("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
+	console.log("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -123,7 +123,7 @@ function calculate_table_idr(frm,cdt,cdn){
 	refresh_field("total_idr_payment");
 	refresh_field("total_idr_gold");
 	//calculate total payment
-	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_in_gold;
+	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold;
 	frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment ;
 	frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold-frm.doc.allocated_payment;
 	//frappe.msgprint("Callculate IDR");
@@ -162,6 +162,7 @@ frappe.ui.form.on('Gold Payment', {
 		//validate allocated amount
 		
 		$.each(frm.doc.invoice_table,  function(i,  g) {
+			frappe.db.get_value("Gold Invoice", g.gold_invoice, ["bundle"]).then((responseJSON)=>{cur_frm.set_value("sales_bundle",responseJSON.message.bundle)})
 			if (g.allocated>g.outstanding){
 				frappe.msgprint("Nota "+g.gold_invoice+" nilai alokasi salah");
 				return false;

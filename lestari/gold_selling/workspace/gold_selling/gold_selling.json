@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Gold Selling",
  "links": [],
- "modified": "2023-08-08 16:18:42.607359",
+ "modified": "2023-08-16 16:29:52.562140",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -50,6 +50,12 @@
    "doc_view": "List",
    "label": "Serah Terima Payment Stock",
    "link_to": "Serah Terima Payment Stock",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Serah Terima Payment Transfer",
+   "link_to": "Serah Terima Payment Transfer",
    "type": "DocType"
   },
   {
