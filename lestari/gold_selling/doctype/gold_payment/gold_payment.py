@@ -208,6 +208,18 @@ class GoldPayment(StockController):
 										"company":self.company,
 										"is_cancelled":0
 										}
+	def update_against(self):
+		if self.total_idr_payment>0:
+			#journal IDR nya aja
+			account_list_idr=""
+			for row in self.idr_payment:
+				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
+				if account not in account_list_idr:
+					if account_list_idr=="":
+						account_list_idr=account
+					else:
+						account_list_idr="{},{}".format(account_list_idr,account)
+			frappe.db.sql("""update `tabGL Entry` set against="{}" where voucher_no="{}" and account = "110.401.000 - Piutang Dagang - LMS" """.format(account_list_idr,self.name))
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
@@ -231,6 +243,32 @@ class GoldPayment(StockController):
 		#sisa= self.allocated_payment
 		credit=0
 		debit=0
+		#untuk payment IDR
+		account_list_idr=""
+		if self.total_idr_payment>0:
+			#journal IDR nya aja
+			for row in self.idr_payment:
+				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
+				if account in gl:
+					if  row.amount >0:
+						gl[account]['debit']=gl[account]['debit']+row.amount
+						gl[account]['debit_in_account_currency']=gl[account]['debit']
+					else:
+						gl[account]['credit']=gl[account]['credit']-row.amount
+						gl[account]['credit_in_account_currency']=gl[account]['credit']
+				else:
+					if row.amount >0:
+						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
+					else:
+						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
+					if account_list_idr=="":
+						account_list_idr=account
+					else:
+						account_list_idr="{},{}".format(account_list_idr,account)
+					if self.total_pajak:
+						gl[account]['against']=piutang_idr
+					else:
+						gl[account]['against']=piutang_gold
 		for row in self.invoice_table:
 			if row.tax_allocated>0:
 				gl_piutang_idr.append({
@@ -245,6 +283,7 @@ class GoldPayment(StockController):
 					"debit_in_account_currency":0,
 					"credit_in_account_currency":row.tax_allocated,
 					#"against":"4110.000 - Penjualan - L",
+					"against":account_list_idr,
 					"voucher_type":"Gold Payment",
 					"against_voucher_type":"Gold Invoice",
 					"against_voucher":row.gold_invoice,
@@ -274,6 +313,7 @@ class GoldPayment(StockController):
 					"account_currency":"GOLD",
 					"debit_in_account_currency":0,
 					"credit_in_account_currency":row.allocated,
+					"against":account_list_idr,
 					#"against":"4110.000 - Penjualan - L",
 					"voucher_type":"Gold Payment",
 					"against_voucher_type":"Gold Invoice",
@@ -338,23 +378,7 @@ class GoldPayment(StockController):
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
 			
-		#untuk payment IDR
-		if self.total_idr_payment>0:
-			#journal IDR nya aja
-			for row in self.idr_payment:
-				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
-				if account in gl:
-					if  row.amount >0:
-						gl[account]['debit']=gl[account]['debit']+row.amount
-						gl[account]['debit_in_account_currency']=gl[account]['debit']
-					else:
-						gl[account]['credit']=gl[account]['credit']-row.amount
-						gl[account]['credit_in_account_currency']=gl[account]['credit']
-				else:
-					if row.amount >0:
-						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
-					else:
-						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
+		
 		#roundoff=0
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
