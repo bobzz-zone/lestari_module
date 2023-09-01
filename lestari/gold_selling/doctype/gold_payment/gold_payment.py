@@ -378,7 +378,23 @@ class GoldPayment(StockController):
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
 			
-		
+		# #untuk payment IDR
+		# if self.total_idr_payment>0:
+		# 	#journal IDR nya aja
+		# 	for row in self.idr_payment:
+		# 		account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
+		# 		if account in gl:
+		# 			if  row.amount >0:
+		# 				gl[account]['debit']=gl[account]['debit']+row.amount
+		# 				gl[account]['debit_in_account_currency']=gl[account]['debit']
+		# 			else:
+		# 				gl[account]['credit']=gl[account]['credit']-row.amount
+		# 				gl[account]['credit_in_account_currency']=gl[account]['credit']
+		# 		else:
+		# 			if row.amount >0:
+		# 				gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
+		# 			else:
+		# 				gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
 		#roundoff=0
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
