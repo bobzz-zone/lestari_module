@@ -82,15 +82,34 @@ def get_result(filters):
 #	)
 #	return gl_entries
 def get_gl_entries(filters):
+	# gl_entries = frappe.db.sql("""
+	# 	SELECT 
+	# 		gl.name as gl_entry, gl.posting_date, 
+	# 		a.account_name as buku, a.account_number as lawan,
+	# 		gl.cost_center,
+	# 		gl.remarks as keterangan, gl.account as account, gl.against as against,
+	# 		gl.debit as credit, gl.credit as debit,
+	# 		gl.voucher_type, gl.voucher_no
+	# 		FROM `tabGL Entry` gl left join `tabAccount` a on gl.account=a.name
+	# 	WHERE gl.is_cancelled = 0
+	# 	{conditions}
+	# 	order by gl.posting_date, gl.voucher_type, gl.voucher_no
+	# """.format(
+	# 		conditions=get_conditions(filters),
+	# 	),
+	# 	 as_dict=1, debug=1
+	# )
+
+	# return gl_entries
 	gl_entries = frappe.db.sql("""
 		SELECT 
 			gl.name as gl_entry, gl.posting_date, 
-			a.account_name as buku, a.account_number as lawan,
+			ifnull(gl.against,gl.voucher_type) as lawan,
 			gl.cost_center,
-			gl.remarks as keterangan, gl.account as against, gl.against as account,
+			gl.remarks as keterangan, gl.account as account, gl.against as against,
 			gl.debit as credit, gl.credit as debit,
 			gl.voucher_type, gl.voucher_no
-			FROM `tabGL Entry` gl left join `tabAccount` a on gl.account=a.name
+			FROM `tabGL Entry` gl 
 		WHERE gl.is_cancelled = 0
 		{conditions}
 		order by gl.posting_date, gl.voucher_type, gl.voucher_no
@@ -101,7 +120,6 @@ def get_gl_entries(filters):
 	)
 
 	return gl_entries
-
 def get_conditions(filters):
 	conditions = []
 
@@ -109,7 +127,7 @@ def get_conditions(filters):
 		#conditions.append(" (gl.against = %(account)s or gl.account= %(account)s) ")
 		#conditions.append(" gl.against = %(account)s ")
 		#frappe.msgprint(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
-		conditions.append(""" is_opening="No" and gl.against LIKE "%{0}%" and gl.account != "{0}" """.format(filters.get("account")))
+		conditions.append(""" is_opening="No" and gl.account = "{0}" """.format(filters.get("account")))
 #	if filters.against: 
 #		conditions.append("account = %(against)s")
 
@@ -228,13 +246,7 @@ def get_column():
 	columns = [
 		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
 		{
-			"label": _("Buku"), 
-			"fieldname": "buku", 
-			"fieldtype": "Data", 
-			"width": 150
-		},
-		{
-			"label": _("Lawan"), 
+			"label": _("Lawan Transaksi"), 
 			"fieldname": "lawan", 
 			"fieldtype": "Data", 
 			"width": 150

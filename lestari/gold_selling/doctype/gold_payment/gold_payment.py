@@ -265,10 +265,6 @@ class GoldPayment(StockController):
 						account_list_idr=account
 					else:
 						account_list_idr="{},{}".format(account_list_idr,account)
-					if self.total_pajak:
-						gl[account]['against']=piutang_idr
-					else:
-						gl[account]['against']=piutang_gold
 		for row in self.invoice_table:
 			if row.tax_allocated>0:
 				gl_piutang_idr.append({
@@ -395,17 +391,32 @@ class GoldPayment(StockController):
 		# 				gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
 		# 			else:
 		# 				gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
-		#roundoff=0
+		roundoff=0
+		against_debit=""
+		against_credit=""
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
-			gl_entries.append(frappe._dict(gl[row]))
+			if gl[row]["debit"]>0:
+				if gl[row]["account"] not in against_credit:
+					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+			else:
+				if gl[row]["account"] not in against_debit:
+					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		#add roundoff
 		if roundoff!=0:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
 				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
+				against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 			else:
 				gl[roundoff_coa]=gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
-			gl_entries.append(frappe._dict(gl[roundoff_coa]))
+				against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+#			gl_entries.append(frappe._dict(gl[roundoff_coa]))
+		for row in gl:
+			if gl[row]["debit"]>0:
+				gl[row]["against"]=against_debit
+			else:
+				gl[row]["against"]=against_credit
+			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
