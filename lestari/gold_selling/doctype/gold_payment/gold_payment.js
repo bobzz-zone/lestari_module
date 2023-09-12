@@ -302,7 +302,7 @@ frappe.ui.form.on('Gold Payment', {
 				frm.doc.unallocated_idr_payment=sisa_idr;
 				cur_frm.set_value("unallocated_idr_payment",sisa_idr);
 			}
-			if (saldo_gold < total_alo){
+			if (saldo_gold <= total_alo){
 				frm.doc.unallocated_payment=0;
 				cur_frm.set_value("unallocated_payment",0);
 			}else{
