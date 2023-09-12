@@ -243,6 +243,8 @@ class GoldPayment(StockController):
 		#sisa= self.allocated_payment
 		credit=0
 		debit=0
+		against_debit=""
+		against_credit=""
 		#untuk payment IDR
 		account_list_idr=""
 		if self.total_idr_payment>0:
@@ -335,6 +337,11 @@ class GoldPayment(StockController):
 		for row in gl_piutang_idr:
 			roundoff=roundoff+row['debit']-row['credit']
 			gl_entries.append(frappe._dict(row))
+		for row in gl_entries:
+			if row.debit>0:
+				against_credit="{} ,{}".format(against_credit,row.account)
+			else:
+				against_debit="{} ,{}".format(against_debit,row.account)
 		#perlu check selisih kurs dari tutupan
 		#lebih dr 0 itu debit
 		dsk=0
@@ -391,9 +398,8 @@ class GoldPayment(StockController):
 		# 				gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
 		# 			else:
 		# 				gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
-		roundoff=0
-		against_debit=""
-		against_credit=""
+		#roundoff=0
+
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
 			if gl[row]["debit"]>0:
