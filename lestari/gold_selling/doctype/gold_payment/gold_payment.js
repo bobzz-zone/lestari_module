@@ -16,13 +16,11 @@ function run_writeoff_sisa(frm){
 		refresh_field("write_off_idr");
 		refresh_field("unallocated_idr_payment");
 	}
-/*	if (frm.doc.total_sisa_invoice>0.1){
-		if(frm.doc.total_sisa_invoice>0.1){
-			frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
-		}
+	if (frm.doc.total_sisa_invoice<0.1){
+		frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 		frm.doc.write_off=frm.doc.write_off+frm.doc.total_sisa_invoice;
 		refresh_field("total_sisa_invoice");
-	}*/
+	}
 	frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
 	refresh_field("write_off_total");
 	refresh_total_and_charges(frm);
@@ -66,7 +64,7 @@ function calculate_table_invoice_alo(frm,cdt,cdn){
 	//frappe.msgprint("invoice table reloaded");
 }
 function refresh_total_and_charges(frm){
-	frm.doc.total_extra_charges=Math.floor((frm.doc.write_off - frm.doc.bonus - frm.doc.discount_amount)*1000)/1000;
+	frm.doc.total_extra_charges=Math.floor((frm.doc.bonus - frm.doc.discount_amount)*1000)/1000;
 	refresh_field("total_extra_charges");
 	if (frm.doc.allocated_payment>0){
 		if (frm.doc.allocated_payment>frm.doc.total_extra_charges){
@@ -77,6 +75,7 @@ function refresh_total_and_charges(frm){
 	}else{
 		frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges;
 	}
+	frm.doc.total_sisa_invoice = frm.doc.total_sisa_invoice+frm.doc.write_off;
 	if (frm.doc.total_sisa_invoice <0 ){
 		frm.doc.total_sisa_invoice=0;
 	}
@@ -323,13 +322,17 @@ frappe.ui.form.on('Gold Payment', {
 			refresh_field("allocated_payment");
 			
 			
-			
-			if((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment<=1/100){
-				// frappe.msgprint("Write off sisa Sedikit "+(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
+			var sisa_pay=(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment;
+			if(sisa_pay<=1/100 && sisa_pay>0){
+				frappe.msgprint("Write off sisa Sedikit "+(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
+				run_writeoff_sisa(frm);
+			}if(frm.doc.total_sisa_invoice<=0.01){
+				frappe.msgprint("Write off sisa Invoice Senilai "+frm.doc.total_sisa_invoice);
 				run_writeoff_sisa(frm);
 			}else{
 				refresh_total_and_charges(frm);	
 			}
+			frappe.msgprint("Pembayaran Telah di Alokasikan");
 			// frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
 
