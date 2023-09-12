@@ -170,8 +170,11 @@ function hitung_pajak(frm){
 		hitung_ppn(ppn_rate, frm)
 		hitung_pph(pph_rate, frm)
 		
-		frm.doc.total_sebelum_pajak = Math.floor(frm.doc.grand_total * frm.doc.tutupan)
-
+		var total=0;
+		$.each(frm.doc.items, function (i, g) {
+			total = total + g.jumlah;
+		}); 
+		frm.doc.total_sebelum_pajak=total;
 		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=frm.doc.total_pajak;
@@ -194,16 +197,19 @@ function hitung_rate(frm,cdt,cdn,update_all){
 		frappe.model.set_value(cdt, cdn, "jumlah", d.amount * cur_frm.doc.tutupan);
 		var total = 0;
 		var total_bruto = 0;
+		var total_rp=0
 		$.each(frm.doc.items, function (i, g) {
+			g.jumlah=g.amount*frm.doc.tutupan;
 			total = total + g.amount;
 			total_bruto = total_bruto + g.qty;
+			total_rp = total + g.jumlah;
 		});
 		frm.doc.total = total;
 		frm.doc.total_bruto = total_bruto;
 		if (!frm.doc.discount_amount) {
 			frm.doc.discount_amount = 0;
 		}
-		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+		frm.doc.grand_total = total_rp;
 		hitung_pajak(frm);
 		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
 		refresh_field("outstanding");
@@ -216,17 +222,19 @@ function hitung_rate(frm,cdt,cdn,update_all){
 function hitung_rate_all(frm){
 		var total = 0;
 		var total_bruto = 0;
+		var total_rp=0
 		$.each(frm.doc.items, function (i, g) {
-			g.amount=g.amount*frm.doc.tutupan;
+			g.jumlah=g.amount*frm.doc.tutupan;
 			total = total + g.amount;
 			total_bruto = total_bruto + g.qty;
+			total_rp = total + g.jumlah;
 		});
 		frm.doc.total = total;
 		frm.doc.total_bruto = total_bruto;
 		if (!frm.doc.discount_amount) {
 			frm.doc.discount_amount = 0;
 		}
-		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+		frm.doc.grand_total = total_rp;
 		hitung_pajak(frm);
 		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
 		refresh_field("outstanding");
