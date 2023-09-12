@@ -29,7 +29,7 @@ class UpdateBundleStock(Document):
             ste.append("items",baris_baru)
         ste.flags.ignore_permissions = True
         ste.save()
-        self.status = frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "{0}" where name = "{0}" """.format(self.name))
+        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Submitted" where name = "{0}" """.format(self.name))
         frappe.msgprint(str(frappe.get_last_doc("Stock Entry")))
         for row in self.items:
             if self.type == "Add Stock":

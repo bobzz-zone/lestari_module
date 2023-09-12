@@ -12,6 +12,8 @@ DevExtreme = Class.extend({
 		// this.page.add_inner_button('Update Posts', () => update_posts())
 		// this.page.change_inner_button_type('Update Posts', null, 'primary');
 		this.page.set_primary_action('Buat SPK PPIC', () => this.submit(), { icon: 'add', size: 'sm'})
+		this.page.set_secondary_action('Refresh', () => this.make(), { icon: 'refresh', size: 'sm'})
+		this.page.add_inner_button('List SPK PPIC', () => frappe.set_route(['List', 'SPK Produksi']))
 		// this.page.set_secondary_action(
 		// 	__('Buat SPK Produksi'),
 		// 	() => this.show_user_search_dialog(),
@@ -40,7 +42,7 @@ DevExtreme = Class.extend({
 			dataSource: employees.message,
         	keyExpr: 'name',
 			showBorders: true,
-			height: 470,
+			
 			allowColumnReordering: true,
 			allowColumnResizing: true,
 			columnAutoWidth: true,
@@ -218,11 +220,15 @@ DevExtreme = Class.extend({
 		return data
 	},
 	submit: function(){
-		console.log(this.list_spk)
+		// console.log(this.list_spk)
+		var me = this
 		frappe.call({
 			method: 'lestari.lestari.page.spk_ppic_list.spk_ppic_list.make_spk_ppic',
 			args: {
 				'data': this.list_spk
+			},
+			callback: function(){
+				me.make()
 			}
 		})
 	}

@@ -1,0 +1,43 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2023-08-30 12:25:56.807286",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letter_head": "Form Order",
+ "modified": "2023-08-30 12:28:15.219516",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Rekap Form Order",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Form Order",
+ "report_name": "Rekap Form Order",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "LMS Marketing Supervisor"
+  },
+  {
+   "role": "IT Programmer Master Data"
+  },
+  {
+   "role": "IT DAS"
+  },
+  {
+   "role": "Stockist"
+  },
+  {
+   "role": "LMS PPIC Supervisor"
+  }
+ ]
+}

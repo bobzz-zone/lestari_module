@@ -12,7 +12,6 @@
   "type_emas",
   "piutang_gold",
   "is_skb",
-  "non_pph",
   "company",
   "customer",
   "customer_name",
@@ -26,6 +25,12 @@
   "warehouse",
   "contact_and_address_section",
   "contact_address",
+  "alamat",
+  "kota",
+  "column_break_21",
+  "provinsi",
+  "negara",
+  "kode_pos",
   "tutupan_section",
   "tutupan",
   "column_break_10",
@@ -39,6 +44,7 @@
   "items_section",
   "items",
   "tax_sb",
+  "tax_id",
   "ppn",
   "pph",
   "total_pajak",
@@ -317,14 +323,6 @@
    "read_only": 1
   },
   {
-   "default": "0",
-   "depends_on": "tax_status==\"Tax\";\nis_skb===0;",
-   "description": "jika di centang maka akan kena PPN 1,65%",
-   "fieldname": "non_pph",
-   "fieldtype": "Check",
-   "label": "Non PPH"
-  },
-  {
    "default": "LD",
    "fieldname": "type_emas",
    "fieldtype": "Link",
@@ -365,7 +363,8 @@
    "default": "0",
    "fieldname": "total_setelah_pajak",
    "fieldtype": "Currency",
-   "label": "Total Setelah Pajak"
+   "label": "Total Setelah Pajak",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_40",
@@ -381,11 +380,51 @@
    "fieldtype": "Link",
    "label": "Contact Address",
    "options": "Address"
+  },
+  {
+   "fetch_from": "customer.tax_id",
+   "fieldname": "tax_id",
+   "fieldtype": "Read Only",
+   "label": "Tax ID"
+  },
+  {
+   "fetch_from": "contact_address.address_line1",
+   "fieldname": "alamat",
+   "fieldtype": "Small Text",
+   "label": "Alamat"
+  },
+  {
+   "fetch_from": "contact_address.city",
+   "fieldname": "kota",
+   "fieldtype": "Data",
+   "label": "Kota"
+  },
+  {
+   "fetch_from": "contact_address.state",
+   "fieldname": "provinsi",
+   "fieldtype": "Data",
+   "label": "Provinsi"
+  },
+  {
+   "fetch_from": "contact_address.country",
+   "fieldname": "negara",
+   "fieldtype": "Data",
+   "label": "Negara"
+  },
+  {
+   "fetch_from": "contact_address.pincode",
+   "fieldname": "kode_pos",
+   "fieldtype": "Data",
+   "label": "Kode Pos"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-21 13:20:15.933524",
+ "modified": "2023-08-24 12:18:45.432309",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

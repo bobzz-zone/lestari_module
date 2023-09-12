@@ -244,11 +244,13 @@ frappe.ui.form.on('Gold Payment', {
 				idr_to_gold = (frm.doc.unallocated_idr_payment/frm.doc.tutupan);
 				idr_to_gold=parseFloat(idr_to_gold).toFixed(3);
 			}
-			var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
+			// var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
+			var saldo_gold=frm.doc.unallocated_payment;
 			var need_to= parseFloat(saldo_gold) + parseFloat(idr_to_gold);
 			//frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			// console.log(need_to)
-			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges ;
+			// var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges ;
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to);
 			if (sisa_invoice <0){
 				sisa_invoice=0
 			}
@@ -307,9 +309,10 @@ frappe.ui.form.on('Gold Payment', {
 				cur_frm.set_value("unallocated_payment",0);
 			}else{
 				var unaloc=parseFloat(saldo_gold- total_alo).toFixed(3) ;
-				if (isNan(unaloc)){
-					unaloc=0;
-				}
+				console.log(unaloc)
+				// if (isNan(unaloc)){
+				// 	unaloc=0;
+				// }
 				frm.doc.unallocated_payment=unaloc;
 				cur_frm.set_value("unallocated_payment",unaloc);
 			}
@@ -322,12 +325,12 @@ frappe.ui.form.on('Gold Payment', {
 			
 			
 			if((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment<=1/100){
-				frappe.msgprint("Write off sisa Sedikit "+(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
+				// frappe.msgprint("Write off sisa Sedikit "+(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
 				run_writeoff_sisa(frm);
 			}else{
 				refresh_total_and_charges(frm);	
 			}
-			frappe.msgprint("Pembayaran Telah di Alokasikan");
+			// frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
 
 	},
@@ -350,6 +353,7 @@ frappe.ui.form.on('Gold Payment', {
 			doc: frm.doc,
 			callback: function (r){
 				frm.refresh();
+				calculate_table_invoice(cur_frm);
 				reset_allocated(cur_frm);
 				
 			}

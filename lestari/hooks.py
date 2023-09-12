@@ -16,15 +16,16 @@ app_license = "MIT"
 # app_include_css = "/assets/lestari/css/lestari.css"
 # app_include_js = "/assets/lestari/js/lestari.js"
 app_include_css = ['/assets/lestari/css/dx.light.css',
-                   '/assets/lestari/css/frappe-datatable.min.css']
+                #    '/assets/lestari/css/frappe-datatable.min.css'
+				]
 app_include_js = ['/assets/lestari/js/dx.all.js',
                   '/assets/lestari/js/exceljs.min.js',
                   '/assets/lestari/js/FileSaver.min.js',
                   '/assets/lestari/js/jspdf.umd.min.js',
                   '/assets/lestari/js/polyfill.min.js',
-                  '/assets/lestari/js/Sortable.min.js',
-                  '/assets/lestari/js/clusterize.min.js',
-                  '/assets/lestari/js/frappe-datatable.min.js',
+                #   '/assets/lestari/js/Sortable.min.js',
+                #   '/assets/lestari/js/clusterize.min.js',
+                #   '/assets/lestari/js/frappe-datatable.min.js',
                   '/assets/lestari/js/lestari.js']
 
 
