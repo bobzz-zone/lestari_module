@@ -105,17 +105,12 @@ frappe.ui.form.on("Gold Invoice", {
 	},
 	tutupan: function (frm) {
 		var idr = 0;
-		$.each(frm.doc.invoice_advance, function (i, g) {
-			if (g.idr_allocated) {
-			idr = idr + g.idr_allocated;
-			}
-		});
+		hitung_rate_all(frm);
 		frm.doc.total_idr_in_gold = idr / frm.doc.tutupan;
-		frm.doc.total_advance = frm.doc.total_gold + frm.doc.total_idr_in_gold;
 		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
 		refresh_field("outstanding");
 		refresh_field("total_idr_in_gold");
-		refresh_field("total_advance");
+		
 	},
 	ppn: function (frm){
 		sebelum_pajak(frm)
@@ -189,11 +184,13 @@ function hitung_pajak(frm){
 	// }
 }
 
-function hitung_rate(frm,cdt,cdn){
+function hitung_rate(frm,cdt,cdn,update_all){
 	console.log('test')
 	var d = locals[cdt][cdn];
+	if (update_all){
 		frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate * d.qty) *10)/1000);
 		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((d.print_rate * d.qty)*10)/1000);
+	}
 		frappe.model.set_value(cdt, cdn, "jumlah", d.amount * cur_frm.doc.tutupan);
 		var total = 0;
 		var total_bruto = 0;
@@ -216,10 +213,32 @@ function hitung_rate(frm,cdt,cdn){
 		refresh_field("discount_amount");
 		refresh_field("grand_total");
 }
-
+function hitung_rate_all(frm){
+		var total = 0;
+		var total_bruto = 0;
+		$.each(frm.doc.items, function (i, g) {
+			g.amount=g.amount*frm.doc.tutupan;
+			total = total + g.amount;
+			total_bruto = total_bruto + g.qty;
+		});
+		frm.doc.total = total;
+		frm.doc.total_bruto = total_bruto;
+		if (!frm.doc.discount_amount) {
+			frm.doc.discount_amount = 0;
+		}
+		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+		hitung_pajak(frm);
+		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
+		refresh_field("outstanding");
+		refresh_field("total");
+		refresh_field("total_print");
+		refresh_field("total_bruto");
+		refresh_field("discount_amount");
+		refresh_field("grand_total");
+}
 frappe.ui.form.on("Gold Invoice Item", {
 	items_remove: function(frm, cdt, cdn){
-		hitung_rate(frm,cdt,cdn)
+		hitung_rate(frm,cdt,cdn,false)
 	},
 	category: function (frm, cdt, cdn) {
 		// your code here
@@ -238,12 +257,12 @@ frappe.ui.form.on("Gold Invoice Item", {
 		});
 	},
 	qty: function (frm, cdt, cdn) {
-		hitung_rate(frm,cdt,cdn)
+		hitung_rate(frm,cdt,cdn,true)
 	},
 	rate: function (frm, cdt, cdn) {
-		hitung_rate(frm,cdt,cdn)
+		hitung_rate(frm,cdt,cdn,true)
 	},
-	jumlah: function (frm, cdt, cdn){
-		hitung_rate(frm,cdt,cdn)
+	amount: function (frm, cdt, cdn){
+		hitung_rate(frm,cdt,cdn,false)
 	}
 });
