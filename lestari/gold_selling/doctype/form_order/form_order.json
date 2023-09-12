@@ -9,19 +9,17 @@
  "field_order": [
   "no_fo",
   "type",
-  "purpose",
-  "customer",
-  "customer_name",
-  "customer_group",
   "kadar",
-  "kategori",
   "sub_kategori",
+  "kategori",
   "column_break_4",
-  "pic",
-  "pic_name",
   "posting_date",
   "edit_posting_date",
+  "html_8",
+  "column_break_8",
   "due_date",
+  "pic",
+  "pic_name",
   "production_period_week",
   "production_period_month",
   "production_period_year",
@@ -34,10 +32,14 @@
   "gambar_produk",
   "image",
   "qty",
+  "berat",
   "remark",
+  "column_break_21",
   "pilih",
   "reset",
-  "column_break_21",
+  "btn_pilih",
+  "btn_reset",
+  "column_break_30",
   "gambar",
   "section_break_8",
   "sorting_type",
@@ -47,32 +49,26 @@
   "items",
   "section_break_12",
   "total_pohon",
+  "column_break_43",
+  "total_qty",
+  "total_berat",
   "invalid_sec",
   "items_invalid",
   "valid_sec",
   "items_valid",
-  "amended_from"
+  "amended_from",
+  "more_information_section",
+  "status",
+  "column_break_53",
+  "spk_ppic"
  ],
  "fields": [
   {
    "fieldname": "type",
-   "fieldtype": "Select",
-   "label": "Type",
-   "options": "STA\nSTO\nSTP\nCustomer"
-  },
-  {
-   "depends_on": "eval:doc.type == \"Customer\"",
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer"
-  },
-  {
-   "fetch_from": "customer.customer_name",
-   "fieldname": "customer_name",
    "fieldtype": "Data",
-   "label": "Customer Name",
-   "read_only": 1
+   "in_list_view": 1,
+   "label": "Type",
+   "reqd": 1
   },
   {
    "fieldname": "pic",
@@ -84,7 +80,8 @@
   {
    "fieldname": "due_date",
    "fieldtype": "Date",
-   "label": "Due Date"
+   "label": "Due Date",
+   "reqd": 1
   },
   {
    "fieldname": "items",
@@ -148,14 +145,6 @@
    "read_only": 1
   },
   {
-   "fetch_from": "customer.customer_group",
-   "fieldname": "customer_group",
-   "fieldtype": "Link",
-   "label": "Customer Group",
-   "options": "Customer Group",
-   "read_only": 1
-  },
-  {
    "fieldname": "sorting_type",
    "fieldtype": "Select",
    "label": "Sorting Type",
@@ -189,6 +178,7 @@
    "options": "Valid Pohon Items"
   },
   {
+   "collapsible": 1,
    "fieldname": "invalid_sec",
    "fieldtype": "Section Break",
    "label": "Data Pohon Yang Tidak Valid"
@@ -200,6 +190,7 @@
    "options": "Invalid Pohon Items"
   },
   {
+   "depends_on": "eval:doc.docstatus != 1",
    "fieldname": "detail_item_section",
    "fieldtype": "Section Break",
    "label": "Detail Item"
@@ -234,20 +225,26 @@
   {
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
-   "options": "Data Logam"
+   "options": "Data Logam",
+   "reqd": 1
   },
   {
+   "fetch_from": "sub_kategori.parent_item_group",
    "fieldname": "kategori",
    "fieldtype": "Link",
    "label": "Kategori",
-   "options": "Item Group"
+   "options": "Item Group",
+   "read_only": 1
   },
   {
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sub Kategori",
-   "options": "Item Group"
+   "options": "Item Group",
+   "reqd": 1
   },
   {
    "fieldname": "qty",
@@ -288,6 +285,7 @@
    "fetch_from": "sku.name",
    "fieldname": "item_code",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Item Code",
    "options": "Item",
    "read_only": 1
@@ -303,37 +301,106 @@
    "label": "Remark"
   },
   {
-   "default": "Today",
+   "allow_on_submit": 1,
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date",
-   "read_only": 1,
-   "read_only_depends_on": "eval: doc.edit_posting_date == 0"
+   "read_only_depends_on": "//eval: doc.edit_posting_date == 0",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "edit_posting_date",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Edit Posting Date"
-  },
-  {
-   "depends_on": "eval:doc.type == \"Customer\"",
-   "fieldname": "purpose",
-   "fieldtype": "Data",
-   "label": "Purpose"
   },
   {
    "fieldname": "no_fo",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "No FO",
+   "reqd": 1,
    "unique": 1
+  },
+  {
+   "fetch_from": "sku.weight_per_unit",
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "btn_pilih",
+   "fieldtype": "HTML",
+   "hidden": 1,
+   "label": "btn_pilih",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px;\">Pilih</button>"
+  },
+  {
+   "fieldname": "btn_reset",
+   "fieldtype": "HTML",
+   "hidden": 1,
+   "label": "btn_reset",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #913030;\">Reset</button>"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "html_8",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "more_information_section",
+   "fieldtype": "Section Break",
+   "label": "More Information"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nCancelled\nOrdered PPIC",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_43",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_53",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "spk_ppic",
+   "fieldtype": "Data",
+   "label": "SPK PPIC",
+   "read_only": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-21 12:35:45.734968",
+ "modified": "2023-09-11 16:01:27.159730",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Form Order",

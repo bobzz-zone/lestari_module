@@ -20,7 +20,8 @@
   "total_inject",
   "total_batu",
   "keterangan_variasi",
-  "keterangan_batu"
+  "keterangan_batu",
+  "spk_ppic"
  ],
  "fields": [
   {
@@ -120,12 +121,19 @@
    "fieldname": "keterangan_batu",
    "fieldtype": "Small Text",
    "label": "Keterangan Batu"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "spk_ppic",
+   "fieldtype": "Data",
+   "label": "SPK PPIC",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-07 16:24:05.048639",
+ "modified": "2023-08-31 13:42:28.218132",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Valid Pohon Items",

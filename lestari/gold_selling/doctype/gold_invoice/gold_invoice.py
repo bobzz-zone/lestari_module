@@ -1,12 +1,24 @@
 import frappe
 from frappe.utils import now_datetime ,now
 from frappe.model.document import Document
+from datetime import datetime
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from frappe.utils import flt
+from frappe.model.naming import getseries
+
 class GoldInvoice(Document):
+	def autoname(self):
+		post_date = datetime.strptime(self.posting_date, '%Y-%m-%d')
+		year = "{}".format(post_date.year)
+		roman_list = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
+		prefix = "{0}/{1}/{2}".format(self.no_invoice,roman_list[post_date.month],year)
+		# self.name = getseries(prefix,3)
+		# self.name="dendro"
+		self.name = prefix
+
 	def validate(self):
 		if(self.no_invoice):
-			self.name = self.no_invoice
+			#self.name = self.no_invoice
 			#total items
 			total=0
 			bruto=0

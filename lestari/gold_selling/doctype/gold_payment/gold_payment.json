@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "customer_name",
   "customer_group",
   "territory",
   "sales_bundle",
@@ -411,12 +412,19 @@
    "fieldname": "tax_sb",
    "fieldtype": "Section Break",
    "label": "Summary Tax"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-16 14:53:21.996268",
+ "modified": "2023-08-28 14:18:13.611389",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

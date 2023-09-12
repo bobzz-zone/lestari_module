@@ -264,20 +264,20 @@ frappe.ui.form.on('Update Bundle Stock', {
 	})
 	},
 	bundle: async function(frm){
-		await frappe.db.count('Update Bundle Stock', { bundle: cur_frm.doc.bundle, docstatus:['!=',2] })
-			.then(count => {
-				if(count > 0){
-					// console.log(count)
-					frm.set_df_property('type','options',['Add Stock','Deduct Stock'])
-					frm.refresh()
-				}else{
-					// console.log('as')
-					cur_frm.set_df_property('type','options',['New Stock'])
-					cur_frm.set_value('type','New Stock')
-					cur_frm.set_df_property('type','read_only',1)
-					cur_frm.refresh_field('type')
-				}
-			})
+		// await frappe.db.count('Update Bundle Stock', { bundle: cur_frm.doc.bundle, docstatus:['!=',2] })
+		// 	.then(count => {
+		// 		if(count > 0){
+		// 			// console.log(count)
+		// 			frm.set_df_property('type','options',['Add Stock','Deduct Stock'])
+		// 			frm.refresh()
+		// 		}else{
+		// 			// console.log('as')
+		// 			cur_frm.set_df_property('type','options',['New Stock'])
+		// 			cur_frm.set_value('type','New Stock')
+		// 			cur_frm.set_df_property('type','read_only',1)
+		// 			cur_frm.refresh_field('type')
+		// 		}
+		// 	})
 	},
 	type: function(frm){
 		// cur_frm.fields_dic['items'].grid.get_field("sub_kategori").set_focus()

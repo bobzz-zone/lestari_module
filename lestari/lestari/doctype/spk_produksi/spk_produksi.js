@@ -1,18 +1,90 @@
 // Copyright (c) 2022, DAS and contributors
 // For license information, please see license.txt
 
+var list_kat;
+async function getListAndSetQuery(frm) {
+list_kat = [];
+await frappe.db.get_list('Item Group', {
+			filters: {
+				parent_item_group: 'Products'
+			}
+		}).then(records => {
+			for(var i = 0; i< records.length; i++){
+				list_kat.push(records[i].name)
+			}
+			list_kat.sort()
+		})
+		frm.set_query("sub_kategori",function () {
+			return {
+				"filters": [
+					["Item Group", "parent_item_group", "in", list_kat]
+				],
+				"order_by":['name asc']
+			};
+		});
+	}
+
 frappe.ui.form.on("SPK Produksi", {
   refresh: function (frm) {
-    // }
-    // area: function (frm) {
-    //   frm.clear_custom_buttons();
     frm.events.make_custom_buttons(frm);
+    if (cur_frm.is_new()){
+			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name"]).then(function (responseJSON) {
+				cur_frm.set_value("employee_id", responseJSON.message.name);
+				cur_frm.refresh_field("employee_id");
+			});
+		}
+    getListAndSetQuery(frm)
+    $('div[data-fieldname="tambah"').on('click',function(){
+      frappe.call({
+        method: 'get_form_order',
+        doc: frm.doc,
+        // method: 'get_form_order',
+        callback: function(r) {
+          if (!r.exc) {
+            $.each(r.message,function(i,e){
+              var add_child = frm.add_child('tabel_rencana_produksi')
+              add_child.form_order = e.no_fo
+              add_child.produk_id = e.produk_id
+              add_child.qty = e.qty
+              add_child.kadar = e.kadar
+              add_child.sub_kategori = e.sub_kategori
+              add_child.kategori = e.kategori
+              add_child.so_type = cur_frm.doc.type
+              add_child.target_berat = e.berat
+            })
+            // d.item = r.message[0][0]
+            // d.gold_selling_item = r.message[0][1]
+            cur_frm.refresh_field("tabel_rencana_produksi")
+          }
+        }
+      });
+		})
   },
+
   make_custom_buttons: function (frm) {
     if (frm.doc.docstatus === 0) {
       // frm.add_custom_button(__("Sales Order"), () => frm.events.get_items_from_sales_order(frm), __("Get Items From"));
       frm.add_custom_button(__("Form Order"), () => frm.events.get_items_from_form_order(frm), __("Get Items From"));
     }
+  },
+  type: function (frm){
+    cur_frm.set_value("type",cur_frm.doc.type.toUpperCase())
+    cur_frm.refresh_field("type")
+  },
+  form_order: function(frm){
+    // frappe.call({
+		// 	method: 'get_form_order',
+    //   doc: frm.doc,
+		// 	// method: 'get_form_order',
+		// 	callback: function(r) {
+		// 		if (!r.exc) {
+		// 			d.item = r.message[0][0]
+		// 			d.gold_selling_item = r.message[0][1]
+		// 			cur_frm.refresh_field("items")
+		// 		}
+		// 	}
+		// });
+    
   },
   get_items_from_sales_order: function (frm) {
     erpnext.utils.map_current_doc({

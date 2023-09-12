@@ -1,26 +1,33 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:SPK{YY}{MM}{#####}",
+ "autoname": "format:{type}{YY}{MM}{#####}",
  "creation": "2022-04-11 10:00:37.059091",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "id",
   "tanggal_spk",
+  "type",
   "column_break_2",
-  "sw",
+  "sub_kategori",
+  "kadar",
   "form_order",
+  "column_break_9",
+  "total_model",
+  "total_jumlah",
+  "tambah",
+  "enamel",
+  "tukang_luar",
+  "sw",
   "idworksuggestion",
   "detail_perencana_section",
   "employee_id",
-  "column_break_4",
+  "area",
+  "column_break_18",
   "nama",
   "jabatan",
-  "detail_spk_section",
-  "area",
-  "column_break_9",
-  "proses",
   "detail_rencana_section",
   "tabel_rencana_produksi",
   "amended_from"
@@ -35,6 +42,7 @@
    "label": "Tanggal SPK"
   },
   {
+   "collapsible": 1,
    "fieldname": "detail_perencana_section",
    "fieldtype": "Section Break",
    "label": "Detail Perencana"
@@ -43,46 +51,34 @@
    "fieldname": "employee_id",
    "fieldtype": "Link",
    "label": "Employee ID",
-   "options": "Employee"
-  },
-  {
-   "fieldname": "column_break_4",
-   "fieldtype": "Column Break"
+   "options": "Employee",
+   "read_only": 1
   },
   {
    "fetch_from": "employee_id.employee_name",
    "fieldname": "nama",
    "fieldtype": "Data",
-   "label": "Nama"
+   "label": "Nama",
+   "read_only": 1
   },
   {
    "fetch_from": "employee_id.department",
    "fieldname": "jabatan",
    "fieldtype": "Data",
-   "label": "Jabatan"
+   "label": "Jabatan",
+   "read_only": 1
   },
   {
-   "fieldname": "detail_spk_section",
-   "fieldtype": "Section Break",
-   "label": "Detail SPK"
-  },
-  {
-   "default": "Lilin - L",
+   "default": "PPIC - LMS",
    "fieldname": "area",
    "fieldtype": "Link",
    "label": "Area",
-   "options": "Department"
+   "options": "Department",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_9",
    "fieldtype": "Column Break"
-  },
-  {
-   "default": "Persiapan",
-   "fieldname": "proses",
-   "fieldtype": "Link",
-   "label": "Proses",
-   "options": "Operation"
   },
   {
    "fieldname": "detail_rencana_section",
@@ -110,25 +106,88 @@
   },
   {
    "fieldname": "form_order",
-   "fieldtype": "Data",
-   "label": "Form Order"
+   "fieldtype": "Link",
+   "label": "Form Order",
+   "options": "Form Order"
   },
   {
    "fieldname": "sw",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "SW"
   },
   {
    "fieldname": "idworksuggestion",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "IDWorkSuggestion"
+  },
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "label": "ID"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_model",
+   "fieldtype": "Int",
+   "label": "Total Model",
+   "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Type"
+  },
+  {
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "label": "Sub Kategori",
+   "options": "Item Group"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_jumlah",
+   "fieldtype": "Int",
+   "label": "Total Jumlah",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "enamel",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Enamel"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "default": "0",
+   "fieldname": "tukang_luar",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Tukang Luar"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tambah",
+   "fieldtype": "HTML",
+   "label": "Tambah",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"font-weight: bold; margin-top: 35px; background-color: #bf4040 !important;\">Tambah</button>"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-07 16:30:18.474793",
+ "modified": "2023-09-05 16:03:55.553379",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Produksi",

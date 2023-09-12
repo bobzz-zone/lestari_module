@@ -11,9 +11,21 @@ def make_spk_ppic(data):
     for row in json.loads(data):
         doc = frappe.get_doc("Form Order", row)
         new_doc = frappe.new_doc("SPK Produksi")
+        new_doc.name = doc.type+doc.name
         new_doc.idworksuggestion = doc.idworksuggestion
         new_doc.employee_id = frappe.db.get_value("Employee",{"user_id":frappe.session.user},"name")
+        new_doc.type = doc.type
+        new_doc.sub_kategori = doc.sub_kategori
+        new_doc.kadar = doc.kadar
+        new_doc.form_order = doc.name
+        tot_jumlah = 0
+        model = []
         for col in doc.items_valid:
+            tot_jumlah += col.qty
+            if len(model) == 0:
+                model.append(col.model)
+            if len(model) > 0 and not col.model in model:
+                model.append(col.model)
             baris_baru = {
                 'form_order': doc.name,
                 'tanggal_order': doc.posting_date,
@@ -29,35 +41,41 @@ def make_spk_ppic(data):
                 'keternagan_batu': col.keterangan_batu
             }
             new_doc.append('tabel_rencana_produksi', baris_baru)
+            col.spk_ppic = new_doc.name
+            doc.status = "Ordered PPIC"
+            doc.flags.ignore_permissions = True
+            doc.save()
+        new_doc.total_model = len(model)
+        new_doc.total_jumlah = tot_jumlah
         new_doc.flags.ignore_permissions = True
         new_doc.save()
-        new_doc.submit()
-        
-        frappe.msgprint(str(new_doc))
+        new_doc.submit()      
+        frappe.msgprint("SPK PPIC sudah dibuat "+str(new_doc))
 
 @frappe.whitelist()
 def contoh_report():
     fm = []
-    list_doc = frappe.get_list("Form Order", limit = 5000)
+    list_doc = frappe.get_list("Form Order", filters={'docstatus':1},limit = 5000)
     no = 0
     for row in list_doc:
         doc = frappe.get_doc("Form Order", row)
         for col in doc.items_valid:
-            no+=1
-            baris_baris = {
-                'no' : no,
-                    'name' : str(doc.name),
-                    'form_order' : str(doc.idworksuggestion),
-                    'urut_fm' : str(col.idx),
-                    'model' : col.model,
-                    'qty' : col.qty,
-                    'berat' : 0,
-                    'posting_date' : frappe.format(doc.posting_date,{'fieldtype':'Date'}),
-                    # 'posting_date' : frappe.date.datetime(doc.posting_date,"M/d/yyyy"),
-                    'kadar' : doc.kadar,
-                    'kategori' : doc.kategori,
-                    'sub_kategori' : doc.sub_kategori,
-            }
-            fm.append(baris_baris)
-    frappe.msgprint(str(fm))  
+            if col.spk_ppic == "" or not col.spk_ppic:
+                no+=1
+                baris_baris = {
+                    'no' : no,
+                        'name' : str(doc.name),
+                        'form_order' : str(doc.idworksuggestion),
+                        'urut_fm' : str(col.idx),
+                        'model' : col.model,
+                        'qty' : col.qty,
+                        'berat' : col.total_berat,
+                        'posting_date' : frappe.format(doc.posting_date,{'fieldtype':'Date'}),
+                        # 'posting_date' : frappe.date.datetime(doc.posting_date,"M/d/yyyy"),
+                        'kadar' : doc.kadar,
+                        'kategori' : doc.kategori,
+                        'sub_kategori' : doc.sub_kategori,
+                }
+                fm.append(baris_baris)
+    # frappe.msgprint(str(fm))  
     return fm   

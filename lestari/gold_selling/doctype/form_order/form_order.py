@@ -3,8 +3,26 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.model.mapper import get_mapped_doc
+from frappe.model.utils import get_fetch_values
+from frappe.utils import cint, flt
 
 class FormOrder(Document):
+	def validate(self):
+		if self.docstatus == 0:
+			frappe.db.sql("""UPDATE `tabForm Order` SET status = "Draft" where name = "{0}" """.format(self.name))
+		else:
+			frappe.db.sql("""UPDATE `tabForm Order` SET status = "Ordered PPIC" where name = "{0}" """.format(self.name))
+
+	def on_submit(self):
+			frappe.db.sql("""UPDATE `tabForm Order` SET status = "Submitted" where name = "{0}" """.format(self.name))
+	
+	def on_cancel(self):
+		if self.spk_ppic and self.status == "Ordered PPIC":
+			frappe.throw("Form Order sudah dibuatkan SPK PPIC")
+		else:
+			frappe.db.sql("""UPDATE `tabForm Order` SET status = "Cancelled" where name = "{0}" """.format(self.name))
+			
 	@frappe.whitelist()
 	def match_data(self):
 		#reset valid Items
@@ -87,3 +105,34 @@ class FormOrder(Document):
 			for row in temp:
 				self.append("items_invalid",row)
 			self.total_pohon=no_pohon
+@frappe.whitelist()
+def buat_baru(source_name, target_doc=None):
+	def postprocess(source, target):
+		target.type = source.type
+		if source.type == "Customer":
+			target.purpose == source.purpose
+		target.kadar = source.kadar
+		target.kategori = source.kategori
+		target.sub_ketegori = source.sub_kategori
+		target.no_fo = ""
+
+	doclist = get_mapped_doc(
+		"Form Order",
+		source_name,
+		{
+			"Form Order": {
+				"doctype": "Form Order",
+				"field_map": {
+					"type": "type",
+					"kadar": "kadar",
+					"kategori": "kategori",
+					"sub_kategori": "sub_kategori",
+				},
+				"validation": {"docstatus": ["=", 1]},
+			},
+		},
+		target_doc,
+		postprocess,
+	)
+
+	return doclist

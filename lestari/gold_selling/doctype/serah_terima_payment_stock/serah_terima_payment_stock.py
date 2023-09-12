@@ -9,9 +9,9 @@ class SerahTerimaPaymentStock(Document):
 	def get_detail(self):
 		
 		if self.category == "Emas 24":
-			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['>=',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
+			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['>',100], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
 		else:
-			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['<',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
+			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['<=',100], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
 		for row in depo_list:
 			# frappe.msgprint(str(row.voucher_type))
 			doc = frappe.get_doc(str(row.parenttype), row.parent).sales_bundle
