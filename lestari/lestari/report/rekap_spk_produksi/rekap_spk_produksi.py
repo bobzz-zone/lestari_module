@@ -55,6 +55,12 @@ def execute(filters=None):
             
         },
         {
+            "label": _("Tanggal Mkt"),
+            "fieldname": "tanggal_order",
+            "fieldtype": "Date",
+            "width": 110
+        },
+        {
             "label": _("Qty"),
             "fieldname": "qty",
             "fieldtype": "Int",
@@ -73,7 +79,9 @@ def execute(filters=None):
     if filters.get("no_fo"):
         conditions += " AND `tabSPK Produksi`.form_order = %(no_fo)s"
     if filters.get("type"):
-        conditions += " AND `tabSPK Produksi`.type = %(type)s"
+        conditions += " AND `tabSPK Produksi Detail`.so_type = %(type)s" 
+        # conditions += " AND (`tabSPK Produksi`.type = %(type)s" 
+        # conditions += " OR `tabSPK Produksi Detail`.so_type = %(type)s)" 
     if filters.get("kadar"):
         conditions += " AND `tabSPK Produksi`.kadar = %(kadar)s"
     if filters.get("sub_kategori"):
@@ -86,10 +94,11 @@ def execute(filters=None):
             `tabSPK Produksi`.name,
             `tabSPK Produksi`.form_order,
             `tabSPK Produksi`.tanggal_spk,
-            `tabSPK Produksi`.type,
             `tabSPK Produksi`.kadar,
             `tabSPK Produksi`.sub_kategori,
+            `tabSPK Produksi Detail`.tanggal_order,
             `tabSPK Produksi Detail`.produk_id,
+            `tabSPK Produksi Detail`.so_type as type,
             `tabSPK Produksi Detail`.qty,
             `tabSPK Produksi Detail`.target_berat
         FROM

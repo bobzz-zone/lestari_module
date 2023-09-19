@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Gold Selling",
  "links": [],
- "modified": "2023-08-16 16:29:52.562140",
+ "modified": "2023-09-14 10:51:46.148280",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -68,6 +68,12 @@
    "doc_view": "Dashboard",
    "label": "Report Pembayaran Penjualan",
    "link_to": "Pembayaran Penjualan",
+   "type": "Report"
+  },
+  {
+   "doc_view": "Report Builder",
+   "label": "Report Gold Invoice",
+   "link_to": "Rekap Gold Invoice",
    "type": "Report"
   }
  ]

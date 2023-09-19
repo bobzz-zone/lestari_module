@@ -1,0 +1,199 @@
+<style>
+    @media print {
+        @page {
+            margin: 0px !important;
+        }
+    }
+</style>
+
+<div>
+    <table border="0" width="100%">
+        <tr>
+            <td colspan="7" class="text-center">
+                <b style="font-size:20">
+                    {{ report.report_name }}
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td>Dari</td>
+            <td>:</td>
+            <td> {{ filters.from_date }}</td>
+            <td>&nbsp;</td>
+            <td>Sampai</td>
+            <td>:</td>
+            <td>{{ filters.to_date}}</td>
+        </tr>
+        <tr>
+            {% if( filters.type || filters.kadar){ %}
+            <td>Type</td>
+            <td>:</td>
+            <td>{{ filters.type }}</td>
+            <td>&nbsp;</td>
+            <td>Kadar</td>
+            <td>:</td>
+            <td>{{ filters.kadar }}</td>
+            {% } %}
+        </tr>
+        <tr>
+            {% if( filters.kategori || filters.sub_kategori){ %}
+            <td>Kategori</td>
+            <td>:</td>
+            <td>{{ filters.kategori }}</td>
+            <td>&nbsp;</td>
+            <td>Sub Kategori</td>
+            <td>:</td>
+            <td>{{ filters.sub_kategori }}</td>
+            {% } %}
+        </tr>
+        <tr>
+            {% if( filters.model ){ %}
+            <td>Jenis</td>
+            <td>:</td>
+            <td>{{ filters.model }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            {% } %}
+        </tr>
+        <!-- <tr>
+            <td colspan="7">
+                
+            </td>
+        </tr> -->
+    </table>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important" class="text-center">No</th>
+                <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center" colspan="2">Jenis</th>
+                <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Mcm</th>
+                <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Qty</th>
+                <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% function groupDataByNoSPK(data) { %}
+                {% var groupedData = {}; %}
+                {% for (var i = 0; i < data.length; i++) { %}
+                    {% var row = data[i]; %}
+                    {% var noSPK = row["name"]; %}
+                    {% if (!groupedData[noSPK]) { %}
+                        {% groupedData[noSPK] = []; %}
+                    {% } %}
+                {% groupedData[noSPK].push(row); %}
+                {% } %}
+                {% return groupedData; %}
+            {% } %}
+            {% var groupedData = groupDataByNoSPK(data); %}
+            {% var no_spk %}
+            {% var keys = Object.keys(groupedData); %}
+            {% var lastKey = keys[keys.length - 1]; %}
+            {% for (var noSPK in groupedData) { %}
+            {% var group = groupedData[noSPK]; %}
+            {% if (noSPK === lastKey) { %}
+                <tr>
+                    <td colspan="5" style="border-bottom:1px solid black !important;">&nbsp;</td>
+                </tr>
+            {% }else{ %}
+                {% for (var i = 0; i < group.length; i++) { %}
+                    {% var rowData = group[i]; %}
+                    {% if(no_spk == ""){ %}
+                    {% no_spk = rowData["name"] %}
+                    <tr>
+                        <td colspan="5"  style="border-top:1px solid black !important;">
+                            <table>
+                                <tr>
+                                    <td>No SPK</td>
+                                    <td>:</td>
+                                    <td>{{rowData["name"]}}</td>
+                                    <td></td>
+                                    <td>Kadar</td>
+                                    <td>:</td>
+                                    <td>{{rowData["kadar"]}}</td>
+                                    <td></td>
+                                    <td>Tanggal</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_spk"]}}</td>
+                                    <td></td>
+                                    <td>Bulan</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_spk"]}}</td>
+                                    <td></td>
+                                    <td>Tgl Mkt</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_order"]}}</td>
+                                    <td></td>
+                                    <td>Dibutuhkan</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_order"]}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{rowData["sub_kategori"]}}</td>
+                            <td>{{rowData["produk_id"]}}</td>
+                            <td>1</td>
+                            <td>{{rowData["qty"]}}</td>
+                            <td></td>
+                        </tr>
+                    {% }else if(no_spk != rowData["name"]){ %}
+                    {% no_spk = rowData["name"] %}
+                    <tr>
+                        <td colspan="5" style="border-top:1px solid black !important;">
+                            <table>
+                                <tr>
+                                    <td>No SPK</td>
+                                    <td>:</td>
+                                    <td>{{rowData["name"]}}</td>
+                                    <td></td>
+                                    <td>Kadar</td>
+                                    <td>:</td>
+                                    <td>{{rowData["kadar"]}}</td>
+                                    <td></td>
+                                    <td>Tanggal</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_spk"]}}</td>
+                                    <td></td>
+                                    <td>Bulan</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_spk"]}}</td>
+                                    <td></td>
+                                    <td>Tgl Mkt</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_order"]}}</td>
+                                    <td></td>
+                                    <td>Dibutuhkan</td>
+                                    <td>:</td>
+                                    <td>{{rowData["tanggal_order"]}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{rowData["sub_kategori"]}}</td>
+                            <td>{{rowData["produk_id"]}}</td>
+                            <td>1</td>
+                            <td>{{rowData["qty"]}}</td>
+                            <td></td>
+                        </tr>
+                    {% }else{ %}
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{rowData["sub_kategori"]}}</td>
+                        <td>{{rowData["produk_id"]}}</td>
+                        <td>1</td>
+                        <td>{{rowData["qty"]}}</td>
+                        <td></td>
+                    </tr>
+                    {% } %}
+                {% } %}
+                {% } %}
+            {% } %}
+        </tbody>
+    </table>
+</div>

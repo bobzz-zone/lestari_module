@@ -14,15 +14,15 @@ frappe.query_reports["Rekap SPK Produksi"] = {
 		{
 			"fieldname":"form_order",
 			"label": __("No FO"),
-			"fieldtype": "Link",
+			"fieldtype": "Data",
 			"options": "Form Order",
 			// "reqd": 1
 		},
 		{
 			"fieldname":"type",
 			"label": __("Type"),
-			"fieldtype": "Select",
-			"options": ['','STA','STP','STO','Customer'],
+			"fieldtype": "Data",
+			// "options": ['','STA','STP','STO','Customer'],
 			// "reqd": 1
 		},{
 			"fieldname":"from_date",
