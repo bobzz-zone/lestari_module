@@ -107,7 +107,7 @@ def get_gl_entries(filters):
 			ifnull(gl.against,gl.voucher_type) as lawan,
 			gl.cost_center,
 			gl.remarks as keterangan, gl.account as account, gl.against as against,
-			gl.debit as credit, gl.credit as debit,
+			gl.debit , gl.credit,
 			gl.voucher_type, gl.voucher_no
 			FROM `tabGL Entry` gl 
 		WHERE gl.is_cancelled = 0
