@@ -9,6 +9,8 @@ function run_writeoff_sisa(frm){
 		frm.doc.unallocated_payment=0;
 		refresh_field("write_off");
 		refresh_field("unallocated_payment");
+		frm.doc.total_sisa_invoice=0;
+		refresh_field("total_sisa_invoice");
 	}
 	if(frm.doc.unallocated_idr_payment>0){
 		frm.doc.write_off_idr=frm.doc.write_off_idr-frm.doc.unallocated_idr_payment;
