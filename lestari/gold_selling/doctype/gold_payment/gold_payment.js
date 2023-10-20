@@ -49,7 +49,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 	refresh_field("total_pajak");
 	refresh_field("total_invoice");
 	//frappe.model.set_value(cdt, cdn,"allocated",0);
-	frm.doc.discount_amount=frm.doc.bruto_discount/100*frm.doc.discount;
+	frm.doc.discount_amount=Math.floor((frm.doc.bruto_discount/100*frm.doc.discount)*1000)/1000;
 	refresh_field("discount_amount");
 }
 function calculate_table_invoice_alo(frm,cdt,cdn){
@@ -182,7 +182,7 @@ frappe.ui.form.on('Gold Payment', {
 		if (frm.doc.discount<0){
 			return
 		}
-		frm.doc.discount_amount=frm.doc.bruto_discount*frm.doc.discount/100;
+		frm.doc.discount_amount=Math.floor((frm.doc.bruto_discount/100*frm.doc.discount)*1000)/1000;
 		refresh_field("discount_amount");
 		refresh_total_and_charges(frm);
 	},
@@ -196,7 +196,7 @@ frappe.ui.form.on('Gold Payment', {
 				disc=disc+(g.total_bruto/100*frm.doc.discount);
 			}
 		});*/
-		frm.doc.discount_amount=frm.doc.bruto_discount*frm.doc.discount/100;
+		frm.doc.discount_amount=Math.floor((frm.doc.bruto_discount/100*frm.doc.discount)*1000)/1000;
 		refresh_field("discount_amount");
 		refresh_total_and_charges(frm);
 	},
