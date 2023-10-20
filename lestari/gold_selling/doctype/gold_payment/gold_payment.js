@@ -126,7 +126,8 @@ function calculate_table_idr(frm,cdt,cdn){
 		total=total+g.amount;
 	});
 	frm.doc.total_idr_payment=total;
-	frm.doc.total_idr_gold=total/frm.doc.tutupan;
+	frm.doc.total_idr_gold=Math.floor(total/frm.doc.tutupan*1000)/1000;;
+
 	refresh_field("total_idr_payment");
 	refresh_field("total_idr_gold");
 	//calculate total payment
@@ -347,7 +348,7 @@ frappe.ui.form.on('Gold Payment', {
 	},
 	tutupan:function(frm){
 		cur_frm.get_field("tutupan").set_focus()
-		frm.doc.total_idr_gold=frm.doc.total_idr_payment/frm.doc.tutupan;
+		frm.doc.total_idr_gold=Math.floor(frm.doc.total_idr_payment/frm.doc.tutupan*1000)/1000;
 		refresh_field("total_idr_payment");
 		refresh_field("total_idr_gold");
 		//calculate total payment
