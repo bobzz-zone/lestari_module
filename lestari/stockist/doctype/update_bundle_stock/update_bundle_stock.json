@@ -266,7 +266,6 @@
   {
    "fieldname": "total_per_kadar_section",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Total Per Kadar"
   },
   {
@@ -316,7 +315,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-05 13:04:41.566010",
+ "modified": "2023-09-25 16:28:13.810315",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",

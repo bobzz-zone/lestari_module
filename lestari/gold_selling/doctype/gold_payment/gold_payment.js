@@ -500,7 +500,7 @@ frappe.ui.form.on('Stock Payment', {
 			args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
 			callback: function (r){
 				frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
-				frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
+				frappe.model.set_value(cdt, cdn,"amount",Math.floor(parseFloat(r.message.nilai)*d.qty*10)/1000);
 				var total=0;
 				$.each(frm.doc.stock_payment,  function(i,  g) {
 					total=total+g.amount;
@@ -517,12 +517,14 @@ frappe.ui.form.on('Stock Payment', {
 	},
 	qty:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+		console.log((((d.rate*d.qty)*10)/1000).toFixed(3))
+		frappe.model.set_value(cdt, cdn,"amount",(Math.floor((d.rate*d.qty)*10)/1000));
 		calculate_table_stock(frm,cdt,cdn)
 	},
 	rate:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+		console.log((((d.rate*d.qty)*10)/1000).toFixed(3))
+		frappe.model.set_value(cdt, cdn,"amount",(Math.floor((d.rate*d.qty)*10)/1000));
 		calculate_table_stock(frm,cdt,cdn)
 	},
 	stock_payment_remove:function(frm,cdt,cdn){

@@ -3,17 +3,29 @@ frappe.pages['spk-ppic-list'].on_page_load = function(wrapper) {
 }
 DevExtreme = Class.extend({
 	init: function(wrapper){
+		var me = this
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
-			title: 'SPK PPIC',
+			title: 'SPK PRODUKSI',
 			single_column: true
 		});
 		this.list_spk = []
+		this.posting_date = ""
 		// this.page.add_inner_button('Update Posts', () => update_posts())
 		// this.page.change_inner_button_type('Update Posts', null, 'primary');
-		this.page.set_primary_action('Buat SPK PPIC', () => this.submit(), { icon: 'add', size: 'sm'})
+		this.page.set_primary_action('Buat SPK PRODUKSI', () => this.submit(), { icon: 'add', size: 'sm'})
 		this.page.set_secondary_action('Refresh', () => this.make(), { icon: 'refresh', size: 'sm'})
-		this.page.add_inner_button('List SPK PPIC', () => frappe.set_route(['List', 'SPK Produksi']))
+		this.page.add_inner_button('List SPK PRODUKSI', () => frappe.set_route(['List', 'SPK Produksi']))
+		this.page.add_field({"fieldtype": "Date", "fieldname": "posting_date","default": "Today",
+			"label": __("Posting Date"), "reqd": 1,
+			change: function() {
+				me.posting_date = this.value;
+				// console.log(this.posting_date) /// ini kenapa ga ke baca yak waktu di submit padahal di console log disini keluar
+				// console.log(this.list_spk)
+				// me.get_data();
+			}
+		}),
+
 		// this.page.set_secondary_action(
 		// 	__('Buat SPK Produksi'),
 		// 	() => this.show_user_search_dialog(),
@@ -102,6 +114,7 @@ DevExtreme = Class.extend({
 				format: 'date',
 				alignment: 'right',
 				caption: 'Posting Date',
+				sortOrder: 'desc',
 				// width: 110,
 				
 			  },{
@@ -151,8 +164,8 @@ DevExtreme = Class.extend({
 				if(e.currentDeselectedRowKeys[0] != null){
 					me.list_spk = me.list_spk.filter(data => data != e.currentDeselectedRowKeys[0])
 				}
-				console.log(e)
-				console.log(me.list_spk)
+				// console.log(e)
+				// console.log(me.list_spk)
 			  },
 			  summary: {
 				totalItems: [{
@@ -220,12 +233,13 @@ DevExtreme = Class.extend({
 		return data
 	},
 	submit: function(){
-		// console.log(this.list_spk)
 		var me = this
+		// console.log("test"+me.posting_date) // disini keluar test doang masih kosong
 		frappe.call({
 			method: 'lestari.lestari.page.spk_ppic_list.spk_ppic_list.make_spk_ppic',
 			args: {
-				'data': this.list_spk
+				'data': this.list_spk,
+				'posting_date': me.posting_date // disini kosong why???
 			},
 			callback: function(){
 				me.make()

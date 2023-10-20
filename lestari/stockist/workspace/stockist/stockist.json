@@ -3,7 +3,7 @@
  "charts": [],
  "creation": "2023-03-23 11:27:29.541986",
  "developer_mode_only": 0,
- "disable_user_customization": 1,
+ "disable_user_customization": 0,
  "docstatus": 0,
  "doctype": "Workspace",
  "extends_another_page": 0,
@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-08-31 12:40:03.933042",
+ "modified": "2023-10-02 11:19:09.241567",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Stockist",
@@ -45,48 +45,6 @@
    "type": "Report"
   },
   {
-   "doc_view": "New",
-   "label": "Transfer Stockist ke PCB",
-   "link_to": "Transfer Stockist",
-   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke PCB\"\r\n}",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "New",
-   "label": "Transfer PCB ke Stockist",
-   "link_to": "Transfer Stockist",
-   "stats_filter": "{\r\n    \"transfer\": \"Transfer PCB ke Stockist\"\r\n}",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "New",
-   "label": "Transfer Stockist ke Barang Lama",
-   "link_to": "Transfer Stockist",
-   "stats_filter": "    {\n        \"transfer\":\"Transfer Stockist ke Barang Lama\"\n    }",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "New",
-   "label": "Transfer Barang Lama ke Stockist",
-   "link_to": "Transfer Stockist",
-   "stats_filter": "{\r\n    \"transfer\": \"Transfer Barang Lama ke Stockist\"\r\n}",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "New",
-   "label": "Transfer Stockist ke Produksi",
-   "link_to": "Transfer Stockist",
-   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Produksi\"\r\n}",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "List Transfer Stockist",
-   "link_to": "Transfer Stockist",
-   "stats_filter": "{\n    \"docstatus\": 0\n}",
-   "type": "DocType"
-  },
-  {
    "doc_view": "List",
    "label": "Form Order",
    "link_to": "Form Order",
@@ -97,6 +55,19 @@
    "label": "Rekap Form Order",
    "link_to": "Rekap Form Order",
    "type": "Report"
+  },
+  {
+   "doc_view": "List",
+   "label": "Rekap Aktivitas Sales",
+   "link_to": "Rekap Aktivitas Sales",
+   "stats_filter": "",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Transfer Barang Jadi",
+   "link_to": "Transfer Barang Jadi",
+   "type": "DocType"
   }
  ]
 }

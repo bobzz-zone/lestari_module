@@ -29,6 +29,13 @@ frappe.ui.form.on("Gold Invoice", {
 			]
 		}
 	});
+	frm.set_query("category","items", function(){
+		return {
+			"filters": [
+				["Gold Selling Item","Enable", "=", "1"],
+			]
+		}
+	});
 		frm.events.make_custom_buttons(frm);
 		if (!cur_frm.doc.tutupan) {
 			frappe.call({
@@ -113,10 +120,40 @@ frappe.ui.form.on("Gold Invoice", {
 		
 	},
 	ppn: function (frm){
-		sebelum_pajak(frm)
+		var ppn_rate=110;
+		var pph_rate=25;
+		if(frm.doc.is_skb==1){
+			pph_rate=0;
+		}else if (!frm.doc.tax_id){
+			ppn_rate=165;
+			pph_rate=0;
+		}
+		// frm.doc.ppn=Math.floor(frm.doc.total_sebelum_pajak * ppn_rate / 10000);
+		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		frm.doc.sisa_pajak=frm.doc.total_pajak;
+		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
+		console.log(frm.doc.total_pajak)
+		refresh_field("total_pajak");
+		refresh_field("sisa_pajak");
+		refresh_field("total_setelah_pajak");	
 	},
 	pph: function (frm){
-		sebelum_pajak(frm)
+		var ppn_rate=110;
+		var pph_rate=25;
+		if(frm.doc.is_skb==1){
+			pph_rate=0;
+		}else if (!frm.doc.tax_id){
+			ppn_rate=165;
+			pph_rate=0;
+		}
+		// frm.doc.pph=Math.floor(frm.doc.total_sebelum_pajak * pph_rate / 10000);
+		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		frm.doc.sisa_pajak=frm.doc.total_pajak;
+		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
+		console.log(frm.doc.total_pajak)
+		refresh_field("total_pajak");
+		refresh_field("sisa_pajak");
+		refresh_field("total_setelah_pajak");	
 	},
 	total_sebelum_pajak: function (frm){
 		sebelum_pajak(frm)
@@ -149,11 +186,11 @@ function sebelum_pajak(frm){
 		refresh_field("total_setelah_pajak");
 }
 function hitung_ppn(ppn_rate, frm){
-	frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
+	frm.doc.ppn=Math.floor(cur_frm.doc.total_sebelum_pajak * ppn_rate / 10000);
 	refresh_field("ppn");
 }
 function hitung_pph(pph_rate, frm){
-	frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
+	frm.doc.pph=Math.floor(cur_frm.doc.total_sebelum_pajak * pph_rate / 10000);
 	refresh_field("pph");
 }
 function hitung_pajak(frm){

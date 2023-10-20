@@ -44,7 +44,7 @@
    "fieldtype": "Percent",
    "in_list_view": 1,
    "label": "Percent",
-   "precision": "2",
+   "precision": "3",
    "reqd": 1
   },
   {
@@ -105,7 +105,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-09-12 15:13:04.219294",
+ "modified": "2023-10-02 09:15:38.941952",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice Item",

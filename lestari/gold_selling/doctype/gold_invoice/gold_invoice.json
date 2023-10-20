@@ -68,10 +68,9 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "hidden": 1,
    "label": "Kode Seri",
    "no_copy": 1,
-   "options": "GINV-.YYYY.-",
+   "options": "#####/#M#/#Y#",
    "print_hide": 1
   },
   {
@@ -260,8 +259,7 @@
   {
    "fieldname": "no_invoice",
    "fieldtype": "Data",
-   "label": "No Invoice",
-   "reqd": 1
+   "label": "No Invoice"
   },
   {
    "fieldname": "add_bruto",
@@ -377,42 +375,49 @@
    "label": "Contact And Address"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "contact_address",
    "fieldtype": "Link",
    "label": "Contact Address",
    "options": "Address"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "customer.tax_id",
    "fieldname": "tax_id",
    "fieldtype": "Read Only",
    "label": "Tax ID"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "contact_address.address_line1",
    "fieldname": "alamat",
    "fieldtype": "Small Text",
    "label": "Alamat"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "contact_address.city",
    "fieldname": "kota",
    "fieldtype": "Data",
    "label": "Kota"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "contact_address.state",
    "fieldname": "provinsi",
    "fieldtype": "Data",
    "label": "Provinsi"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "contact_address.country",
    "fieldname": "negara",
    "fieldtype": "Data",
    "label": "Negara"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "contact_address.pincode",
    "fieldname": "kode_pos",
    "fieldtype": "Data",
@@ -425,7 +430,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-12 15:12:42.971766",
+ "modified": "2023-10-05 11:15:04.785013",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
@@ -447,7 +452,5 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC",
- "track_changes": 1,
- "track_seen": 1
+ "sort_order": "DESC"
 }

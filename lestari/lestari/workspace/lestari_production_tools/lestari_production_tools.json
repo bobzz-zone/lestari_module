@@ -34,7 +34,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "PPIC",
+   "label": "PRODUKSI",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -42,7 +42,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "SPK PPIC",
+   "label": "SPK PRODUKSI",
    "link_to": "spk-ppic-list",
    "link_type": "Page",
    "onboard": 0,
@@ -51,7 +51,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "SPK PPIC List",
+   "label": "SPK PRODUKSI List",
    "link_to": "SPK Produksi",
    "link_type": "DocType",
    "onboard": 0,
@@ -84,7 +84,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-08-16 16:27:06.032870",
+ "modified": "2023-10-02 15:25:40.430080",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Lestari Production Tools",

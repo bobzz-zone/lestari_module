@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-26 15:19:06.010278",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sales",
+  "pendamping",
+  "column_break_3",
+  "bundle",
+  "get_details",
+  "detail_aktivitas_section",
+  "detail",
+  "total_section",
+  "total_barang_dibawa",
+  "total_barang_terjual",
+  "column_break_10",
+  "sisa_barang",
+  "lebih_kurang"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner"
+  },
+  {
+   "fetch_from": "bundle.pendamping",
+   "fieldname": "pendamping",
+   "fieldtype": "Link",
+   "label": "Pendamping",
+   "options": "Sales Partner",
+   "read_only": 1
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "detail_aktivitas_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Aktivitas"
+  },
+  {
+   "fieldname": "detail",
+   "fieldtype": "Table",
+   "label": "Detail",
+   "options": "Rekap Aktivitas Sales Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_section",
+   "fieldtype": "Section Break",
+   "label": "Total"
+  },
+  {
+   "fieldname": "total_barang_dibawa",
+   "fieldtype": "Float",
+   "label": "Total Barang Dibawa"
+  },
+  {
+   "fieldname": "total_barang_terjual",
+   "fieldtype": "Float",
+   "label": "Total Barang Terjual"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sisa_barang",
+   "fieldtype": "Float",
+   "label": "Sisa Barang"
+  },
+  {
+   "fieldname": "lebih_kurang",
+   "fieldtype": "Float",
+   "label": "Lebih / Kurang"
+  },
+  {
+   "fieldname": "get_details",
+   "fieldtype": "Button",
+   "label": "Get Details",
+   "options": "get_details"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-09-27 14:24:49.561110",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Rekap Aktivitas Sales",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Gold Selling",
  "links": [],
- "modified": "2023-09-14 10:51:46.148280",
+ "modified": "2023-10-02 10:13:47.741288",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -75,6 +75,12 @@
    "label": "Report Gold Invoice",
    "link_to": "Rekap Gold Invoice",
    "type": "Report"
+  },
+  {
+   "doc_view": "List",
+   "label": "Customer",
+   "link_to": "Customer",
+   "type": "DocType"
   }
  ]
 }

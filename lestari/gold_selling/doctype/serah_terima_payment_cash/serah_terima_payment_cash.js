@@ -7,6 +7,15 @@ frappe.ui.form.on('Serah Terima Payment Cash', {
 		frm.set_df_property("details", "cannot_add_rows", true);
 		frm.set_df_property("details", "cannot_delete_rows", true);
 	  },
+	sales: function (frm){
+		frm.set_query("bundle", function(){
+			return {
+				"filters": [
+					["Sales Stock Bundle", "sales", "=", frm.doc.sales],
+				]
+			}
+		});
+	}
 });
 frappe.ui.form.on("Serah Terima Payment Cash Deposit", {
 	// refresh: function(frm) {

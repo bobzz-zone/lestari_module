@@ -7,32 +7,36 @@ from frappe.model.document import Document
 class SerahTerimaPaymentCash(Document):
 	@frappe.whitelist()
 	def get_payment(self):
-		payment = frappe.get_list('IDR Payment',filters={'docstatus': 1, 'mode_of_payment':"Cash",'is_done':["<",1]}, fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
+		# payment = frappe.get_list('IDR Payment',filters={'docstatus': 1, 'mode_of_payment':"Cash",'is_done':["<",1], 'sales_bundle':self.bundle}, fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
+		payment = frappe.get_list('Gold Payment',filters={'docstatus': 1,'sales_bundle':self.bundle})
 		total_cash = 0
 		for row in payment:
-			# frappe.msgprint(row)
-			total_cash += row.amount
-			payment_baru = {
-				'mode_of_payment': row.mode_of_payment,
-				'amount': row.amount,
-				'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
-				'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
-				'voucher_type':row.parenttype,
-				'voucher_no':row.parent,
-				'child_table':"IDR Payment",
-				'child_id':row.name
-			}
-			self.append('payment',payment_baru)
-			# baris_baru = {
-			# 	'amount':row.amount,
-			# 	'voucher_type':row.parenttype,
-			# 	'voucher_no':row.parent,
-			# 	'child_table':"Stock Payment",
-			# 	'child_id':row.name
-			# }
-			# frappe.msgprint(baris_baru)
-			# self.append('details',baris_baru)
-		self.nilai_cash = total_cash
+			doc = frappe.get_doc("Gold Payment", row)
+			for col in doc.idr_payment:
+				if col.mode_of_payment == "Cash":
+					if col.is_done != 1:
+						total_cash += col.amount
+						payment_baru = {
+							'mode_of_payment': col.mode_of_payment,
+							'amount': col.amount,
+							'customer': frappe.get_value(col.parenttype, col.parent, 'customer'),
+							'deposit_account': frappe.get_doc('Mode of Payment', col.mode_of_payment).accounts[0].default_account,
+							'voucher_type':col.parenttype,
+							'voucher_no':col.parent,
+							'child_table':"IDR Payment",
+							'child_id':col.name
+						}
+						self.append('payment',payment_baru)
+						# baris_baru = {
+						# 	'amount':col.amount,
+						# 	'voucher_type':col.parenttype,
+						# 	'voucher_no':col.parent,
+						# 	'child_table':"Stock Payment",
+						# 	'child_id':col.name
+						# }
+						# frappe.msgprint(baris_baru)
+						# self.append('details',baris_baru)
+					self.nilai_cash = total_cash
 	def on_submit(self):
 		je = frappe.new_doc('Journal Entry')
 		je.voucher_type = "Journal Entry"

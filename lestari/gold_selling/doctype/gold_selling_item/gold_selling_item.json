@@ -9,7 +9,8 @@
  "field_order": [
   "kadar",
   "item_group",
-  "income_account"
+  "income_account",
+  "enable"
  ],
  "fields": [
   {
@@ -34,11 +35,17 @@
    "label": "Income Account",
    "options": "Account",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "enable",
+   "fieldtype": "Check",
+   "label": "Enable"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-01 22:40:51.221879",
+ "modified": "2023-09-30 13:06:58.181934",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Item",

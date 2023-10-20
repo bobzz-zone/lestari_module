@@ -36,23 +36,23 @@ frappe.ui.form.on('Transfer Barang Jadi Item', {
 		frm.refresh_field("total_berat")
 	},
 	no_spk: function(frm, cdt, cdn){
-		var d = locals[cdt][cdn]
-		frappe.call({
-			method: 'lestari.lestari.doctype.transfer_barang_jadi.transfer_barang_jadi.get_spk_ppic',
-			args: {
-				'no_spk': d.no_spk,
-				'kadar': frm.doc.kadar
-			},
-			callback: function(r) {
-				if (!r.exc) {
-					console.log(r.message)
-					d.kadar = r.message.kadar
-					d.sub_kategori = r.message.sub_kategori
-					d.no_fo = r.message.no_fo
-					cur_frm.refresh_field("items")
-				}
-			}
-		});
+		// var d = locals[cdt][cdn]
+		// frappe.call({
+		// 	method: 'lestari.lestari.doctype.transfer_barang_jadi.transfer_barang_jadi.get_spk_ppic',
+		// 	args: {
+		// 		'no_spk': d.no_spk,
+		// 		'kadar': frm.doc.kadar
+		// 	},
+		// 	callback: function(r) {
+		// 		if (!r.exc) {
+		// 			console.log(r.message)
+		// 			d.kadar = r.message.kadar
+		// 			d.sub_kategori = r.message.sub_kategori
+		// 			d.no_fo = r.message.no_fo
+		// 			cur_frm.refresh_field("items")
+		// 		}
+		// 	}
+		// });
 	},
 	qty: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn]

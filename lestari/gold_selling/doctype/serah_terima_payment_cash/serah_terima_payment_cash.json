@@ -9,6 +9,7 @@
  "field_order": [
   "posting_date",
   "sales",
+  "bundle",
   "nilai_cash",
   "get_payment",
   "payment",
@@ -33,7 +34,8 @@
   {
    "fieldname": "nilai_cash",
    "fieldtype": "Currency",
-   "label": "Nilai Cash"
+   "label": "Nilai Cash",
+   "read_only": 1
   },
   {
    "fieldname": "keterangan",
@@ -60,12 +62,19 @@
    "fieldtype": "Table",
    "label": "Payment",
    "options": "Serah Terima Payment Cash Deposit"
+  },
+  {
+   "depends_on": "eval: doc.sales",
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Sales Stock Bundle"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-17 12:15:06.256856",
+ "modified": "2023-09-27 12:50:54.134895",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",

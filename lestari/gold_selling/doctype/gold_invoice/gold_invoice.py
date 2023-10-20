@@ -5,16 +5,20 @@ from datetime import datetime
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from frappe.utils import flt
 from frappe.model.naming import getseries
+from frappe.model.naming import make_autoname
 
 class GoldInvoice(Document):
 	def autoname(self):
+		roman_list = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
 		post_date = datetime.strptime(self.posting_date, '%Y-%m-%d')
 		year = "{}".format(post_date.year)
-		roman_list = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
-		prefix = "{0}/{1}/{2}".format(self.no_invoice,roman_list[post_date.month],year)
-		# self.name = getseries(prefix,3)
-		# self.name="dendro"
-		self.name = prefix
+		if not self.no_invoice:
+			naming_series = self.naming_series
+			naming_series = naming_series.replace("#####", getseries(self.naming_series,5)).replace("#M#", roman_list[post_date.month]).replace("#Y#",year)
+			# frappe.throw(naming_series)
+		else:
+			naming_series = "{0}/{1}/{2}".format(self.no_invoice,roman_list[post_date.month],year)
+		self.name = naming_series
 
 	def validate(self):
 		if(self.no_invoice):
@@ -60,6 +64,16 @@ class GoldInvoice(Document):
 			frappe.throw(str(self.outstanding))
 		else:
 			self.make_gl_entries()
+
+	def on_trash(self):
+			frappe.db.sql(
+				"delete from `tabGL Entry` where voucher_type=%s and voucher_no=%s", (self.doctype, self.name)
+			)
+			frappe.db.sql(
+				"delete from `tabStock Ledger Entry` where voucher_type=%s and voucher_no=%s",
+				(self.doctype, self.name),
+			)
+			
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
