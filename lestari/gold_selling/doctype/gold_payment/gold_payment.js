@@ -252,7 +252,7 @@ frappe.ui.form.on('Gold Payment', {
 				idr_to_gold=parseFloat(idr_to_gold).toFixed(3);
 			}
 			// var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
-			var saldo_gold=frm.doc.unallocated_payment;
+			var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			var need_to= parseFloat(saldo_gold) + parseFloat(idr_to_gold);
 			//frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			// console.log(need_to)
