@@ -49,7 +49,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 	refresh_field("total_pajak");
 	refresh_field("total_invoice");
 	//frappe.model.set_value(cdt, cdn,"allocated",0);
-	frm.doc.discount_amount=frm.doc.bruto_discount/100*frm.doc.discount;
+	frm.doc.discount_amount=(frm.doc.bruto_discount/100*frm.doc.discount).toFixed(3);
 	refresh_field("discount_amount");
 }
 function calculate_table_invoice_alo(frm,cdt,cdn){
