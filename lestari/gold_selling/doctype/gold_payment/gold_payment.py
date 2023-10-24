@@ -375,9 +375,10 @@ class GoldPayment(StockController):
 			else:
 				if gl[row]["account"] not in against_debit:
 					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
+		#roundoff=self.write_off_total
 		round_off_same_coa=False
 		value_determine=0
-		if (roundoff>1/1000 or roundoff < -1/1000) and self.write_off!=0:
+		if (roundoff>1/1000 or roundoff < -1/1000) and self.write_off_total!=0:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			#add roundoff if coa sama
 			round_off_same_coa=self.write_off_account==roundoff_coa
