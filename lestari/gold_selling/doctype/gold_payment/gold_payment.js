@@ -521,7 +521,7 @@ frappe.ui.form.on('Stock Payment', {
 	qty:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
 		//console.log((((d.rate*d.qty)*10)/1000).toFixed(3))
-		alert("Rate "+d.rate+ " | Qty "+d.qty);
+		console.log("Rate "+d.rate+ " | Qty "+d.qty + "Hasil floor " + Math.floor((d.rate*d.qty)*10));
 		frappe.model.set_value(cdt, cdn,"amount",(Math.floor((d.rate*d.qty)*10)/1000));
 		//frappe.model.set_value(cdt, cdn,"amount",(((d.rate*d.qty)*10)/1000).toFixed(3));
 		calculate_table_stock(frm,cdt,cdn)
