@@ -25,7 +25,7 @@ function run_writeoff_sisa(frm){
 		frm.doc.write_off=frm.doc.write_off-frm.doc.total_sisa_invoice;
 		frm.doc.write_off=Math.floor(frm.doc.write_off*1000)/1000;
 		refresh_field("write_off");
-		//frm.doc.total_sisa_invoice=0
+		frm.doc.total_sisa_invoice=0
 	}
 	$.each(frm.doc.invoice_table,  function(i,  g) {
 		frappe.model.set_value(g.doctype, g.name, "allocated", g.outstanding);
