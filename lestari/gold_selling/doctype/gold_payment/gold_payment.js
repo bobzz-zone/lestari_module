@@ -263,7 +263,7 @@ frappe.ui.form.on('Gold Payment', {
 			if (sisa_invoice <0){
 				sisa_invoice=0
 			}
-			cur_frm.set_value("total_sisa_invoice",sisa_invoice);
+			cur_frm.set_value("total_sisa_invoice",Math.floor(sisa_invoice*1000)/1000);
 			refresh_field("total_sisa_invoice");
 			need_to = parseFloat(need_to).toFixed(3);
 			var total_alo=0;
