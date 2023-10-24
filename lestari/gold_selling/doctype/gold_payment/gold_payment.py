@@ -369,7 +369,7 @@ class GoldPayment(StockController):
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
 		round_off_same_coa=False
 		value_determine=0
-		if roundoff>1/1000 or roundoff < -1/1000 and self.write_off!=0:
+		if (roundoff>1/1000 or roundoff < -1/1000) and self.write_off!=0:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			#add roundoff if coa sama
 			round_off_same_coa=self.write_off_account==roundoff_coa
