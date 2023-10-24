@@ -73,6 +73,7 @@
                 <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Kadar</th>
                 <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Qty</th>
                 <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Berat</th>
+                <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Total Berat</th>
                 <th style="background-color:#fff !important; border-bottom:2px solid black !important; border-top:1px solid black !important"  class="text-center">Sub Kategori</th>
             </tr>
         </thead>
@@ -80,6 +81,7 @@
             {% if(data.length > 0){ %}
             {%  for(var i=0, l=data.length; i<l; i++){ %}
                 {% let berat = data[i].berat %}
+                {% let total_berat = data[i].total_berat %}
                 {% if(i==data.length-1){ %}
                 {% const date = new Date(); %}
                 {% let day = date.getDate(); %}
@@ -91,7 +93,9 @@
                 <tr>
                     <td style="border-top:2px solid black !important;" class="text-left" colspan="5">Dicetak : {{currentDate}}</td>
                     <td style="border-top:2px solid black !important;" class="text-center">{{data[i].qty}}</td>
-                    <td style="border-top:2px solid black !important;" class="text-center">{{berat.toFixed(3)}}</td>
+                    <!-- <td style="border-top:2px solid black !important;" class="text-center">{{berat.toFixed(3)}}</td> -->
+                    <td style="border-top:2px solid black !important;" class="text-center">&nbsp;</td>
+                    <td style="border-top:2px solid black !important;" class="text-center">{{total_berat.toFixed(3)}}</td>
                     <td style="border-top:2px solid black !important;" class="text-center">{{data[i].sub_kategori}}</td>
                 </tr>
                 {% }else{ %}
@@ -111,8 +115,10 @@
                         <td class="text-center">{{data[i].qty}}</td>
                         {% if(berat > 0) { %}
                         <td class="text-center">{{berat.toFixed(3)}}</td>
+                        <td class="text-center">{{total_berat.toFixed(3)}}</td>
                         {% }else{ %}
                         <td class="text-center">{{berat}}</td>
+                        <td class="text-center">{{total_berat}}</td>
                         {% } %}
                         <td class="text-center">{{data[i].sub_kategori}}</td>
                     </tr>

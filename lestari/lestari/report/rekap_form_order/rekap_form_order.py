@@ -66,6 +66,12 @@ def execute(filters=None):
             "fieldtype": "Float",
             "width": 120
         },
+        {
+            "label": _("Total Berat"),
+            "fieldname": "total_berat",
+            "fieldtype": "Float",
+            "width": 120
+        },
     ]
 
     conditions = " AND `tabForm Order`.posting_date BETWEEN %(from_date)s AND %(to_date)s"
@@ -93,7 +99,8 @@ def execute(filters=None):
             `tabForm Order`.sub_kategori,
             `tabForm Order Item`.model,
             `tabForm Order Item`.qty,
-            `tabForm Order Item`.berat
+            `tabForm Order Item`.berat,
+            `tabForm Order Item`.berat * `tabForm Order Item`.qty as total_berat
         FROM
             `tabForm Order`
         LEFT JOIN `tabForm Order Item` ON `tabForm Order`.name = `tabForm Order Item`.parent
