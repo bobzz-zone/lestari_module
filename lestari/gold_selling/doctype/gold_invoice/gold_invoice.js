@@ -211,7 +211,7 @@ function hitung_pajak(frm){
 		$.each(frm.doc.items, function (i, g) {
 			total = total + g.jumlah;
 		}); 
-		frm.doc.total_sebelum_pajak=total;
+		frm.doc.total_sebelum_pajak=Math.floor(total*1000)/1000;
 		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=frm.doc.total_pajak;
