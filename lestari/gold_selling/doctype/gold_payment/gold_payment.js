@@ -253,7 +253,6 @@ frappe.ui.form.on('Gold Payment', {
 				idr_to_gold = (frm.doc.unallocated_idr_payment/frm.doc.tutupan);
 				idr_to_gold=parseFloat(idr_to_gold).toFixed(3);
 			}
-			frappe.msgprint("IDR To Gold "+idr_to_gold);
 			// var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			var need_to= parseFloat(saldo_gold) + parseFloat(idr_to_gold);
