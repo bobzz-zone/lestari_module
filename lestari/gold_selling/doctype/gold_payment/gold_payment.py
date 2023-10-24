@@ -367,6 +367,14 @@ class GoldPayment(StockController):
 		
 		#	debit=debit+(self.discount_amount*self.tutupan)
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
+		for row in gl:
+			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
+			if gl[row]["debit"]>0:
+				if gl[row]["account"] not in against_credit:
+					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+			else:
+				if gl[row]["account"] not in against_debit:
+					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		round_off_same_coa=False
 		value_determine=0
 		if (roundoff>1/1000 or roundoff < -1/1000) and self.write_off!=0:
@@ -413,14 +421,6 @@ class GoldPayment(StockController):
 		# 			else:
 		# 				gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
 		#roundoff=0
-		for row in gl:
-			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
-			if gl[row]["debit"]>0:
-				if gl[row]["account"] not in against_credit:
-					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
-			else:
-				if gl[row]["account"] not in against_debit:
-					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		#add roundoff
 		if roundoff>1/1000 or roundoff < -1/1000 and not round_off_same_coa:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
