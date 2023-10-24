@@ -23,12 +23,13 @@ function run_writeoff_sisa(frm){
 			frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 		}
 		frm.doc.write_off=frm.doc.write_off-frm.doc.total_sisa_invoice;
+		frm.doc.write_off=Math.floor(frm.doc.write_off*1000)/1000;
 		refresh_field("write_off");
 		//frm.doc.total_sisa_invoice=0
 	}
-	/*$.each(frm.doc.invoice_table,  function(i,  g) {
+	$.each(frm.doc.invoice_table,  function(i,  g) {
 		frappe.model.set_value(g.doctype, g.name, "allocated", g.outstanding);
-	});*/
+	});
 	frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
 	refresh_field("write_off_total");
 	refresh_total_and_charges(frm);
