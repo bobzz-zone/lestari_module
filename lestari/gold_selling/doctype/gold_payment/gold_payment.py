@@ -367,34 +367,11 @@ class GoldPayment(StockController):
 		
 		#	debit=debit+(self.discount_amount*self.tutupan)
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
-		for row in gl:
-			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
-			if gl[row]["debit"]>0:
-				if gl[row]["account"] not in against_credit:
-					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+		if self.write_off!=0:
+			if self.write_off<0:
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off_total*-1,0,fiscal_years)
 			else:
-				if gl[row]["account"] not in against_debit:
-					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
-		#roundoff=self.write_off_total
-		round_off_same_coa=False
-		value_determine=0
-		if (roundoff>1/1000 or roundoff < -1/1000) and self.write_off_total!=0:
-			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
-			#add roundoff if coa sama
-			round_off_same_coa=self.write_off_account==roundoff_coa
-		if round_off_same_coa:
-			# if roundoff<0:
-			# 	added_d=roundoff*-1
-			# else:
-			# 	added_k=roundoff
-			value_determine=roundoff+self.write_off_total
-		else:
-			value_determine=self.write_off_total
-		if value_determine!=0:	
-			if value_determine<0:
-				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,(value_determine*-1),0,fiscal_years)
-			else:
-				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,value_determine,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off_total,fiscal_years)
 		if self.total_gold_payment>0:
 			warehouse_value=0
 			titip={}
@@ -422,14 +399,28 @@ class GoldPayment(StockController):
 		# 			else:
 		# 				gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
 		#roundoff=0
+		for row in gl:
+			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
+			if gl[row]["debit"]>0:
+				if gl[row]["account"] not in against_credit:
+					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+			else:
+				if gl[row]["account"] not in against_debit:
+					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		#add roundoff
-		if roundoff>1/1000 or roundoff < -1/1000 and not round_off_same_coa:
+		if roundoff>1/1000 or roundoff < -1/1000:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
-				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
+				if gl[roundoff_coa]:
+					gl[roundoff_coa]["credit"] = gl[roundoff_coa]["credit"]+roundoff
+				else: 
+					gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
 				against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 			else:
-				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
+				if gl[roundoff_coa]:
+					gl[roundoff_coa]["debit"] = gl[roundoff_coa]["debit"]-roundoff
+				else:
+					gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
 				against_credit="{} ,{}".format(against_credit,gl[row]["account"])
 #			gl_entries.append(frappe._dict(gl[roundoff_coa]))
 		for row in gl:
