@@ -1,12 +1,13 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:STC-{MM}-{YYYY}-{####}",
+ "autoname": "field:nomor",
  "creation": "2023-08-16 16:28:10.291841",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "nomor",
   "posting_date",
   "sales",
   "nilai_cash",
@@ -69,12 +70,19 @@
    "options": "Serah Terima Payment Transfer",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "nomor",
+   "fieldtype": "Data",
+   "label": "Nomor",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-16 16:29:22.790688",
+ "modified": "2023-11-01 13:59:35.724004",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Transfer",

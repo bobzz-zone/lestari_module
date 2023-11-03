@@ -20,9 +20,6 @@ DevExtreme = Class.extend({
 			"label": __("Posting Date"), "reqd": 1,
 			change: function() {
 				me.posting_date = this.value;
-				// console.log(this.posting_date) /// ini kenapa ga ke baca yak waktu di submit padahal di console log disini keluar
-				// console.log(this.list_spk)
-				// me.get_data();
 			}
 		}),
 

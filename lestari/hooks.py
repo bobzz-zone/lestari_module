@@ -118,7 +118,8 @@ doc_events = {
 jenv = {
 	'filters':[
 		# 'get_all:lestari.lestari.doctype.rencana_produk_harian.rencana_produk_harian.get_all'
-		'get_qrcode:lestari.generateqr.get_qrcode'
+		'get_qrcode:lestari.generateqr.get_qrcode',
+        'get_num2words:lestari.num2words.get_num2words'
 	]
 }
 

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:STS-{MM}-{YYYY}-{####}",
+ "autoname": "format:STS{MM}{YYYY}{####}",
  "creation": "2022-11-13 22:58:11.096255",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -124,7 +124,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-05 10:33:33.328902",
+ "modified": "2023-10-31 14:20:57.895862",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Stock",
