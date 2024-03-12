@@ -22,7 +22,7 @@ from frappe.utils import flt
 # 		data.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],balance,row[7]])
 # 	return columns, data
 
-def execute(self):
+def execute(filters=None):
 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Remark:Data:150","Invoice:Currency:150","Pembayaran:Currency:150","Saldo:Currency:150"], []
 	mutasi = frappe.db.sql("""select posting_date,account,voucher_type,voucher_no,party,debit,credit 
 		from `tabGL Entry` where voucher_type in ("Gold Invoice","Gold Payment") and is_cancelled=0 
