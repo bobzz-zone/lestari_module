@@ -39,7 +39,7 @@ def execute(filters=None):
 		gp_info[row['name']]["inv"]=row['inv']
 	gi_data = frappe.db.sql("""select name, bundle
 		from `tabGold Invoice`  
-		where customer="{}" and posting_date >="{}" and posting_date <="{}"  group by d.parent
+		where customer="{}" and posting_date >="{}" and posting_date <="{}" 
 		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
 	gi_info = {}
 	for row in gi_data:
