@@ -86,6 +86,9 @@ frappe.ui.form.on("Gold Invoice", {
 		}
 	});
 	},
+	calculate: function(frm){
+		hitung_rate()
+	},
 	customer:function (frm){
 		cur_frm.set_value("contact_address",cur_frm.doc.customer+"-Billing")
 		cur_frm.refresh_field("contact_address")
@@ -225,18 +228,27 @@ function hitung_pajak(frm){
 }
 
 function hitung_rate(frm,cdt,cdn,update_all){
-	console.log('test')
+	// console.log('test')
 	var d = locals[cdt][cdn];
 	if (update_all){
-		frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate * d.qty) *10)/1000);
-		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((d.print_rate * d.qty)*10)/1000);
+		frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate*10 * d.qty) )/1000);
+		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((d.print_rate *10 * d.qty))/1000);
 	}
-		frappe.model.set_value(cdt, cdn, "jumlah", d.amount * cur_frm.doc.tutupan);
+		frappe.model.set_value(cdt, cdn, "jumlah", Math.floor(d.amount * cur_frm.doc.tutupan));
 		var total = 0;
 		var total_bruto = 0;
 		var total_rp=0
+		var nilai_desimal = 0
+		var nilai = 0
 		$.each(frm.doc.items, function (i, g) {
 			g.jumlah=g.amount*frm.doc.tutupan;
+//			nilai_desimal = g.jumlah % 1
+//			if(nilai_desimal > 0.5){
+//				nilai = Math.round(g.jumlah)
+//			}else{
+//				nilai = Math.floor(g.jumlah)
+//			}
+//			g.jumlah = nilai
 			total = total + g.amount;
 			total_bruto = total_bruto + g.qty;
 			total_rp = total + g.jumlah;

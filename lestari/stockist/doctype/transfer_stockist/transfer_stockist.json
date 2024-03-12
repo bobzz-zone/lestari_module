@@ -16,7 +16,7 @@
   "cb1",
   "id_employee",
   "pic",
-  "nama_stokist",
+  "nama_employee",
   "id_penerima",
   "employee_penerima",
   "nama_penerima",
@@ -88,21 +88,14 @@
   {
    "fieldname": "id_employee",
    "fieldtype": "Data",
-   "label": "ID Stockist"
+   "label": "ID Employee"
   },
   {
    "fieldname": "pic",
    "fieldtype": "Link",
    "hidden": 1,
-   "label": "Stockist",
+   "label": "Employee",
    "options": "Employee",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "pic.employee_name",
-   "fieldname": "nama_stokist",
-   "fieldtype": "Data",
-   "label": "Nama Stockist",
    "read_only": 1
   },
   {
@@ -258,12 +251,19 @@
    "label": "Status",
    "options": "Draft\nSubmitted\nCancelled",
    "read_only": 1
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "nama_employee",
+   "fieldtype": "Data",
+   "label": "Nama Employee",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-31 15:42:08.525668",
+ "modified": "2024-03-08 13:10:49.301855",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

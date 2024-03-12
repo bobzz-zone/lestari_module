@@ -411,13 +411,13 @@ class GoldPayment(StockController):
 		if roundoff>1/1000 or roundoff < -1/1000:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
-				if gl[roundoff_coa]:
+				if roundoff_coa in gl:
 					gl[roundoff_coa]["credit"] = gl[roundoff_coa]["credit"]+roundoff
 				else: 
 					gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
 				against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 			else:
-				if gl[roundoff_coa]:
+				if roundoff_coa in gl:
 					gl[roundoff_coa]["debit"] = gl[roundoff_coa]["debit"]-roundoff
 				else:
 					gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)

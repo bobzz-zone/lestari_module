@@ -28,7 +28,7 @@ DevExtreme = Class.extend({
 		// 	() => this.show_user_search_dialog(),
 		// 	{ icon: 'add', size: 'sm'}
 		// );
-		this.make()
+		this.make();
 	},
 	// make page
 	make: async function(){
@@ -111,7 +111,7 @@ DevExtreme = Class.extend({
 				format: 'date',
 				alignment: 'right',
 				caption: 'Posting Date',
-				sortOrder: 'desc',
+				sortOrder: 'asc',
 				// width: 110,
 				
 			  },{

@@ -14,7 +14,10 @@ class TransferBarangJadi(Document):
 			tot_qty += row.qty
 		self.total_qty = tot_qty
 		self.total_berat = tot_berat
-			
+
+	@frappe.whitelist()
+	def on_submit(self):
+		pass			
 
 @frappe.whitelist()
 def get_spk_ppic(no_spk,kadar):

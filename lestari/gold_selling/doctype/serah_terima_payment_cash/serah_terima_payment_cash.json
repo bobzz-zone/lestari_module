@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:nomor",
+ "autoname": "naming_series:",
  "creation": "2022-11-13 22:56:43.489160",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -15,7 +15,8 @@
   "get_payment",
   "payment",
   "keterangan",
-  "amended_from"
+  "amended_from",
+  "naming_series"
  ],
  "fields": [
   {
@@ -77,12 +78,18 @@
    "label": "Nomor",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-01 13:58:58.763177",
+ "modified": "2024-02-05 15:51:13.597811",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",
@@ -101,6 +108,8 @@
    "write": 1
   }
  ],
+ "show_name_in_global_search": 1,
+ "show_preview_popup": 1,
  "sort_field": "modified",
  "sort_order": "DESC"
 }

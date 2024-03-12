@@ -42,6 +42,7 @@
   "add_bruto",
   "add",
   "items_section",
+  "calculate",
   "items",
   "tax_sb",
   "tax_id",
@@ -312,6 +313,7 @@
    "label": "PPH"
   },
   {
+   "allow_on_submit": 1,
    "default": "0",
    "depends_on": "tax_status==\"Tax\"",
    "fetch_from": "customer.is_skb",
@@ -355,8 +357,7 @@
    "default": "0",
    "fieldname": "total_sebelum_pajak",
    "fieldtype": "Currency",
-   "label": "Total Sebelum Pajak",
-   "read_only": 1
+   "label": "Total Sebelum Pajak"
   },
   {
    "default": "0",
@@ -426,11 +427,17 @@
   {
    "fieldname": "column_break_21",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "calculate",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Calculate"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-05 11:15:04.785013",
+ "modified": "2024-02-29 12:39:33.324469",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

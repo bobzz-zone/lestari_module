@@ -271,6 +271,7 @@
   {
    "fieldname": "per_kadar",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Per Kadar`",
    "options": "Update Bundle Stock Kadar",
    "read_only": 1
@@ -284,8 +285,7 @@
    "fieldname": "per_sub_category",
    "fieldtype": "Table",
    "label": "Per Sub Category",
-   "options": "Update Bundle Stock Sub",
-   "read_only": 1
+   "options": "Update Bundle Stock Sub"
   },
   {
    "fieldname": "section_break_13",
@@ -315,7 +315,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-25 16:28:13.810315",
+ "modified": "2024-03-07 15:27:11.108531",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",

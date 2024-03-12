@@ -55,12 +55,10 @@
    "read_only": 1
   },
   {
-   "fetch_from": "bundle.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Warehouse",
-   "options": "Warehouse",
-   "read_only": 1
+   "options": "Warehouse"
   },
   {
    "fieldname": "qty",
@@ -71,7 +69,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-09 10:41:18.187316",
+ "modified": "2024-01-05 14:07:21.651102",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Kartu Stock Sales",
