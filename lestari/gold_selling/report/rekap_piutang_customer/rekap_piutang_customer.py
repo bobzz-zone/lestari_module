@@ -22,9 +22,116 @@ from frappe.utils import flt
 # 		data.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],balance,row[7]])
 # 	return columns, data
 
-def execute(filters=None):
-	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Sales:Data:150","Debit:Currency:150","Kredit:Currency:150","Saldo:Currency:150"], []
-	
+def execute(self):
+	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Remark:Data:150","Invoice:Currency:150","Pembayaran:Currency:150","Saldo:Currency:150"], []
+	mutasi = frappe.db.sql("""select posting_date,account,voucher_type,voucher_no,party,debit,credit 
+		from `tabGL Entry` where voucher_type in ("Gold Invoice","Gold Payment") and is_cancelled=0 
+		and party_type="Customer" and party="{}" and posting_date >="{}" and posting_date <="{}" order by posting_date asc,voucher_no
+		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
+	gp_data = frappe.db.sql("""select gp.name,GROUP_CONCAT(d.gold_invoice SEPARATOR ',') as inv, gp.sales_bundle
+		from `tabGold Payment Invoice` d join `tabGold Payment` gp on d.parent=gp.name 
+		where gp.customer="{}" and gp.posting_date >="{}" and gp.posting_date <="{}"  group by d.parent
+		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
+	gp_info = {}
+	for row in gp_data:
+		gp_info[row['name']]={}
+		gp_info[row['name']]["sales_bundle"]=row['sales_bundle']
+		gp_info[row['name']]["inv"]=row['inv']
+	gi_data = frappe.db.sql("""select name, sales_bundle
+		from `tabGold Invoice`  
+		where customer="{}" and posting_date >="{}" and posting_date <="{}"  group by d.parent
+		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
+	gi_info = {}
+	for row in gi_data:
+		gp_info[row['name']]=row['sales_bundle']
+	balance=0
+	for row in mutasi:
+		if row['voucher_type']=="Gold Payment" and row['party']:
+			continue
+		elif row['voucher_type']=="Gold Invoice":
+			balance=balance+flt(row['debit'])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],gi_info[row['voucher_no']],row["account"],row['debit'],0,balance])
+		else:
+			balance=balance-flt(row['debit'])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],gp_info[row['voucher_no']]["sales_bundle"],"{} => {}".format(row["account"],gp_info[row['voucher_no']['inv']]),0,row['debit'],balance])
+	return columns, data
+# def execute(filters=None):
+# 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Sales:Data:150","Debit:Currency:150","Kredit:Currency:150","Saldo:Currency:150"], []
+
+# 	mutasi = frappe.db.sql("""
+# 		SELECT
+# 		a.posting_date,
+# 		a.name AS voucher_no,
+# 		a.customer,
+# 		a.sales_bundle,
+# 		a.write_off,
+# 		a.`allocated_payment`,
+# 		a.`tutupan`,
+# 		a.`total_idr_payment`,
+# 		a.`total_gold_payment`,
+# 		b.`gold_invoice`,
+# 		b.`tutupan`,
+# 		b.`allocated`,
+# 		b.`tax_allocated`,
+# 		c.`mode_of_payment`,
+# 		c.`amount`
+# 		FROM
+# 		`tabGold Payment` a
+# 		JOIN
+# 		`tabGold Payment Invoice` b
+# 		ON a.name = b.parent
+# 		JOIN
+# 		`tabIDR Payment` c
+# 		ON a.name = c.parent AND b.idx = c.idx
+# 	WHERE a.customer = "{}" AND a.docstatus = 1
+# 	ORDER BY b.gold_invoice ASC
+# 	""".format(filters.get("customer")), as_dict=1)
+# 	# mutasi = frappe.db.get_list("Gold Payment", filters={"customer":filters.get("customer")}, order_by="name ASC")
+# 	# frappe.msgprint(str(mutasi))
+# 	index = 0 
+# 	lengthmutasi = len(mutasi)
+# 	# frappe.msgprint(str(lengthmutasi))
+# 	for row in mutasi:
+# 	# 	doc = frappe.get_doc("Gold Payment",row.name)
+# 		sales = frappe.db.get_value("Sales Stock Bundle", row.sales_bundle, 'sales')
+# 		debit = (row.allocated*row.tutupan)+row.tax_allocated
+# 		if row.total_gold_payment:
+# 			if row.total_gold_payment > 0:
+# 				kredit = ( row.allocated * row.tutupan ) + row.amount
+# 		else:
+# 			kredit = row.amount
+
+# 		if index == 0:
+# 			saldo = debit
+# 			data.append(["","Opening","","","","",0,0,saldo])
+# 			saldo = debit
+# 			data.append([row.posting_date,"Gold Invoice",row.gold_invoice,row.customer,row.sales_bundle,sales,debit,0,saldo])
+# 			saldo = debit - kredit
+# 			data.append([row.posting_date,"Pembayaran Penjualan",row.voucher_no,row.customer,row.sales_bundle,sales,0,kredit,saldo])
+# 			if saldo < 0.000:
+# 				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,0,saldo,saldo])
+# 			elif saldo > 0.000:
+# 				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,saldo,0,saldo])
+# 		else:
+# 			saldo = saldo + debit
+# 			data.append([row.posting_date,"Gold Invoice",row.gold_invoice,row.customer,row.sales_bundle,sales,debit,0,saldo])
+# 			saldo = saldo - kredit
+# 			data.append([row.posting_date,"Pembayaran Penjualan",row.voucher_no,row.customer,row.sales_bundle,sales,0,kredit,saldo])
+# 			if saldo < 0.000:
+# 				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,(saldo*-1),0,saldo])
+# 			elif saldo > 0.000:
+# 				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,0,saldo,saldo])
+
+
+# 		if index < lengthmutasi-1:
+# 			index += 1
+# 		else:
+# 			saldo = saldo + debit - kredit
+# 			data.append(["","Closing","","","","",0,0,saldo])
+# 	return columns, data
+
+
+
 	# mutasi=frappe.db.sql("""SELECT
 	# 	ab.posting_date,
 	# 	ab.type,
@@ -72,75 +179,3 @@ def execute(filters=None):
 	# ORDER BY ab.posting_date ASC
 	# 	""".format(filters.get("customer")), as_dict=1)
 	# frappe.msgprint(str(mutasi))
-
-	mutasi = frappe.db.sql("""
-		SELECT
-		a.posting_date,
-		a.name AS voucher_no,
-		a.customer,
-		a.sales_bundle,
-		a.write_off,
-		a.`allocated_payment`,
-		a.`tutupan`,
-		a.`total_idr_payment`,
-		a.`total_gold_payment`,
-		b.`gold_invoice`,
-		b.`tutupan`,
-		b.`allocated`,
-		b.`tax_allocated`,
-		c.`mode_of_payment`,
-		c.`amount`
-		FROM
-		`tabGold Payment` a
-		JOIN
-		`tabGold Payment Invoice` b
-		ON a.name = b.parent
-		JOIN
-		`tabIDR Payment` c
-		ON a.name = c.parent AND b.idx = c.idx
-	WHERE a.customer = "{}" AND a.docstatus = 1
-	ORDER BY b.gold_invoice ASC
-	""".format(filters.get("customer")), as_dict=1)
-	# mutasi = frappe.db.get_list("Gold Payment", filters={"customer":filters.get("customer")}, order_by="name ASC")
-	# frappe.msgprint(str(mutasi))
-	index = 0 
-	lengthmutasi = len(mutasi)
-	# frappe.msgprint(str(lengthmutasi))
-	for row in mutasi:
-	# 	doc = frappe.get_doc("Gold Payment",row.name)
-		sales = frappe.db.get_value("Sales Stock Bundle", row.sales_bundle, 'sales')
-		debit = (row.allocated*row.tutupan)+row.tax_allocated
-		if row.total_gold_payment:
-			if row.total_gold_payment > 0:
-				kredit = ( row.allocated * row.tutupan ) + row.amount
-		else:
-			kredit = row.amount
-
-		if index == 0:
-			saldo = debit
-			data.append(["","Opening","","","","",0,0,saldo])
-			saldo = debit
-			data.append([row.posting_date,"Gold Invoice",row.gold_invoice,row.customer,row.sales_bundle,sales,debit,0,saldo])
-			saldo = debit - kredit
-			data.append([row.posting_date,"Pembayaran Penjualan",row.voucher_no,row.customer,row.sales_bundle,sales,0,kredit,saldo])
-			if saldo < 0.000:
-				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,0,saldo,saldo])
-			elif saldo > 0.000:
-				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,saldo,0,saldo])
-		else:
-			saldo = saldo + debit
-			data.append([row.posting_date,"Gold Invoice",row.gold_invoice,row.customer,row.sales_bundle,sales,debit,0,saldo])
-			saldo = saldo - kredit
-			data.append([row.posting_date,"Pembayaran Penjualan",row.voucher_no,row.customer,row.sales_bundle,sales,0,kredit,saldo])
-			if saldo < 0.000:
-				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,(saldo*-1),0,saldo])
-			elif saldo > 0.000:
-				data.append([row.posting_date,"Write Off",row.voucher_no,row.customer,row.sales_bundle,sales,0,saldo,saldo])
-
-
-		if index < lengthmutasi-1:
-			index += 1
-		else:
-			saldo = saldo + debit - kredit
-			data.append(["","Closing","","","","",0,0,saldo])
-	return columns, data
