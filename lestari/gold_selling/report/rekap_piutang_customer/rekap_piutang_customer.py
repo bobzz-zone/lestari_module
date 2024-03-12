@@ -45,10 +45,10 @@ def execute(filters=None):
 			continue
 		elif row['voucher_type']=="Gold Invoice":
 			balance=balance+flt(row['debit'])
-			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],row['bundle'],row["account"],row['debit'],0,balance])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],row['party'],row['bundle'],row["account"],row['debit'],0,balance])
 		else:
 			balance=balance-flt(row['debit'])
-			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],gp_info[row['voucher_no']]["sales_bundle"],"{} => {}".format(row["account"],gp_info[row['voucher_no']['inv']]),0,row['debit'],balance])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],row['party'],gp_info[row['voucher_no']]["sales_bundle"],"{} => {}".format(row["account"],gp_info[row['voucher_no']['inv']]),0,row['debit'],balance])
 	return columns, data
 # def execute(filters=None):
 # 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Sales:Data:150","Debit:Currency:150","Kredit:Currency:150","Saldo:Currency:150"], []
