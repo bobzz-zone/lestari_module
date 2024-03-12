@@ -24,9 +24,10 @@ from frappe.utils import flt
 
 def execute(filters=None):
 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Remark:Data:150","Invoice:Currency:150","Pembayaran:Currency:150","Saldo:Currency:150"], []
-	mutasi = frappe.db.sql("""select posting_date,account,voucher_type,voucher_no,party,debit,credit 
-		from `tabGL Entry` where voucher_type in ("Gold Invoice","Gold Payment") and is_cancelled=0 
-		and party_type="Customer" and party="{}" and posting_date >="{}" and posting_date <="{}" order by posting_date asc,voucher_no
+	mutasi = frappe.db.sql("""select gl.posting_date,gl.account,gl.voucher_type,gl.voucher_no,gl.party,gi.bundle,gl.debit,gl.credit 
+		from `tabGL Entry` gl left join `tabGold Invoice` gi on gl.voucher_type="Gold Invoice" and gl.voucher_no=gi.name
+		where gl.voucher_type in ("Gold Invoice","Gold Payment") and gl.is_cancelled=0 
+		and gl.party_type="Customer" and gl.party="{}" and gl.posting_date >="{}" and gl.posting_date <="{}" order by posting_date asc,voucher_no
 		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
 	gp_data = frappe.db.sql("""select gp.name,GROUP_CONCAT(d.gold_invoice SEPARATOR ',') as inv, gp.sales_bundle
 		from `tabGold Payment Invoice` d join `tabGold Payment` gp on d.parent=gp.name 
@@ -37,20 +38,14 @@ def execute(filters=None):
 		gp_info[row['name']]={}
 		gp_info[row['name']]["sales_bundle"]=row['sales_bundle']
 		gp_info[row['name']]["inv"]=row['inv']
-	gi_data = frappe.db.sql("""select name, bundle
-		from `tabGold Invoice`  
-		where customer="{}" and posting_date >="{}" and posting_date <="{}" 
-		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
-	gi_info = {}
-	for row in gi_data:
-		gp_info[row['name']]=row['bundle']
+	
 	balance=0
 	for row in mutasi:
 		if row['voucher_type']=="Gold Payment" and row['party']:
 			continue
 		elif row['voucher_type']=="Gold Invoice":
 			balance=balance+flt(row['debit'])
-			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],gi_info[row['voucher_no']],row["account"],row['debit'],0,balance])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],row['bundle'],row["account"],row['debit'],0,balance])
 		else:
 			balance=balance-flt(row['debit'])
 			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],gp_info[row['voucher_no']]["sales_bundle"],"{} => {}".format(row["account"],gp_info[row['voucher_no']['inv']]),0,row['debit'],balance])
