@@ -31,7 +31,6 @@ def execute(filters=None):
 		 and voucher_no in (select voucher_no from `tabGL Entry` gld where gld.party="{2}" and gld.party_type="Customer" and gld.voucher_type in ("Gold Invoice","Gold Payment") and gld.is_cancelled=0 and gld.posting_date >="{0}" and gld.posting_date <="{1}")
 		order by posting_date asc,voucher_no
 		""".format(filters.get("from_date"),filters.get("to_date"),filters.get("customer")),as_dict=1)
-	
 	gp_data = frappe.db.sql("""select gp.name,GROUP_CONCAT(d.gold_invoice SEPARATOR ',') as inv, gp.sales_bundle , gp.customer
 		from `tabGold Payment Invoice` d join `tabGold Payment` gp on d.parent=gp.name 
 		where gp.customer="{}" and gp.posting_date >="{}" and gp.posting_date <="{}"  group by d.parent
@@ -52,7 +51,7 @@ def execute(filters=None):
 			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],filters.get("customer"),row['bundle'],row["account"],row['debit'],0,balance])
 		else:
 			balance=balance-flt(row['debit'])
-			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],filters.get("customer"),gp_info[row['voucher_no']]["sales_bundle"],"",0,row['debit'],balance])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],filters.get("customer"),gp_info[row['voucher_no']]["sales_bundle"],"{} | {}".format(row["account"],gp_info[row['voucher_no']]['inv']),0,row['debit'],balance])
 	return columns, data
 # def execute(filters=None):
 # 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Sales:Data:150","Debit:Currency:150","Kredit:Currency:150","Saldo:Currency:150"], []
