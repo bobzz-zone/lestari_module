@@ -27,8 +27,10 @@ def execute(filters=None):
 	mutasi = frappe.db.sql("""select gl.posting_date,gl.account,gl.voucher_type,gl.voucher_no,gl.party,gi.bundle,gl.debit,gl.credit 
 		from `tabGL Entry` gl left join `tabGold Invoice` gi on gl.voucher_type="Gold Invoice" and gl.voucher_no=gi.name
 		where gl.voucher_type in ("Gold Invoice","Gold Payment") and gl.is_cancelled=0 
-		and gl.party_type="Customer" and gl.party="{}" and gl.posting_date >="{}" and gl.posting_date <="{}" order by posting_date asc,voucher_no
-		""".format(filters.get("customer"),filters.get("from_date"),filters.get("to_date")),as_dict=1)
+		and gl.party_type="Customer"  and gl.posting_date >="{0}" and gl.posting_date <="{1}" 
+		 and voucher_no in (select voucher_no from `tabGL Entry` gld where gld.party="{2}" and gld.voucher_type in ("Gold Invoice","Gold Payment") and gld.is_cancelled=0 and gld.posting_date >="{0}" and gld.posting_date <="{1}")
+		order by posting_date asc,voucher_no
+		""".format(filters.get("from_date"),filters.get("to_date"),filters.get("customer")),as_dict=1)
 	gp_data = frappe.db.sql("""select gp.name,GROUP_CONCAT(d.gold_invoice SEPARATOR ',') as inv, gp.sales_bundle
 		from `tabGold Payment Invoice` d join `tabGold Payment` gp on d.parent=gp.name 
 		where gp.customer="{}" and gp.posting_date >="{}" and gp.posting_date <="{}"  group by d.parent
