@@ -50,8 +50,8 @@ def execute(filters=None):
 			balance=balance+flt(row['debit'])
 			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],filters.get("customer"),row['bundle'],row["account"],row['debit'],0,balance])
 		else:
-			balance=balance-flt(row['debit'])
-			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],filters.get("customer"),gp_info[row['voucher_no']]["sales_bundle"],"{} | {}".format(row["account"],gp_info[row['voucher_no']]['inv']),0,row['debit'],balance])
+			balance=balance-flt(row['debit'])+flt(row['credit'])
+			data.append([row['posting_date'],row['voucher_type'],row['voucher_no'],filters.get("customer"),gp_info[row['voucher_no']]["sales_bundle"],"{} | {}".format(row["account"],gp_info[row['voucher_no']]['inv']),0,row['debit']-flt(row['credit']),balance])
 	return columns, data
 # def execute(filters=None):
 # 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150", "Sales Bundle:Data:150","Sales:Data:150","Debit:Currency:150","Kredit:Currency:150","Saldo:Currency:150"], []
