@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:kode_batch",
+ "creation": "2024-01-15 16:05:51.648093",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kode_batch",
+  "no_produksi",
+  "posting_date",
+  "id_product",
+  "sw",
+  "qty",
+  "weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Tanggal"
+  },
+  {
+   "fieldname": "id_product",
+   "fieldtype": "Data",
+   "label": "ID Product"
+  },
+  {
+   "fieldname": "sw",
+   "fieldtype": "Data",
+   "label": "SW"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "label": "Weight"
+  },
+  {
+   "fieldname": "kode_batch",
+   "fieldtype": "Data",
+   "label": "Kode Batch",
+   "unique": 1
+  },
+  {
+   "fieldname": "no_produksi",
+   "fieldtype": "Data",
+   "label": "No Produksi"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-16 09:54:20.407577",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Registerasi Produksi",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

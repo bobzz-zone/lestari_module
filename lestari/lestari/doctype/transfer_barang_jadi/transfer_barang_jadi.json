@@ -42,7 +42,6 @@
    "options": "Employee"
   },
   {
-   "default": "Today",
    "fieldname": "tanggal",
    "fieldtype": "Date",
    "label": "Tanggal"

@@ -30,7 +30,6 @@ class TransferBarangJadi(Document):
 			tot_qty += row.qty
 		self.total_qty = tot_qty
 		self.total_berat = tot_berat
-
 	@frappe.whitelist()
 	def on_submit(self):
 		print("-- Submitting Transfer Barang Jadi "+self.name+" DONE --")
