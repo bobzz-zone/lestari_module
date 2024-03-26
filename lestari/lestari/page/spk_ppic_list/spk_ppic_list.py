@@ -62,7 +62,7 @@ def contoh_report():
         SELECT name
         FROM `tabForm Order`
         WHERE docstatus = 1
-        AND posting_date like "2023-10%"    
+        AND posting_date like "2023-11%"    
         ORDER BY posting_date ASC
     """,as_dict = 1)
     no = 0

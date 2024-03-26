@@ -6,26 +6,41 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "sub_category",
-  "bruto"
+  "item",
+  "item_name",
+  "bruto",
+  "kadar"
  ],
  "fields": [
   {
-   "fieldname": "sub_category",
-   "fieldtype": "Link",
-   "label": "Sub Category",
-   "options": "Item Group"
-  },
-  {
    "fieldname": "bruto",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Bruto"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Data",
+   "label": "Kadar"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-23 11:31:30.018480",
+ "modified": "2023-12-11 16:25:28.286143",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock Sub",

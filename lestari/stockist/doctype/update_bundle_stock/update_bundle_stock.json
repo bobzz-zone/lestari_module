@@ -44,6 +44,7 @@
   "total_per_kadar_section",
   "per_kadar",
   "total_per_sub_category_section",
+  "calculate",
   "per_sub_category",
   "section_break_13",
   "status",
@@ -284,8 +285,7 @@
    "fieldname": "per_sub_category",
    "fieldtype": "Table",
    "label": "Per Sub Category",
-   "options": "Update Bundle Stock Sub",
-   "read_only": 1
+   "options": "Update Bundle Stock Sub"
   },
   {
    "fieldname": "section_break_13",
@@ -309,13 +309,20 @@
    "label": "Status",
    "options": "Draft\nSubmitted\nCancelled",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.type == \"New Stock\" || doc.type == \"Add Stock\"",
+   "fieldname": "calculate",
+   "fieldtype": "Button",
+   "label": "Calculate",
+   "options": "calculate"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-25 16:28:13.810315",
+ "modified": "2023-12-11 16:23:08.966114",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",

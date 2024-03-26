@@ -103,6 +103,7 @@ doctype_list_js = {"Item" : "public/js/item_list.js"}
 # Hook on document methods and events
 
 doc_events = {
+    "Purchase Receipt" : { "autoname" : "lestari.purchase_receipt.autoname_prec"}
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",

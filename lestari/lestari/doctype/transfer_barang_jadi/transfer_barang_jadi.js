@@ -3,16 +3,16 @@
 
 frappe.ui.form.on('Transfer Barang Jadi', {
 	setup: function(frm){
-		frm.set_value('posting_time', frappe.datetime.now_time());
-		frm.set_value('posting_date', frappe.datetime.get_today());
+		// frm.set_value('posting_time', frappe.datetime.now_time());
+		// frm.set_value('posting_date', frappe.datetime.get_today());
 	},
 	refresh: function(frm) {
 		if (cur_frm.is_new()){
 			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name"]).then(function (responseJSON) {
 				cur_frm.set_value("employee", responseJSON.message.name);
 				cur_frm.refresh_field("employee");
-				frm.set_value('posting_time', frappe.datetime.now_time());
-				frm.set_value('posting_date', frappe.datetime.get_today());
+				// frm.set_value('posting_time', frappe.datetime.now_time());
+				// frm.set_value('posting_date', frappe.datetime.get_today());
 			});
 		}
 		frm.set_query("penerima", ()=>{

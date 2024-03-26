@@ -5,9 +5,31 @@ import frappe
 from frappe.utils import now_datetime ,now
 from frappe.model.document import Document
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
+from datetime import datetime # from python std library
 from frappe.utils import flt
 
 class UpdateBundleStock(Document):
+    @frappe.whitelist()
+    def calculate(self):
+        from lestari.randomize import randomizer
+
+        self.per_sub_category = []
+        for row in self.items:
+            input_warehouse = self.s_warehouse
+            input_kadar = row.kadar
+            kebutuhan = row.qty_penambahan
+
+            result = randomizer(input_warehouse, input_kadar, kebutuhan)
+
+            for baris_result in result:
+                self.append("per_sub_category",{
+                    "item": baris_result[0] ,
+                    "item_name": frappe.get_doc("Item",baris_result[0]).item_name,
+                    "bruto": frappe.utils.flt(baris_result[1]),
+                    "kadar": row.kadar
+                })
+
+
     def validate(self):
         self.status = 'Draft'
     def on_cancel(self):
@@ -18,12 +40,12 @@ class UpdateBundleStock(Document):
         ste.employee_id = self.pic
         ste.remarks = self.keterangan
         ste.update_bundle_stock_no = self.name
-        for items in self.items:
+        for row in self.per_sub_category:
             baris_baru = {
-				'item_code' : items.item,
+				'item_code' : row.item,
 				's_warehouse' : self.s_warehouse,
 				't_warehouse' : self.warehouse,
-				'qty' : items.qty_penambahan,
+				'qty' : row.bruto,
 				'allow_zero_valuation_rate' : 1
 			}
             ste.append("items",baris_baru)
@@ -32,25 +54,40 @@ class UpdateBundleStock(Document):
         frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Submitted" where name = "{0}" """.format(self.name))
         frappe.msgprint(str(frappe.get_last_doc("Stock Entry")))
         for row in self.items:
+            gdle = frappe.new_doc("Gold Ledger Entry")
+            gdle.item = row.gold_selling_item
+            gdle.bundle = self.bundle
+            gdle.kategori = row.kategori
+            gdle.sub_kategori = row.sub_kategori
+            gdle.kadar = row.kadar
+            gdle.warehouse = self.warehouse
+            gdle.posting_date = self.date
+            gdle.posting_time = datetime.now().strftime('%H:%M:%S')
+            gdle.voucher_type = self.doctype
+            gdle.voucher_no = self.name
+            gdle.voucher_detail_no = row.name
+            if self.type == "New Stock":
+                gdle.proses = 'Penyerahan'
+                gdle.qty_in = row.qty_penambahan
+                gdle.qty_out = 0
+                gdle.qty_balance = 0
             if self.type == "Add Stock":
-                kss = frappe.new_doc("Kartu Stock Sales")
-                kss.item = row.gold_selling_item
-                kss.bundle = self.bundle
-                kss.kategori = row.kategori
-                kss.sub_kategori = row.sub_kategori
-                kss.kadar = row.kadar
-                kss.warehouse = self.warehouse
-                kss.qty = row.qty_penambahan
-                kss.flags.ignore_permissions = True
-                kss.save()
-            else:
-                doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.gold_selling_item, "sub_kategori": row.sub_kategori})
-				# frappe.db.set_value('Task', 'TASK00002', 'subject', 'New Subject')
+                gdle.proses = 'Penambahan'
+                doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.gold_selling_item, "kategori": row.sub_kategori}, fields=['item','bundle','kategori','kadar','qty'])
                 for col in doc:
-                    kss = frappe.get_doc("Kartu Stock Sales", col)
-                    kss.qty = kss.qty - row.qty_penambahan
-                    kss.flags.ignore_permissions = True
-                    kss.save()
+                    gdle.qty_in = row.qty_penambahan
+                    gdle.qty_out = 0
+                    gdle.qty_balance = col.qty
+            if self.type == "Deduct Stock":
+                gdle.proses = 'Penyetoran'
+                doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.gold_selling_item, "kategori": row.sub_kategori}, fields=['item','bundle','kategori','kadar','qty'])
+                for col in doc:
+                    gdle.qty_in = 0
+                    gdle.qty_out = row.qty_penambahan
+                    gdle.qty_balance = col.qty
+            gdle.flags.ignore_permissions = True
+            frappe.msgprint(gdle.proses)
+            gdle.save()
     
     @frappe.whitelist()
     def add_row_action(self):

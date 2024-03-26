@@ -111,7 +111,7 @@ DevExtreme = Class.extend({
 				format: 'date',
 				alignment: 'right',
 				caption: 'Posting Date',
-				sortOrder: 'desc',
+				sortOrder: 'asc',
 				// width: 110,
 				
 			  },{
