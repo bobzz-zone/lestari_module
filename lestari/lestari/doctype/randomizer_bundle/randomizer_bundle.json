@@ -38,7 +38,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-03-07 10:37:41.834423",
+ "modified": "2024-03-12 10:43:35.852924",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Randomizer Bundle",
@@ -51,6 +51,16 @@
    "print": 1,
    "read": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Accounts Manager",
    "share": 1,
    "write": 1
   }

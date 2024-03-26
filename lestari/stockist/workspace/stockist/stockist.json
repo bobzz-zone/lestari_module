@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-10-02 11:19:09.241567",
+ "modified": "2024-03-25 12:57:46.390697",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Stockist",
@@ -67,6 +67,18 @@
    "doc_view": "List",
    "label": "Transfer Barang Jadi",
    "link_to": "Transfer Barang Jadi",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Randomizer Bundle",
+   "link_to": "Randomizer Bundle",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Transfer Stockist",
+   "link_to": "Transfer Stockist",
    "type": "DocType"
   }
  ]

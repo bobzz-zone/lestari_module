@@ -10,6 +10,7 @@
   "id",
   "naming_series",
   "penerima",
+  "penerima_nama",
   "tanggal",
   "kadar",
   "total_qty",
@@ -19,6 +20,7 @@
   "posting_time",
   "status_transfer",
   "employee",
+  "employee_name",
   "section_break_9",
   "items",
   "amended_from"
@@ -115,16 +117,29 @@
    "options": "Data Logam"
   },
   {
+   "default": "TBJ.YY..MM..DD..####",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "\nTBJ.YY.MM.DD.###"
+   "options": "TBJ.YY..MM..DD..####"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fetch_from": "penerima.employee_name",
+   "fieldname": "penerima_nama",
+   "fieldtype": "Data",
+   "label": "Penerima Nama"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-15 14:19:19.689857",
+ "modified": "2024-03-22 14:59:12.287325",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Transfer Barang Jadi",
