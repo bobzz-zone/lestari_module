@@ -40,7 +40,6 @@
    "options": "Employee"
   },
   {
-   "default": "Today",
    "fieldname": "tanggal",
    "fieldtype": "Date",
    "label": "Tanggal"
@@ -119,7 +118,7 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "TBJ.YY.MM.DD.####"
+   "options": "\nTBJ.YY.MM.DD.###"
   }
  ],
  "index_web_pages_for_search": 1,

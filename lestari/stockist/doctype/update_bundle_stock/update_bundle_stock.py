@@ -9,6 +9,27 @@ from datetime import datetime # from python std library
 from frappe.utils import flt
 
 class UpdateBundleStock(Document):
+    @frappe.whitelist()
+    def calculate(self):
+        from lestari.randomize import randomizer
+
+        self.per_sub_category = []
+        for row in self.items:
+            input_warehouse = self.s_warehouse
+            input_kadar = row.kadar
+            kebutuhan = row.qty_penambahan
+
+            result = randomizer(input_warehouse, input_kadar, kebutuhan)
+
+            for baris_result in result:
+                self.append("per_sub_category",{
+                    "item": baris_result[0] ,
+                    "item_name": frappe.get_doc("Item",baris_result[0]).item_name,
+                    "bruto": frappe.utils.flt(baris_result[1]),
+                    "kadar": row.kadar
+                })
+
+
     def validate(self):
         self.status = 'Draft'
     def on_cancel(self):

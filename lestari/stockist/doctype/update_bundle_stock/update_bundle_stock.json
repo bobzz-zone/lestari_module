@@ -44,6 +44,7 @@
   "total_per_kadar_section",
   "per_kadar",
   "total_per_sub_category_section",
+  "calculate",
   "per_sub_category",
   "section_break_13",
   "status",
@@ -309,6 +310,13 @@
    "label": "Status",
    "options": "Draft\nSubmitted\nCancelled",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.type == \"New Stock\" || doc.type == \"Add Stock\"",
+   "fieldname": "calculate",
+   "fieldtype": "Button",
+   "label": "Calculate",
+   "options": "calculate"
   }
  ],
  "hide_toolbar": 1,

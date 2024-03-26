@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-01-05 11:11:36.564045",
+ "creation": "2023-12-20 12:59:35.529021",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -115,6 +115,12 @@
    "fieldname": "qty_balance",
    "fieldtype": "Float",
    "label": "Qty Balance"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Gold Selling Item"
   }
  ],
  "index_web_pages_for_search": 1,
