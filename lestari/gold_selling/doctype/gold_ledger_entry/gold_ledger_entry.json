@@ -32,6 +32,12 @@
    "options": "Sales Stock Bundle"
   },
   {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Gold Selling Item"
+  },
+  {
    "fieldname": "kategori",
    "fieldtype": "Link",
    "label": "Kategori",
@@ -119,7 +125,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-20 14:25:51.036534",
+ "modified": "2024-01-05 14:05:16.496587",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Ledger Entry",

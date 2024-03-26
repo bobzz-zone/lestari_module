@@ -10,6 +10,17 @@ frappe.query_reports["Rekap Piutang Customer"] = {
 			"fieldtype": "Link",
 			"options": "Customer",
 			"reqd": 1
+		},
+		{
+			"fieldname":"from_date",
+			"label": __("From Date"),
+			"fieldtype": "Date",
+			"reqd": 1
+		},{
+			"fieldname":"to_date",
+			"label": __("To Date"),
+			"fieldtype": "Date",
+			"reqd": 1
 		}
 	]
 };

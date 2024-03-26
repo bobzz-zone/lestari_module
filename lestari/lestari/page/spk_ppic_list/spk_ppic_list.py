@@ -8,7 +8,6 @@ import json
 
 @frappe.whitelist()
 def make_spk_ppic(data,posting_date = None):
-
     for row in json.loads(data):
         doc = frappe.get_doc("Form Order", row)
         new_doc = frappe.new_doc("SPK Produksi")
@@ -56,16 +55,18 @@ def make_spk_ppic(data,posting_date = None):
 
 @frappe.whitelist()
 def contoh_report():
+    # frappe.msgprint('testing')
     fm = []
     # list_doc = frappe.get_list("Form Order", filters={'docstatus':1},order_by="posting_date DESC",limit = 5000)
     list_doc = frappe.db.sql("""
         SELECT name
         FROM `tabForm Order`
         WHERE docstatus = 1
-        AND posting_date like "2023-11%"    
+        AND posting_date like "2024-%"    
         ORDER BY posting_date ASC
     """,as_dict = 1)
     no = 0
+    # frappe.msgprint(str(list_doc))
     for row in list_doc:
         doc = frappe.get_doc("Form Order", row)
         for col in doc.items_valid:

@@ -34,13 +34,14 @@
   {
    "fieldname": "kadar",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Kadar"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-12-11 16:25:28.286143",
+ "modified": "2024-03-07 15:27:43.977713",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock Sub",

@@ -324,10 +324,10 @@ frappe.ui.form.on('Transfer Stockist', {
 	},
 	id_employee: function(frm){
 		frappe.db.get_value("Employee", { "id_employee": cur_frm.doc.id_employee }, ["name","employee_name"]).then(function (responseJSON) {
-			cur_frm.set_value("nama_stokist", responseJSON.message.employee_name);
+			cur_frm.set_value("nama_employee", responseJSON.message.employee_name);
 			cur_frm.set_value("pic", responseJSON.message.name);
 			cur_frm.get_field("transfer").set_focus()
-			cur_frm.refresh_field("nama_stokist");
+			cur_frm.refresh_field("nama_employee");
 			cur_frm.refresh_field("pic");
 		})
 	},

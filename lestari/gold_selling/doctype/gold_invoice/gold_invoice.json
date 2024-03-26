@@ -313,6 +313,7 @@
    "label": "PPH"
   },
   {
+   "allow_on_submit": 1,
    "default": "0",
    "depends_on": "tax_status==\"Tax\"",
    "fetch_from": "customer.is_skb",
@@ -436,7 +437,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-22 13:28:47.705739",
+ "modified": "2024-02-29 12:39:33.324469",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

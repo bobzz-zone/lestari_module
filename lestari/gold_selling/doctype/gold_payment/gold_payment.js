@@ -502,7 +502,7 @@ frappe.ui.form.on('Stock Payment', {
 			args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
 			callback: function (r){
 				frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
-				frappe.model.set_value(cdt, cdn,"amount",Math.floor(parseFloat(r.message.nilai)*d.qty*10)/1000);
+				frappe.model.set_value(cdt, cdn,"amount",Math.floor(((parseFloat(r.message.nilai)*100)*(d.qty*1000))/10000)/1000);
 				//frappe.model.set_value(cdt, cdn,"amount",((parseFloat(r.message.nilai)*d.qty*10)/1000).toFixed(3));
 				var total=0;
 				$.each(frm.doc.stock_payment,  function(i,  g) {
@@ -521,16 +521,16 @@ frappe.ui.form.on('Stock Payment', {
 	qty:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
 		//console.log((((d.rate*d.qty)*10)/1000).toFixed(3))
-		var test=(d.rate*d.qty);
+		//var test=(d.rate*d.qty);
 		//console.log("Rate "+d.rate+ " | Qty "+d.qty + "Tanpa Floor "+ (d.rate/100*d.qty) +" | Hasil floor " + Math.floor((d.rate/100*d.qty)*1000) + " | di bagi ulang "+ test/d.rate);
-		frappe.model.set_value(cdt, cdn,"amount",(Math.floor((d.rate*1000*d.qty)/100)/1000));
+		frappe.model.set_value(cdt, cdn,"amount",(Math.floor(((d.rate*100)*(1000*d.qty))/10000)/1000));
 		//frappe.model.set_value(cdt, cdn,"amount",(((d.rate*d.qty)*10)/1000).toFixed(3));
 		calculate_table_stock(frm,cdt,cdn)
 	},
 	rate:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
 		//console.log((((d.rate*d.qty)*10)/1000).toFixed(3))
-		frappe.model.set_value(cdt, cdn,"amount",(Math.floor((d.rate*1000*d.qty)/100)/1000));
+		frappe.model.set_value(cdt, cdn,"amount",(Math.floor(((d.rate*100)*(1000*d.qty))/10000)/1000));
 		//frappe.model.set_value(cdt, cdn,"amount",(((d.rate*d.qty)*10)/1000).toFixed(3));
 		calculate_table_stock(frm,cdt,cdn)
 	},

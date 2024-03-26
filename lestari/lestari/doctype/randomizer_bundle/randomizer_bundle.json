@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-05 09:41:35.827896",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tahun",
+  "bulan",
+  "randomize",
+  "log"
+ ],
+ "fields": [
+  {
+   "fieldname": "tahun",
+   "fieldtype": "Select",
+   "label": "Tahun",
+   "options": "2020\n2021\n2022\n2023\n2024"
+  },
+  {
+   "fieldname": "bulan",
+   "fieldtype": "Select",
+   "label": "Bulan",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+  },
+  {
+   "fieldname": "randomize",
+   "fieldtype": "Button",
+   "label": "Randomize"
+  },
+  {
+   "fieldname": "log",
+   "fieldtype": "Text",
+   "label": "Log"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-03-07 10:37:41.834423",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Randomizer Bundle",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestGoldLedgerEntry(unittest.TestCase):
+class TestRandomizerBundle(unittest.TestCase):
 	pass

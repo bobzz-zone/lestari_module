@@ -3,6 +3,7 @@ import frappe
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, new_line_sep, nowdate
 
+<<<<<<< HEAD
 
 def generate_mr():
 	mr = frappe.db.get_list("Material Request", filters={"docstatus":1,"status":"Pending"}, fields=['name','transaction_date','schedule_date'], limit=1)
@@ -15,6 +16,71 @@ def generate_mr():
 		po.submit()
 		frappe.db.commit()
 		print(str(po.name))
+=======
+@frappe.whitelist()
+def generate_mr(doctype,filters,from_data=None):
+	# frappe.msgprint(str(doctype))
+	# frappe.msgprint(str(filters))
+	name = json.loads(filters)
+	# name = json.dumps(name)
+	if from_data:
+		for row in name:
+			frappe.msgprint(str(row))
+			mr = frappe.get_doc("Material Request", row)
+			po = make_purchase_order(mr.name)
+			po.transaction_date = mr.transaction_date
+			po.schedule_date = mr.schedule_date
+			po.save()
+			po.submit()
+			frappe.db.commit()
+			frappe.msgprint(str(po.name))
+			po_get = frappe.get_doc("Purchase Order", po.name)
+			# print('== Purchase Order ==')
+			pr = make_purchase_receipt(po_get.name)
+			pr.transaction_date = po_get.transaction_date
+			pr.schedule_date = po_get.schedule_date
+			pr.save()
+			pr.submit()
+			frappe.db.commit()
+			frappe.msgprint(str(pr.name))
+			poinv = frappe.get_doc("Purchase Order", po.name)
+			# print('== Purchase Invoice ==')
+			pinv = make_purchase_invoice(poinv.name)
+			pinv.transaction_date = poinv.transaction_date
+			pinv.schedule_date = poinv.schedule_date
+			pinv.save()
+			pinv.submit()
+			frappe.db.commit()
+			frappe.msgprint(str(pinv.name))
+	else:
+		frappe.msgprint(str(name['name']))
+		mr = frappe.get_doc("Material Request", name['name'])
+		po = make_purchase_order(mr.name)
+		po.transaction_date = mr.transaction_date
+		po.schedule_date = mr.schedule_date
+		po.save()
+		po.submit()
+		frappe.db.commit()
+		frappe.msgprint(str(po.name))
+		po_get = frappe.get_doc("Purchase Order", po.name)
+		# print('== Purchase Order ==')
+		pr = make_purchase_receipt(po_get.name)
+		pr.transaction_date = po_get.transaction_date
+		pr.schedule_date = po_get.schedule_date
+		pr.save()
+		pr.submit()
+		frappe.db.commit()
+		frappe.msgprint(str(pr.name))
+		poinv = frappe.get_doc("Purchase Order", po.name)
+		# print('== Purchase Invoice ==')
+		pinv = make_purchase_invoice(poinv.name)
+		pinv.transaction_date = poinv.transaction_date
+		pinv.schedule_date = poinv.schedule_date
+		pinv.save()
+		pinv.submit()
+		frappe.db.commit()
+		frappe.msgprint(str(pinv.name))
+>>>>>>> dbce8d65c31a18bcd2d32cf9b909e281bb02ae83
 
 def make_purchase_order(source_name, target_doc=None, args=None):
 	doclist = get_mapped_doc(
@@ -39,7 +105,10 @@ def make_purchase_order(source_name, target_doc=None, args=None):
 
 	return doclist
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dbce8d65c31a18bcd2d32cf9b909e281bb02ae83
 @frappe.whitelist()
 def make_purchase_receipt(source_name, target_doc=None):
 	def update_item(obj, target, source_parent):
@@ -80,7 +149,45 @@ def make_purchase_receipt(source_name, target_doc=None):
 			"Purchase Taxes and Charges": {"doctype": "Purchase Taxes and Charges", "add_if_empty": True},
 		},
 		target_doc,
+<<<<<<< HEAD
 		set_missing_values,
+=======
+	)
+
+	return doc
+
+@frappe.whitelist()
+def make_purchase_invoice(source_name, target_doc=None):
+	
+	fields = {
+		"Purchase Order": {
+			"doctype": "Purchase Invoice",
+			"field_map": {
+				"party_account_currency": "party_account_currency",
+				"supplier_warehouse": "supplier_warehouse",
+			},
+			"field_no_map": ["payment_terms_template"],
+			"validation": {
+				"docstatus": ["=", 1],
+			},
+		},
+		"Purchase Order Item": {
+			"doctype": "Purchase Invoice Item",
+			"field_map": {
+				"name": "po_detail",
+				"parent": "purchase_order",
+				"wip_composite_asset": "wip_composite_asset",
+			},
+		},
+		"Purchase Taxes and Charges": {"doctype": "Purchase Taxes and Charges", "add_if_empty": True},
+	}
+
+	doc = get_mapped_doc(
+		"Purchase Order",
+		source_name,
+		fields,
+		target_doc,
+>>>>>>> dbce8d65c31a18bcd2d32cf9b909e281bb02ae83
 	)
 
 	return doc

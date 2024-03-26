@@ -14,7 +14,6 @@ class TransferBarangJadi(Document):
 			tot_qty += row.qty
 		self.total_qty = tot_qty
 		self.total_berat = tot_berat
-	
 	@frappe.whitelist()
 	def on_submit(self):
 		new_doc = frappe.new_doc("Stock Entry")
@@ -39,7 +38,6 @@ class TransferBarangJadi(Document):
 		new_doc.flags.ignore_permissions = True
 		new_doc.save()
 		new_doc.submit()
-			
 
 @frappe.whitelist()
 def get_spk_ppic(no_spk,kadar):

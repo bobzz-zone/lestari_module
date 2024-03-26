@@ -45,7 +45,10 @@ app_include_js = ['/assets/lestari/js/dx.all.js',
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-doctype_list_js = {"Item" : "public/js/item_list.js"}
+doctype_list_js = {
+	"Item" : "public/js/item_list.js",
+	"Material Request" : "public/js/mr_list.js",
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 

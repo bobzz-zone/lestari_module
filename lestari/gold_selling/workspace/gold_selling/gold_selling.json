@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Gold Selling",
  "links": [],
- "modified": "2023-10-02 10:13:47.741288",
+ "modified": "2024-01-31 12:44:41.923235",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -81,6 +81,12 @@
    "label": "Customer",
    "link_to": "Customer",
    "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Kartu Piutang",
+   "link_to": "kartu-piutang-custom",
+   "type": "Page"
   }
  ]
 }

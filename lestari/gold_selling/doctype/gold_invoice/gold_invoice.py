@@ -60,10 +60,39 @@ class GoldInvoice(Document):
 			self.invoice_status="Unpaid"
 
 	def on_submit(self):
+		blocking = 1
 		if self.outstanding <= 0:
 			frappe.throw(str(self.outstanding))
 		else:
 			self.make_gl_entries()
+		gudang = frappe.db.get_value("Sales Stock Bundle", self.bundle, "warehouse")
+		for row in self.items:
+			subkategori = frappe.db.get_value("Gold Selling Item", row.category, "item_group")
+			kategori = frappe.db.get_value("Item Group", subkategori, "parent_item_group")
+			gdle = frappe.new_doc("Gold Ledger Entry")
+			gdle.item = row.category
+			gdle.bundle = self.bundle
+			gdle.kategori = kategori
+			gdle.sub_kategori = subkategori
+			gdle.kadar = row.kadar
+			gdle.warehouse = self.warehouse
+			gdle.posting_date = self.posting_date
+			gdle.posting_time = datetime.now().strftime('%H:%M:%S')
+			gdle.voucher_type = self.doctype
+			gdle.voucher_no = self.name
+			gdle.voucher_detail_no = row.name
+			doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
+			if doc and blocking == 1:
+				for col in doc:
+					gdle.proses = 'Penjualan'
+					gdle.qty_in = 0
+					gdle.qty_out = row.qty
+					gdle.qty_balance = col.qty
+				gdle.flags.ignore_permissions = True
+				# frappe.msgprint(gdle.proses)
+				gdle.save()
+			else:
+				frappe.throw("Belum ada Penyerahan untuk Bundle {}".format(self.bundle))
 
 	def on_trash(self):
 			frappe.db.sql(
