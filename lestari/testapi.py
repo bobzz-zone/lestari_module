@@ -65,3 +65,36 @@ def item_form_order(item=None):
     doc.flags.ignore_permissions = True
     doc.save()
     return doc.as_dict()
+
+@frappe.whitelist()
+def repair_gl_entry_malik(doctype = "Purchase Invoice",docname = "ACC-PINV-2024-00787"):
+	
+	docu = frappe.get_doc(doctype, docname)	
+	# delete_sl = frappe.db.sql(""" DELETE FROM tabStock Ledger Entry WHERE voucher_no = "{}" """.format(docname))
+	delete_gl = frappe.db.sql(""" DELETE FROM tabGL Entry WHERE voucher_no = "{}" """.format(docname))
+
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 1 WHERE field = "allow_negative_stock" """)
+	# docu.update_stock_ledger()
+	docu.make_gl_entries()
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 0 WHERE field = "allow_negative_stock" """)
+
+@frappe.whitelist()
+def repair_gl_entry_arif(doctype,docname):
+	
+	docu = frappe.get_doc(doctype, docname)	
+	# delete_sl = frappe.db.sql(""" DELETE FROM tabStock Ledger Entry WHERE voucher_no = "{}" """.format(docname))
+	delete_gl = frappe.db.sql(""" DELETE FROM tabGL Entry WHERE voucher_no = "{}" """.format(docname))
+
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 1 WHERE field = "allow_negative_stock" """)
+	# docu.update_stock_ledger()
+	docu.make_gl_entries()
+
+	# digunakan jika backdate
+	# for row in docu.items:
+	# 	update_entries_after({
+	# 		"item_code": row.item_code,
+	# 		"warehouse": row.warehouse,
+	# 		"posting_date": docu.posting_date,
+	# 		"posting_time": docu.posting_time
+	# 	})
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 0 WHERE field = "allow_negative_stock" """)

@@ -11,6 +11,7 @@
   "selisih_kurs",
   "discount_payment",
   "bonus_payment",
+  "diskon_tutupan",
   "cost_center",
   "item_ct",
   "uang_buat_beli_emas",
@@ -109,12 +110,19 @@
    "fieldtype": "Link",
    "label": "PPH Account",
    "options": "Account"
+  },
+  {
+   "fieldname": "diskon_tutupan",
+   "fieldtype": "Link",
+   "label": "Diskon Tutupan",
+   "options": "Account",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-06-23 13:18:33.710979",
+ "modified": "2024-03-26 12:51:33.812274",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

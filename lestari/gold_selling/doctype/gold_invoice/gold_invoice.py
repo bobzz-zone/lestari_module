@@ -36,6 +36,22 @@ class GoldInvoice(Document):
 			self.outstanding = self.grand_total
 			if self.outstanding<0:
 				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
+		if self.customer == "NONCUST":
+			new_addr = frappe.new_doc("Address")
+			new_addr.address_title = self.contact_address
+			new_addr.address_line1 = self.alamat
+			new_addr.city = self.kota
+			new_addr.country = self.negara
+			new_addr.state = self.provinsi
+			new_addr.pincode = self.kode_pos
+			baris_baru = {
+				'link_doctype': "Customer",
+				"link_name": "NONCUST",
+				"link_title": self.customer_name
+			}
+			new_addr.append("links", baris_baru)
+			new_addr.flags.ignore_permissions = True
+			new_addr.save()
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
@@ -169,7 +185,7 @@ class GoldInvoice(Document):
 								#"against":"4110.000 - Penjualan - L",
 								"voucher_type":"Gold Invoice",
 								"voucher_no":self.name,
-								#"remarks":"",
+								"remarks":self.non_customer,
 								"is_opening":"No",
 								"is_advance":"No",
 								"fiscal_year":fiscal_years,
@@ -191,7 +207,7 @@ class GoldInvoice(Document):
 									#"against":"4110.000 - Penjualan - L",
 									"voucher_type":"Gold Invoice",
 									"voucher_no":self.name,
-									#"remarks":"",
+									"remarks":self.non_customer,
 									"is_opening":"No",
 									"is_advance":"No",
 									"fiscal_year":fiscal_years,
