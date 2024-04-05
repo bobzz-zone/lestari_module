@@ -14,7 +14,7 @@ class GoldLedgerEntry(Document):
 			kss.kategori = self.kategori
 			kss.sub_kategori = self.sub_kategori
 			kss.kadar = self.kadar
-			kss.warehouse = self.warehouse
+			kss.warehouse = frappe.db.get_value("Sales Stock Bundle", self.bundle, "warehouse")
 			kss.qty = self.qty_in
 			kss.flags.ignore_permissions = True
 			kss.save()

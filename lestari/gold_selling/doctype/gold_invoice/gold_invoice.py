@@ -98,7 +98,7 @@ class GoldInvoice(Document):
 			gdle.voucher_no = self.name
 			gdle.voucher_detail_no = row.name
 			doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
-			if doc and blocking == 1:
+			if doc or blocking == 1:
 				for col in doc:
 					gdle.proses = 'Penjualan'
 					gdle.qty_in = 0
@@ -355,3 +355,37 @@ def get_gold_purchase_rate(item,customer,customer_group):
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}
+
+@frappe.whitelist(allow_guest=True)
+def submit_gold_ledger(docname):
+	doc = frappe.get_doc("Gold Invoice", docname)
+	gudang = frappe.db.get_value("Sales Stock Bundle", doc.bundle, "warehouse")
+	print(str(doc))
+	for row in doc.items:
+		subkategori = frappe.db.get_value("Gold Selling Item", row.category, "item_group")
+		kategori = frappe.db.get_value("Item Group", subkategori, "parent_item_group")
+		gdle = frappe.new_doc("Gold Ledger Entry")
+		gdle.item = row.category
+		gdle.bundle = doc.bundle
+		gdle.kategori = kategori
+		gdle.sub_kategori = subkategori
+		gdle.kadar = row.kadar
+		gdle.warehouse = doc.warehouse
+		gdle.posting_date = doc.posting_date
+		gdle.posting_time = datetime.now().strftime('%H:%M:%S')
+		gdle.voucher_type = doc.doctype
+		gdle.voucher_no = doc.name
+		gdle.voucher_detail_no = row.name
+		doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : doc.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
+		for col in doc:
+			gdle.proses = 'Penjualan'
+			print(gdle.proses)
+			gdle.qty_in = 0
+			print(gdle.qty_in)
+			gdle.qty_out = row.qty
+			print(gdle.qty_out)
+			gdle.qty_balance = col.qty
+			print(gdle.qty_balance)
+		gdle.flags.ignore_permissions = True
+		# frappe.msgprint(gdle.proses)
+		gdle.save()

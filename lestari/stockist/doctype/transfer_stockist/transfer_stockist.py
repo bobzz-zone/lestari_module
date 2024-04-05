@@ -26,9 +26,11 @@ class TransferStockist(Document):
 		ste = frappe.new_doc("Stock Entry")
 		ste.stock_entry_transfer = "Transfer QC ke Stockist"
 		ste.employee_id = self.pic
+		ste.set_posting_time = 1
 		ste.posting_date = self.date
 		ste.remarks = self.keterangan
-		ste.update_bundle_stock_no = self.name
+		ste.voucher_no = self.name
+		ste.voucher_type = "Transfer Stockist"
 		for row in self.items:
 			doc = frappe.db.sql("""
                               SELECT item_code FROM `tabItem` WHERE kadar = "{}" and item_code LIKE "{}%" LIMIT 1

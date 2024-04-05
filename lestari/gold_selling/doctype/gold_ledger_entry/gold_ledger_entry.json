@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2023-12-20 12:59:35.529021",
+ "creation": "2024-01-05 11:11:36.564045",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -28,6 +28,7 @@
   {
    "fieldname": "bundle",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Bundle",
    "options": "Sales Stock Bundle"
   },
@@ -125,7 +126,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-05 14:05:16.496587",
+ "modified": "2024-04-02 10:25:57.516625",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Ledger Entry",
