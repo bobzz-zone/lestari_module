@@ -296,31 +296,34 @@ frappe.ui.form.on('Transfer Stockist', {
 		// removeColumns(frm, 'note', 'Transfer Stockist Item')
 	},
 	onload:function(frm){
-		frm.trigger('get_connect')
+		if (cur_frm.__islocal){
+			frm.trigger('get_connect')
+		}
 
 	},
 	validate: function(frm){
 		frm.events.get_disconnect(frm)
 	},
 	refresh: function(frm) {
-		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
-		if (cur_frm.is_new()){
-			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
-				cur_frm.set_value("pic", responseJSON.message.name);
-				cur_frm.set_value("id_employee", responseJSON.message.id_employee);
-				cur_frm.get_field("transfer").set_focus()
-				cur_frm.refresh_field("pic");
-				cur_frm.refresh_field("id_employee");
-			//   console.log(responseJSON)
-			});
-			if(cur_frm.doc.id_penerima){
-			frappe.db.get_value("Employee", { "id_employee": cur_frm.doc.id_penerima }, ["name","employee_name"]).then(function (responseJSON) {
-				cur_frm.set_value("employee_penerima", responseJSON.message.name);
-				cur_frm.refresh_field("employee_penerima");
-				})
-			}
-		}		
-	getListAndSetQuery(frm);
+		// if (cur_frm.__islocal){
+		// 	frape.msgprint("hallo")
+		// 	frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
+		// 	frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
+		// 		cur_frm.set_value("pic", responseJSON.message.name);
+		// 		cur_frm.set_value("id_employee", responseJSON.message.id_employee);
+		// 		cur_frm.get_field("transfer").set_focus()
+		// 		cur_frm.refresh_field("pic");
+		// 		cur_frm.refresh_field("id_employee");
+		// 	//   console.log(responseJSON)
+		// 	});
+		// 	if(cur_frm.doc.id_penerima){
+		// 	frappe.db.get_value("Employee", { "id_employee": cur_frm.doc.id_penerima }, ["name","employee_name"]).then(function (responseJSON) {
+		// 		cur_frm.set_value("employee_penerima", responseJSON.message.name);
+		// 		cur_frm.refresh_field("employee_penerima");
+		// 		})
+		// 	}
+		// 	getListAndSetQuery(frm);
+		// }		
 	},
 	id_employee: function(frm){
 		frappe.db.get_value("Employee", { "id_employee": cur_frm.doc.id_employee }, ["name","employee_name"]).then(function (responseJSON) {
@@ -376,21 +379,21 @@ frappe.ui.form.on('Transfer Stockist', {
 		  window.checkPort(false);
 	},
 	transfer: function(frm){
-		if(frm.doc.transfer != 'Transfer Stockist ke Produksi'){
-			var fields = ['jumlah']
-			var table = 'items'
-			var fields1 = ['total_qty']
-			var table1 = 'per_kadar'
-			removeColumns(frm, fields, table)
-			removeColumns(frm, fields1, table1)
-		}else{
-			var fields = ['jumlah']
-			var table = 'items'
-			var fields1 = ['total_qty']
-			var table1 = 'per_kadar'
-			showColumns(frm, fields, table)
-			showColumns(frm, fields1, table1)
-		}
+		// if(frm.doc.transfer != 'Transfer Stockist ke Produksi'){
+		// 	var fields = ['jumlah']
+		// 	var table = 'items'
+		// 	var fields1 = ['total_qty']
+		// 	var table1 = 'per_kadar'
+		// 	removeColumns(frm, fields, table)
+		// 	removeColumns(frm, fields1, table1)
+		// }else{
+		// 	var fields = ['jumlah']
+		// 	var table = 'items'
+		// 	var fields1 = ['total_qty']
+		// 	var table1 = 'per_kadar'
+		// 	showColumns(frm, fields, table)
+		// 	showColumns(frm, fields1, table1)
+		// }
 		
 	}
 });

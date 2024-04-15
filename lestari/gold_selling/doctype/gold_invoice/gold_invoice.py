@@ -36,6 +36,22 @@ class GoldInvoice(Document):
 			self.outstanding = self.grand_total
 			if self.outstanding<0:
 				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
+		if self.customer == "NONCUST":
+			new_addr = frappe.new_doc("Address")
+			new_addr.address_title = self.contact_address
+			new_addr.address_line1 = self.alamat
+			new_addr.city = self.kota
+			new_addr.country = self.negara
+			new_addr.state = self.provinsi
+			new_addr.pincode = self.kode_pos
+			baris_baru = {
+				'link_doctype': "Customer",
+				"link_name": "NONCUST",
+				"link_title": self.customer_name
+			}
+			new_addr.append("links", baris_baru)
+			new_addr.flags.ignore_permissions = True
+			new_addr.save()
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
@@ -82,7 +98,7 @@ class GoldInvoice(Document):
 			gdle.voucher_no = self.name
 			gdle.voucher_detail_no = row.name
 			doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
-			if doc and blocking == 1:
+			if doc or blocking == 1:
 				for col in doc:
 					gdle.proses = 'Penjualan'
 					gdle.qty_in = 0
@@ -169,7 +185,7 @@ class GoldInvoice(Document):
 								#"against":"4110.000 - Penjualan - L",
 								"voucher_type":"Gold Invoice",
 								"voucher_no":self.name,
-								#"remarks":"",
+								"remarks":self.non_customer,
 								"is_opening":"No",
 								"is_advance":"No",
 								"fiscal_year":fiscal_years,
@@ -183,10 +199,31 @@ class GoldInvoice(Document):
 									"party_type":"Customer",
 									"party":self.customer,
 									"cost_center":cost_center,
-									"debit":(self.grand_total*self.tutupan),
+									"debit":(self.grand_total*(self.tutupan-self.diskon)),
 									"credit":0,
 									"account_currency":"GOLD",
 									"debit_in_account_currency":self.grand_total,
+									"credit_in_account_currency":0,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Gold Invoice",
+									"voucher_no":self.name,
+									"remarks":self.non_customer,
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									}
+		if self.diskon>0:
+			diskon_acc = frappe.db.get_single_value('Gold Selling Settings', 'diskon_tutupan')
+			gl[diskon_acc]={
+									"posting_date":self.posting_date,
+									"account":diskon_acc,
+									"cost_center":cost_center,
+									"debit":self.total_diskon,
+									"credit":0,
+									"account_currency":"IDR",
+									"debit_in_account_currency":self.total_diskon,
 									"credit_in_account_currency":0,
 									#"against":"4110.000 - Penjualan - L",
 									"voucher_type":"Gold Invoice",
@@ -318,3 +355,37 @@ def get_gold_purchase_rate(item,customer,customer_group):
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}
+
+@frappe.whitelist(allow_guest=True)
+def submit_gold_ledger(docname):
+	doc = frappe.get_doc("Gold Invoice", docname)
+	gudang = frappe.db.get_value("Sales Stock Bundle", doc.bundle, "warehouse")
+	print(str(doc))
+	for row in doc.items:
+		subkategori = frappe.db.get_value("Gold Selling Item", row.category, "item_group")
+		kategori = frappe.db.get_value("Item Group", subkategori, "parent_item_group")
+		gdle = frappe.new_doc("Gold Ledger Entry")
+		gdle.item = row.category
+		gdle.bundle = doc.bundle
+		gdle.kategori = kategori
+		gdle.sub_kategori = subkategori
+		gdle.kadar = row.kadar
+		gdle.warehouse = doc.warehouse
+		gdle.posting_date = doc.posting_date
+		gdle.posting_time = datetime.now().strftime('%H:%M:%S')
+		gdle.voucher_type = doc.doctype
+		gdle.voucher_no = doc.name
+		gdle.voucher_detail_no = row.name
+		doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : doc.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
+		for col in doc:
+			gdle.proses = 'Penjualan'
+			print(gdle.proses)
+			gdle.qty_in = 0
+			print(gdle.qty_in)
+			gdle.qty_out = row.qty
+			print(gdle.qty_out)
+			gdle.qty_balance = col.qty
+			print(gdle.qty_balance)
+		gdle.flags.ignore_permissions = True
+		# frappe.msgprint(gdle.proses)
+		gdle.save()

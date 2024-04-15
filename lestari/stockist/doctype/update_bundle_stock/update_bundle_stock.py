@@ -2,13 +2,24 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.utils import now_datetime ,now
+from frappe.utils import now_datetime , now, getdate
 from frappe.model.document import Document
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from datetime import datetime # from python std library
 from frappe.utils import flt
+from frappe.model.naming import getseries
+from frappe.model.naming import make_autoname
 
 class UpdateBundleStock(Document):
+    @frappe.whitelist()
+    def autoname(self):
+        date = getdate(self.date)
+        tahun = date.strftime("%y")
+        bulan = date.strftime("%m")
+        hari = date.strftime("%d")
+        # frappe.throw(str(self.naming_series))
+        self.naming_series = self.naming_series.replace(".YY.", tahun).replace(".MM.", bulan).replace(".DD.", hari)
+        self.name = self.naming_series.replace(".####", getseries(self.naming_series,4))
     @frappe.whitelist()
     def calculate(self):
         from lestari.randomize import randomizer
@@ -35,24 +46,7 @@ class UpdateBundleStock(Document):
     def on_cancel(self):
         self.status = 'Cancelled'       
     def on_submit(self):
-        # ste = frappe.new_doc("Stock Entry")
-        # ste.stock_entry_type = "Material Transfer"
-        # ste.employee_id = self.pic
-        # ste.remarks = self.keterangan
-        # ste.update_bundle_stock_no = self.name
-        # for items in self.items:
-        #     baris_baru = {
-		# 		'item_code' : items.item,
-		# 		's_warehouse' : self.s_warehouse,
-		# 		't_warehouse' : self.warehouse,
-		# 		'qty' : items.qty_penambahan,
-		# 		'allow_zero_valuation_rate' : 1
-		# 	}
-        #     ste.append("items",baris_baru)
-        # ste.flags.ignore_permissions = True
-        # ste.save()
         frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Submitted" where name = "{0}" """.format(self.name))
-        # frappe.msgprint(str(frappe.get_last_doc("Stock Entry")))
         for row in self.items:
             gdle = frappe.new_doc("Gold Ledger Entry")
             gdle.item = row.gold_selling_item

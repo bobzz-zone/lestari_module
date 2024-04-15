@@ -122,6 +122,9 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_idr_in_gold");
 		
 	},
+	diskon: function (frm){
+		hitung_pajak(frm);
+	},
 	ppn: function (frm){
 		var ppn_rate=110;
 		var pph_rate=25;
@@ -209,10 +212,13 @@ function hitung_pajak(frm){
 		}
 		
 		var total=0;
+		var total_24k = 0;
 		$.each(frm.doc.items, function (i, g) {
 			total = total + g.jumlah;
+			total_24k = total_24k + g.amount;
 		}); 
-		frm.doc.total_sebelum_pajak=Math.floor(total);
+		frm.doc.total_diskon = total_24k * frm.doc.diskon;
+		frm.doc.total_sebelum_pajak=Math.floor(total) - frm.doc.total_diskon;
 		hitung_ppn(ppn_rate, frm)
 		hitung_pph(pph_rate, frm)
 		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
@@ -222,6 +228,7 @@ function hitung_pajak(frm){
 		
 		refresh_field("total_pajak");
 		refresh_field("sisa_pajak");
+		refresh_field("total_diskon");
 		refresh_field("total_sebelum_pajak");
 		refresh_field("total_setelah_pajak");
 	// }

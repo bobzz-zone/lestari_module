@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2023-12-20 12:59:35.529021",
+ "creation": "2024-01-05 11:11:36.564045",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -28,6 +28,7 @@
   {
    "fieldname": "bundle",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Bundle",
    "options": "Sales Stock Bundle"
   },
@@ -40,18 +41,21 @@
   {
    "fieldname": "kategori",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Kategori",
    "options": "Item Group"
   },
   {
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Sub Kategori",
    "options": "Item Group"
   },
   {
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Kadar",
    "options": "Data Logam"
   },
@@ -60,7 +64,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date"
@@ -94,6 +97,7 @@
   {
    "fieldname": "proses",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Proses",
    "options": "\nPenjualan\nPenambahan\nPenyerahan\nPenyetoran"
   },
@@ -125,7 +129,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-05 14:05:16.496587",
+ "modified": "2024-04-05 14:46:47.997325",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Ledger Entry",
