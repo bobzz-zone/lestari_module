@@ -1,7 +1,7 @@
 import frappe
 import random
-
 import datetime
+from frappe.utils import getdate
 
 def last_day_of_month(any_day):
     next_month = any_day.replace(day=28) + datetime.timedelta(days=4)
@@ -58,15 +58,15 @@ def start_generate(year,month):
 		SELECT gi.name,gi.sales_partner as sales_partner,gi.posting_date, gii.kadar, SUM(gii.qty) as qty, gi.bundle FROM 
 		`tabGold Invoice` gi
 		JOIN `tabGold Invoice Item` gii ON gii.parent = gi.name
-
 		WHERE DATE(gi.posting_date) >= DATE("{}")
 		AND DATE(gi.posting_date) <= DATE("{}")
-
+		AND gi.bundle = "AFB230501"
 		GROUP BY gi.sales_partner,gi.posting_date, gii.kadar, gi.bundle
-		ORDER BY gi.sales_partner,gi.posting_date 
+		ORDER BY gi.sales_partner,gi.posting_date,gii.kadar 
 		
-		""".format(str(first_day),str(last_day)),as_dict=1)
+		""".format(str(first_day),str(last_day)),as_dict=1, debug=True)
 	print("-- Get List Gold Invoice "+str(len(lis_gold_invoice))+"--")
+	# frappe.throw(str(len(lis_gold_invoice)))
 	print("-- Start Looping List Gold Invoice --")
 	index = 0
 	total_need = 0
@@ -77,13 +77,14 @@ def start_generate(year,month):
 				FROM `tabUpdate Bundle Stock` ubs JOIN
 				`tabDetail Penambahan Stock` dps ON dps.parent = ubs.name
 				WHERE ubs.`sales` = "{}" AND dps.`kadar` = "{}" 
-				AND ubs.type = "New Stock" AND ubs.bundle = "{}" """.format(row.sales_partner,row.kadar,row.bundle))
+				AND ubs.type = "New Stock" AND ubs.bundle = "{}" """.format(row.sales_partner,row.kadar,row.bundle),debug=True)
 
 		print("-- Get Penyerahan {}-{}-{}-{} --".format(row.sales_partner, row.kadar, row.bundle, len(check_penyerahan)))
+		# frappe.throw(str(len(check_penyerahan)))
 		new_doc = frappe.new_doc("Update Bundle Stock")
 		print("-- Create New Transfer Salesman '"+str(new_doc)+"' --")
-		new_doc.posting_date = row.posting_date
-		print("-- Set Posting Date '"+str(new_doc.posting_date)+"' --")
+		new_doc.date = row.posting_date
+		print("-- Set Posting Date '"+str(new_doc.date)+"' --")
 		new_doc.bundle = row.bundle
 		print("-- Set Bundle '"+new_doc.bundle+"' --")
 
@@ -97,43 +98,48 @@ def start_generate(year,month):
 		new_doc.purpose = "Sales"
 		new_doc.sales = row.sales_partner
 		new_doc.warehouse = frappe.db.get_value("Sales Partner",new_doc.sales,"warehouse")
-		# 6K: Venda
-		# 8K: Yeni
-        # 16K: Nirma
-		# 17K, 19K, 20K, 10K 8K putih): Ika
-		# PCB, 17K Putih): Mujiati
+		# 6K: Venda 1240
+		# 8K: Yeni 1147
+        # 16K: Nirma 1194
+		# 17K, 19K, 20K, 10K 8K putih): Ika 1225
+		# PCB, 17K Putih): Mujiati 1656
 		if row.kadar == "06K":
 			new_doc.pic = "HR-EMP-00489"
+			new_doc.id_employee = 1240
 		if row.kadar == "08K":
 			new_doc.pic = "HR-EMP-00485"
+			new_doc.id_employee = 1147
 		if row.kadar == "16K":
 			new_doc.pic = "HR-EMP-00486"
+			new_doc.id_employee = 1194
 		if row.kadar == "17K" or row.kadar == "19K" or row.kadar == "20K" or row.kadar == "10K" or row.kadar == "08KP":
 			new_doc.pic = "HR-EMP-00487"
+			new_doc.id_employee = 1225
 		if row.kadar == "PCB" or row.kadar == "17KP":
 			new_doc.pic = "HR-EMP-00490"
+			new_doc.id_employee = 1656
 		print("-- SET PIC '"+new_doc.pic+"' --") 
 		print("-- Start Generate Item Kadar Per Sub Kategori --")
 		item = frappe.get_doc("Item",{"kadar":row.kadar,"item_group":"Perhiasan","item_group_parent":"Pembayaran"})
 		print("-- Get Item Kadar Per Sub Kategori '"+item.name+"' --")
 		print("-- Initiate To Child Per Sub Kategori --")
 		new_doc.per_sub_category = []
-		for new_doc_row in new_doc.items:
-			input_warehouse = new_doc.s_warehouse
-			input_kadar = row.kadar
-			kebutuhan = row.qty
-			print("-- Start Randomizer --")
-			result = randomizer(input_warehouse, input_kadar, kebutuhan)
-			print("-- End Randomizer --")
-			for baris_result in result:
-				total_need += frappe.utils.flt(baris_result[1])
-				print("-- Append To Child Per Sub Kategori "+baris_result[0]+"--")
-				new_doc.append("per_sub_category",{
-					"item": baris_result[0] ,
-					"item_name": frappe.db.get_value("Item",baris_result[0],"item_name"),
-					"bruto": frappe.utils.flt(baris_result[1]),
-					"kadar": row.kadar
-				})
+		# for new_doc_row in new_doc.items:
+		input_warehouse = new_doc.s_warehouse
+		input_kadar = row.kadar
+		kebutuhan = row.qty
+		print("-- Start Randomizer --")
+		result = randomizer(input_warehouse, input_kadar, kebutuhan)
+		print("-- End Randomizer --")
+		for baris_result in result:
+			total_need += frappe.utils.flt(baris_result[1])
+			print("-- Append To Child Per Sub Kategori "+baris_result[0]+"--")
+			new_doc.append("per_sub_category",{
+				"item": baris_result[0] ,
+				"item_name": frappe.db.get_value("Item",baris_result[0],"item_name"),
+				"bruto": frappe.utils.flt(baris_result[1]),
+				"kadar": row.kadar
+			})
 		print("-- Append To Child Items --")
 		new_doc.append("items",{
 			"sub_category" : "Perhiasan",
@@ -183,13 +189,37 @@ def start_generate(year,month):
 			GROUP BY ubs.bundle, ubss.kadar, ubs.`sales`;
 
 		""".format(row.bundle, row.sales_partner, row.kadar))
-
-		keluar = get_transfer_salesman[0][3]
+		if get_transfer_salesman:
+			keluar = get_transfer_salesman[0][3]
+			# print(str(get_transfer_salesman[0][3]))
+		else:
+			keluar = 0
 		masuk = row.qty
 
 		if frappe.utils.flt(keluar) > frappe.utils.flt(masuk):
 			new_doc = frappe.new_doc("Update Bundle Stock")
-			new_doc.posting_date = last_day
+			# print(str(last_day))
+			# 6K: Venda 1240
+			# 8K: Yeni 1147
+			# 16K: Nirma 1194
+			# 17K, 19K, 20K, 10K 8K putih): Ika 1225
+			# PCB, 17K Putih): Mujiati 1656
+			if row.kadar == "06K":
+				new_doc.pic = "HR-EMP-00489"
+				new_doc.id_employee = 1240
+			if row.kadar == "08K":
+				new_doc.pic = "HR-EMP-00485"
+				new_doc.id_employee = 1147
+			if row.kadar == "16K":
+				new_doc.pic = "HR-EMP-00486"
+				new_doc.id_employee = 1194
+			if row.kadar == "17K" or row.kadar == "19K" or row.kadar == "20K" or row.kadar == "10K" or row.kadar == "08KP":
+				new_doc.pic = "HR-EMP-00487"
+				new_doc.id_employee = 1225
+			if row.kadar == "PCB" or row.kadar == "17KP":
+				new_doc.pic = "HR-EMP-00490"
+				new_doc.id_employee = 1656
+			new_doc.date = getdate(last_day)
 			new_doc.bundle = row.bundle
 			new_doc.type = "Deduct Stock"
 			
@@ -214,9 +244,6 @@ def start_generate(year,month):
 			})
 
 			new_doc.save()
-
-
-
 
 @frappe.whitelist()
 def generate_list():

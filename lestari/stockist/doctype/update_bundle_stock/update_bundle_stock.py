@@ -40,11 +40,10 @@ class UpdateBundleStock(Document):
                     "kadar": row.kadar
                 })
 
-
     def validate(self):
-        self.status = 'Draft'
+        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Draft" where name = "{0}" """.format(self.name))
     def on_cancel(self):
-        self.status = 'Cancelled'       
+        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Cancelled" where name = "{0}" """.format(self.name))       
     def on_submit(self):
         frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Submitted" where name = "{0}" """.format(self.name))
         for row in self.items:
