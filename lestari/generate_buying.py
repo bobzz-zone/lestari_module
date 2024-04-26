@@ -130,7 +130,10 @@ def make_purchase_receipt(source_name, target_doc=None):
 			"Purchase Taxes and Charges": {"doctype": "Purchase Taxes and Charges", "add_if_empty": True},
 		},
 		target_doc,
+<<<<<<< HEAD
+=======
 
+>>>>>>> 833acfa3a363eb3c48792d21a305c3ecc159e5f9
 	)
 
 	return doc
