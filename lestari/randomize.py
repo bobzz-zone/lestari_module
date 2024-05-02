@@ -14,10 +14,10 @@ def first_day_of_month(any_day):
 
 @frappe.whitelist()
 def debug_start_generate():
-	start_generate(2024,"January")
+	start_generate(2023,"May","AFB230501")
 
 @frappe.whitelist()
-def start_generate(year,month):
+def start_generate(year,month,bundle=None):
 	print("-- Initiate Generate --")
 	month_name = month
 	month_number = 0
@@ -54,20 +54,31 @@ def start_generate(year,month):
 	print("-- Get First Day '"+str(first_day)+"' --")
 	last_day = last_day_of_month(datetime.date(year, month_number, 1))
 	print("-- Get Last Day '"+str(last_day)+"' --")
+
+	addons = ""
+	if bundle:
+		addons = """ AND gi.bundle = "{}" """.format(bundle)
+
 	lis_gold_invoice = frappe.db.sql(""" 
 		SELECT gi.name,gi.sales_partner as sales_partner,gi.posting_date, gii.kadar, SUM(gii.qty) as qty, gi.bundle FROM 
 		`tabGold Invoice` gi
 		JOIN `tabGold Invoice Item` gii ON gii.parent = gi.name
 		WHERE DATE(gi.posting_date) >= DATE("{}")
 		AND DATE(gi.posting_date) <= DATE("{}")
-		AND gi.bundle = "AFB230501"
+		
+		{}
+
+		AND gi.docstatus = 1
+
 		GROUP BY gi.sales_partner,gi.posting_date, gii.kadar, gi.bundle
 		ORDER BY gi.sales_partner,gi.posting_date,gii.kadar 
 		
-		""".format(str(first_day),str(last_day)),as_dict=1, debug=True)
+		""".format(str(first_day),str(last_day),addons),as_dict=1, debug=True)
 	print("-- Get List Gold Invoice "+str(len(lis_gold_invoice))+"--")
 	# frappe.throw(str(len(lis_gold_invoice)))
 	print("-- Start Looping List Gold Invoice --")
+
+
 	index = 0
 	total_need = 0
 	for row in lis_gold_invoice:
@@ -81,9 +92,15 @@ def start_generate(year,month):
 
 		print("-- Get Penyerahan {}-{}-{}-{} --".format(row.sales_partner, row.kadar, row.bundle, len(check_penyerahan)))
 		# frappe.throw(str(len(check_penyerahan)))
+
+		bundle_doc = frappe.get_doc("Sales Stock Bundle", row.bundle)
+
 		new_doc = frappe.new_doc("Update Bundle Stock")
 		print("-- Create New Transfer Salesman '"+str(new_doc)+"' --")
-		new_doc.date = row.posting_date
+
+		# 1. ganti dengan posting date di bundle + 2. 
+		new_doc.date = bundle_doc.date
+
 		print("-- Set Posting Date '"+str(new_doc.date)+"' --")
 		new_doc.bundle = row.bundle
 		print("-- Set Bundle '"+new_doc.bundle+"' --")
@@ -172,6 +189,8 @@ def start_generate(year,month):
 		WHERE DATE(gi.posting_date) >= DATE("{}")
 		AND DATE(gi.posting_date) <= DATE("{}")
 
+		AND gi.docstatus = 1
+
 		GROUP BY gi.sales_partner, gii.kadar, gi.bundle
 		ORDER BY gi.sales_partner,gi.posting_date 
 	; """.format(str(first_day),str(last_day)),as_dict=1)
@@ -196,7 +215,7 @@ def start_generate(year,month):
 			keluar = 0
 		masuk = row.qty
 
-		if frappe.utils.flt(keluar) > frappe.utils.flt(masuk):
+		if frappe.utils.flt(keluar) >= frappe.utils.flt(masuk):
 			new_doc = frappe.new_doc("Update Bundle Stock")
 			# print(str(last_day))
 			# 6K: Venda 1240
@@ -219,6 +238,7 @@ def start_generate(year,month):
 			if row.kadar == "PCB" or row.kadar == "17KP":
 				new_doc.pic = "HR-EMP-00490"
 				new_doc.id_employee = 1656
+
 			new_doc.date = getdate(last_day)
 			new_doc.bundle = row.bundle
 			new_doc.type = "Deduct Stock"
@@ -259,23 +279,22 @@ def generate_list():
 
 @frappe.whitelist()
 def randomizer_debug():
-	warehouse = "Stockist - LMS"
-	item_group = "Pembayaran"
-	kadar = "09K"
+	warehouse = "Pembayaran Penjualan - LMS"
+	item_group = "Logam"
+	kadar = "06K"
 
 	list_item = frappe.db.sql(""" 
 		SELECT tb.item_code,tb.actual_qty FROM `tabBin` tb
 		JOIN `tabItem` ti ON ti.name = tb.item_code
 		WHERE tb.actual_qty > 0
-		AND tb.warehouse = "{}"
+		
 		AND ti.barang_yang_dibawa_sales = "{}"
-		AND ti.item_group = "{}"
 		AND ti.kadar = "{}"
-	""".format(warehouse,1,item_group,kadar))
+	""".format(1, kadar),debug=1)
 
 	
 	total_item = 0
-	kebutuhan = 842
+	kebutuhan = 10
 	for row in list_item:
 		total_item = total_item+frappe.utils.flt(row[1])
 
@@ -283,7 +302,7 @@ def randomizer_debug():
 	kebutuhan_max = min(kebutuhan * 1.10, total_item)
 
 	if total_item < kebutuhan:
-		frappe.throw("Item dengan kadar {} tidak cukup barang di gudang Stockist.".format(kadar))
+		frappe.throw("Item dengan kadar {} tidak cukup barang di gudang Stockist. {}".format(kadar, total_item))
 
 	if frappe.utils.flt(kebutuhan_min) == frappe.utils.flt(total_item):
 		for row in list_item:
