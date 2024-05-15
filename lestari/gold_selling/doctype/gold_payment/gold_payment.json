@@ -9,6 +9,7 @@
  "field_order": [
   "customer",
   "customer_name",
+  "non_customer",
   "customer_group",
   "territory",
   "sales_bundle",
@@ -414,17 +415,24 @@
    "label": "Summary Tax"
   },
   {
+   "depends_on": "eval: doc.customer != \"NONCUST\"",
    "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.customer == \"NONCUST\"",
+   "fieldname": "non_customer",
+   "fieldtype": "Data",
+   "label": "Customer Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-05 12:50:30.531077",
+ "modified": "2024-05-15 14:53:14.831398",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

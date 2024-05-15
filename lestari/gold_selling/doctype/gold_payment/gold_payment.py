@@ -68,6 +68,9 @@ class GoldPayment(StockController):
 		#reset before add
 		self.invoice_table=[]
 		self.total_gold = 0
+		condition = ""
+		if self.non_customer:
+			condition = "and non_customer = '"+self.non_customer+"'"
 		# doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		doc = frappe.db.sql("""
                       SELECT
@@ -84,8 +87,8 @@ class GoldPayment(StockController):
                       WHERE invoice_status = "Unpaid"
                       and docstatus = 1
                       and 
-                      customer = "{0}" 
-                      """.format(self.customer),as_dict=1)
+                      customer = "{0}" {1}
+                      """.format(self.customer,condition),as_dict=1)
 		# frappe.msgprint(str(doc))
 		if self.tutupan > 0:
 			tutupan = self.tutupan
