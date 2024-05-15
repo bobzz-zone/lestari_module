@@ -7,6 +7,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "posting_date",
   "item",
   "bundle",
   "kategori",
@@ -65,11 +66,16 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Qty"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-05 14:07:21.651102",
+ "modified": "2024-05-13 15:06:04.394987",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Kartu Stock Sales",

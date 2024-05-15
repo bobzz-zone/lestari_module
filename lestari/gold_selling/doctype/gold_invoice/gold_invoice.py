@@ -376,8 +376,9 @@ def submit_gold_ledger(docname):
 		gdle.voucher_type = doc.doctype
 		gdle.voucher_no = doc.name
 		gdle.voucher_detail_no = row.name
-		doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : doc.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
-		for col in doc:
+		kss = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : doc.bundle, "item":row.category}, fields=['item','bundle','kategori','kadar','qty'])
+		print(str(kss))
+		for col in kss:
 			gdle.proses = 'Penjualan'
 			print(gdle.proses)
 			gdle.qty_in = 0
@@ -387,5 +388,6 @@ def submit_gold_ledger(docname):
 			gdle.qty_balance = col.qty
 			print(gdle.qty_balance)
 		gdle.flags.ignore_permissions = True
-		# frappe.msgprint(gdle.proses)
 		gdle.save()
+		frappe.db.commit()
+		print(str(gdle))

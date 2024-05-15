@@ -2,8 +2,11 @@
 # For license information, please see license.txt
 
 import frappe
+import datetime
 from frappe.model.document import Document
-from frappe.utils import flt
+from frappe.utils import flt,getdate
+from lestari.randomize import first_day_of_month,last_day_of_month, start_generate
+from lestari.gold_selling.doctype.gold_invoice.gold_invoice import submit_gold_ledger
 
 class RekapAktivitasSales(Document):
 	@frappe.whitelist()
@@ -26,7 +29,7 @@ class RekapAktivitasSales(Document):
 						WHEN proses = 'Penjualan'
 						THEN 4
 						END,
-						creation
+					posting_date ASC
 		""".format(self.bundle,self.sales),as_dict = 1)
 		# frappe.throw(str(list_rekap))
 		# self.append("detail",
@@ -116,7 +119,7 @@ class RekapAktivitasSales(Document):
 			tot_17kp = 0
 			grand_tot = 0
 			for row in detail:
-				frappe.msgprint(detail[row]['id']+'aktivitas='+detail[row]['aktivitas'])
+				# frappe.msgprint(detail[row]['id']+'aktivitas='+detail[row]['aktivitas'])
 				# frappe.msgprint(grand_tot)
 				if detail[row]['aktivitas'] not in ["Penyetoran","Penjualan"] : 
 						tot_6k += flt(detail[row]["6k"])
@@ -150,3 +153,120 @@ class RekapAktivitasSales(Document):
 			# self.save()
 		else:
 			frappe.throw("Data Kosong")
+	
+	@frappe.whitelist()
+	def get_transfer_salesman(self):
+		month_name = self.bulan
+		year = self.tahun
+
+		month_number = 0
+		if month_name == "January":
+			month_number = 1
+		elif month_name == "February":
+			month_number = 2
+		elif month_name == "March":
+			month_number = 3
+		elif month_name == "April":
+			month_number = 4
+		elif month_name == "May":
+			month_number = 5
+		elif month_name == "June":
+			month_number = 6
+		elif month_name == "July":
+			month_number = 7
+		elif month_name == "August":
+			month_number = 8
+		elif month_name == "September":
+			month_number = 9
+		elif month_name == "October":
+			month_number = 10
+		elif month_name == "November":
+			month_number = 11
+		elif month_name == "December":
+			month_number = 12
+
+		month_number = int(month_number)
+		year = int(year)
+		
+		print("-- Get Month Name '"+month_name+"' --")
+		first_day = first_day_of_month(datetime.date(year, month_number, 1))
+		print("-- Get First Day '"+str(first_day)+"' --")
+		last_day = last_day_of_month(datetime.date(year, month_number, 1))
+		print("-- Get Last Day '"+str(last_day)+"' --")
+
+		list_kss = frappe.db.get_list(
+			"Kartu Stock Sales",
+			filters=[
+				['posting_date', 'between', [first_day, last_day]
+				]
+			]
+		)
+
+		if len(list_kss) > 0:
+			for row in list_kss:
+				frappe.delete_doc('Kartu Stock Sales',row.name)
+				frappe.db.commit()
+
+		list_gle = frappe.db.get_list(
+			"Gold Ledger Entry",
+			filters=[
+				['posting_date', 'between', [first_day, last_day]
+				]
+			]
+		)
+
+		if len(list_gle) > 0:
+			for row in list_gle:
+				frappe.delete_doc('Gold Ledger Entry',row.name)
+				frappe.db.commit()
+
+		list_ts = frappe.db.get_list(
+			"Update Bundle Stock",
+			filters=[
+				['date', 'between', [first_day, last_day]
+				]
+			]
+		)
+
+		if len(list_ts) > 0:
+			for row in list_ts:
+				frappe.delete_doc('Update Bundle Stock',row.name)
+				frappe.db.commit()
+
+		start_generate(self.tahun, self.bulan)
+
+		list_ginv = frappe.db.get_list(
+			"Gold Invoice",
+			filters=[
+				['posting_date', 'between', [first_day, last_day]
+				]
+			]
+		)
+
+		for row in list_ginv:
+			submit_gold_ledger(row.name)
+
+		frappe.msgprint("Generate Done")
+
+	@frappe.whitelist()
+	def get_transfer_salesman_bundle(self):
+		list_kss = frappe.db.get_list("Kartu Stock Sales", filters={"bundle":self.bundle})
+		for row in list_kss:
+			frappe.delete_doc('Kartu Stock Sales',row.name)
+			frappe.db.commit()
+		list_gle = frappe.db.get_list("Gold Ledger Entry", filters={"bundle":self.bundle})
+		for row in list_gle:
+			frappe.delete_doc('Gold Ledger Entry',row.name)
+			frappe.db.commit()
+		list_ts = frappe.db.get_list("Update Bundle Stock",filters={"bundle":self.bundle})
+		for row in list_ts:
+			frappe.delete_doc('Update Bundle Stock',row.name)
+			frappe.db.commit()
+		
+		start_generate(self.tahun, self.bulan, self.bundle)
+		list_ginv = frappe.db.get_list("Gold Invoice", filters={"bundle":self.bundle})
+		for row in list_ginv:
+			submit_gold_ledger(row.name)
+
+		frappe.msgprint("Generate Done")
+		# self.get_details()

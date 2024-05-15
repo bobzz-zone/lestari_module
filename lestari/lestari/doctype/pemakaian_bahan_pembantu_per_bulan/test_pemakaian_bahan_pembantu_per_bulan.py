@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestRekapAktivitasSales(unittest.TestCase):
+class TestPemakaianBahanPembantuPerBulan(unittest.TestCase):
 	pass

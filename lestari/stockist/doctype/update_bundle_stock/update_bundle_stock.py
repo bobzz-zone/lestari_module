@@ -20,32 +20,10 @@ class UpdateBundleStock(Document):
         # frappe.throw(str(self.naming_series))
         self.naming_series = self.naming_series.replace(".YY.", tahun).replace(".MM.", bulan).replace(".DD.", hari)
         self.name = self.naming_series.replace(".####", getseries(self.naming_series,4))
+
     @frappe.whitelist()
-    def calculate(self):
-        from lestari.randomize import randomizer
-
-        self.per_sub_category = []
-        for row in self.items:
-            input_warehouse = self.s_warehouse
-            input_kadar = row.kadar
-            kebutuhan = row.qty_penambahan
-
-            result = randomizer(input_warehouse, input_kadar, kebutuhan)
-
-            for baris_result in result:
-                self.append("per_sub_category",{
-                    "item": baris_result[0] ,
-                    "item_name": frappe.get_doc("Item",baris_result[0]).item_name,
-                    "bruto": frappe.utils.flt(baris_result[1]),
-                    "kadar": row.kadar
-                })
-
-    def validate(self):
-        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Draft" where name = "{0}" """.format(self.name))
-    def on_cancel(self):
-        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Cancelled" where name = "{0}" """.format(self.name))       
-    def on_submit(self):
-        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Submitted" where name = "{0}" """.format(self.name))
+    def create_gdle(self):
+        print(self.name)
         for row in self.items:
             gdle = frappe.new_doc("Gold Ledger Entry")
             gdle.item = row.gold_selling_item
@@ -79,9 +57,42 @@ class UpdateBundleStock(Document):
                     gdle.qty_out = row.qty_penambahan
                     gdle.qty_balance = col.qty
             gdle.flags.ignore_permissions = True
-            frappe.msgprint(gdle.proses)
             gdle.save()
-    
+
+    @frappe.whitelist()
+    def calculate(self):
+        from lestari.randomize import randomizer
+
+        self.per_sub_category = []
+        for row in self.items:
+            input_warehouse = self.s_warehouse
+            input_kadar = row.kadar
+            kebutuhan = row.qty_penambahan
+
+            result = randomizer(input_warehouse, input_kadar, kebutuhan)
+
+            for baris_result in result:
+                self.append("per_sub_category",{
+                    "item": baris_result[0] ,
+                    "item_name": frappe.get_doc("Item",baris_result[0]).item_name,
+                    "bruto": frappe.utils.flt(baris_result[1]),
+                    "kadar": row.kadar
+                })
+
+    def after_insert(self):
+        self.create_gdle()
+
+    def validate(self):
+        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Draft" where name = "{0}" """.format(self.name))
+        # self.create_gdle()
+
+    def on_cancel(self):
+        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Cancelled" where name = "{0}" """.format(self.name))       
+
+    def on_submit(self):
+        frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Submitted" where name = "{0}" """.format(self.name))
+        # self.create_gdle()
+
     @frappe.whitelist()
     def add_row_action(self):
         baris_baru = {
@@ -134,3 +145,5 @@ def get_sub_kategori(doctype, txt, searchfield, start, page_len, filters):
         # 'start': start,
         # 'page_len': page_len
     })
+
+   

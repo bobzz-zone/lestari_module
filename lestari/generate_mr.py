@@ -3,7 +3,7 @@ import random
 
 @frappe.whitelist()
 def debug_make_mr():
-	make_material_request("WashBen", 11, 2023)
+	make_material_request("Nit65", 12, 2023)
 
 @frappe.whitelist()
 def make_material_request(item, month, year):
@@ -28,23 +28,24 @@ def make_material_request(item, month, year):
 	""")
 
 	print(get_list)
+	print(get_patokan)
+	if get_patokan:
+		pemakaian = frappe.get_doc("Pemakaian Bahan Pembantu", get_patokan[0][0])
 
-	pemakaian = frappe.get_doc("Pemakaian Bahan Pembantu", get_patokan[0][0])
+		if get_list[0][1] > 0:
+			qty_satu = frappe.utils.flt(get_list[0][1])
+			# buat MR 1-20
+			for row in pemakaian.item:
+				qty = qty_satu * row.persen / 100
+				gen_mr(qty, row.department, item)
 
-	if get_list[0][1] > 0:
-		qty_satu = frappe.utils.flt(get_list[0][1])
-		# buat MR 1-20
-		for row in pemakaian.item:
-			qty = qty_satu * row.persen / 100
-			gen_mr(qty, row.department, item)
-
-	if get_list[0][3] > 0:
-		qty_dua = frappe.utils.flt(get_list[0][3])
-		# buat MR 21-30
-		for row in pemakaian.item:
-			qty = qty_dua * row.persen / 100
-			gen_mr(qty, row.department, item)
-			
+		if get_list[0][3] > 0:
+			qty_dua = frappe.utils.flt(get_list[0][3])
+			# buat MR 21-30
+			for row in pemakaian.item:
+				qty = qty_dua * row.persen / 100
+				gen_mr(qty, row.department, item)
+				
 
 @frappe.whitelist()
 def gen_mr(qty, department, item):
@@ -69,6 +70,7 @@ def gen_mr(qty, department, item):
 	})
 
 	mr.save()
+	frappe.db.commit()
 
 @frappe.whitelist()
 def masukin_pbp():
@@ -76,7 +78,7 @@ def masukin_pbp():
 	import pandas as pd
 	
 	# read by default 1st sheet of an excel file
-	df = pd.read_excel('/home/frappe/frappe-bench/apps/lestari/lestari/PBP.xlsx')
+	df = pd.read_excel('/home/frappe/lestari-bench/apps/lestari/lestari/PBP.xlsx')
 	
 	# print(df.columns.tolist())
 	counter = 0

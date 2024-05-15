@@ -24,7 +24,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "ID",
-   "options": "Update Bundle Stock"
+   "options": "Gold Ledger Entry"
   },
   {
    "columns": 1,
@@ -93,7 +93,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-09-27 14:03:14.602326",
+ "modified": "2024-05-15 13:13:25.521751",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Rekap Aktivitas Sales Details",

@@ -52,5 +52,44 @@ frappe.ui.form.on('Rekap Aktivitas Sales', {
 		frm.clear_table("detail")
 		frm.refresh_fields()
 		
-	}
+	},
+	bundle: function(frm){
+		var date = frm.doc.posting_date
+		const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		const d = new Date(date);
+		let month = months[d.getMonth()];
+		let year = d.getFullYear()
+		frm.doc.bulan = month
+		frm.doc.tahun = year
+		frm.refresh_fields();
+	},
+	random_bundle: function(frm){
+		frm.clear_table("detail")
+		frm.refresh_fields()
+		frappe.call({
+			method: 'get_transfer_salesman_bundle',
+			doc: frm.doc,
+			callback: function(r) {
+				if(r.message) {
+					// frm.set_value('generated_code', r.message);
+					// frm.refresh_field('generated_code');
+				}
+			}
+		});
+	},
+	random_bulan: function(frm){
+		frm.clear_table("detail")
+		frm.refresh_fields()
+		frappe.call({
+			method: 'get_transfer_salesman',
+			doc: frm.doc,
+			callback: function(r) {
+				if(r.message) {
+					// frm.set_value('generated_code', r.message);
+					// frm.refresh_field('generated_code');
+				}
+			}
+		});
+	},
+
 });

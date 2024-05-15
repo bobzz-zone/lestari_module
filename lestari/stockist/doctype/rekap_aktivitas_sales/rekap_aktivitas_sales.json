@@ -10,7 +10,12 @@
   "pendamping",
   "column_break_3",
   "bundle",
+  "posting_date",
+  "bulan",
+  "tahun",
   "get_details",
+  "random_bundle",
+  "random_bulan",
   "detail_aktivitas_section",
   "detail",
   "total_section",
@@ -36,10 +41,21 @@
    "read_only": 1
   },
   {
+   "default": "0",
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "bundle",
    "fieldtype": "Link",
    "label": "Bundle",
    "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "get_details",
+   "fieldtype": "Button",
+   "label": "Get Details",
+   "options": "get_details"
   },
   {
    "fieldname": "detail_aktivitas_section",
@@ -51,11 +67,6 @@
    "fieldtype": "Table",
    "label": "Detail",
    "options": "Rekap Aktivitas Sales Details"
-  },
-  {
-   "default": "0",
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "total_section",
@@ -87,17 +98,39 @@
    "label": "Lebih / Kurang"
   },
   {
-   "fieldname": "get_details",
+   "fieldname": "random_bundle",
    "fieldtype": "Button",
-   "label": "Get Details",
-   "options": "get_details"
+   "label": "Random Bundle"
+  },
+  {
+   "fieldname": "bulan",
+   "fieldtype": "Select",
+   "label": "Bulan",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+  },
+  {
+   "fieldname": "tahun",
+   "fieldtype": "Select",
+   "label": "Tahun",
+   "options": "2020\n2021\n2022\n2023\n2024\n2025"
+  },
+  {
+   "fieldname": "random_bulan",
+   "fieldtype": "Button",
+   "label": "Random Bulan"
+  },
+  {
+   "fetch_from": "bundle.date",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-09-27 14:24:49.561110",
+ "modified": "2024-05-10 16:15:52.267947",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Rekap Aktivitas Sales",
