@@ -18,6 +18,7 @@
   "random_bulan",
   "detail_aktivitas_section",
   "detail",
+  "detail_rekap",
   "total_section",
   "total_barang_dibawa",
   "total_barang_terjual",
@@ -65,6 +66,7 @@
   {
    "fieldname": "detail",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Detail",
    "options": "Rekap Aktivitas Sales Details"
   },
@@ -117,20 +119,27 @@
   {
    "fieldname": "random_bulan",
    "fieldtype": "Button",
-   "label": "Random Bulan"
+   "label": "Random Bulan",
+   "options": "<div id=\"devextreme\" style=\"padding-bottom: 20px;\"></div>"
   },
   {
    "fetch_from": "bundle.date",
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date"
+  },
+  {
+   "fieldname": "detail_rekap",
+   "fieldtype": "HTML",
+   "label": "Detail Rekap",
+   "options": "<div id=\"gridContainer\" style=\"padding-bottom: 20px;\"></div>"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-05-10 16:15:52.267947",
+ "modified": "2024-05-20 23:16:59.671445",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Rekap Aktivitas Sales",

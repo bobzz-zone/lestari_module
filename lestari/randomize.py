@@ -1,8 +1,10 @@
 import frappe
 import random
-import datetime
 import pandas as pd
+import datetime
 from frappe.utils import getdate
+from datetime import datetime, timedelta, date
+from faker import Faker
 # from lestari.stockist.doctype.update_bundle_stock.update_bundle_stock import create_gdle
 
 def save_to_excel(log_data, filename):
@@ -11,9 +13,27 @@ def save_to_excel(log_data, filename):
     df.to_excel(writer, sheet_name='Log', index=False)
     writer.save()
 
+def get_monday_of_date(date_str):
+    # Konversi string tanggal ke objek datetime
+    tgl = datetime.strptime(str(date_str), '%Y-%m-%d')
+    # Hitung perbedaan antara hari Senin dan hari saat ini
+    offset = (tgl.weekday() - 0) % 7
+    # Kurangi offset dari tanggal saat ini untuk mendapatkan hari Senin
+    monday = tgl - timedelta(days=offset)
+
+    return monday.strftime('%Y-%m-%d')
+
+    # # Contoh input tanggal penjualan
+    # str(date_str) = "09-05-2023"
+
+    # # Dapatkan hari Senin untuk tanggal penjualan
+    # monday = get_monday_of_date(date_str)
+
+    # print(monday.strftime('%Y-%m-%d'))
+
 def last_day_of_month(any_day):
-    next_month = any_day.replace(day=28) + datetime.timedelta(days=4)
-    return next_month - datetime.timedelta(days=next_month.day)
+    next_month = any_day.replace(day=28) + timedelta(days=4)
+    return next_month - timedelta(days=next_month.day)
 
 def first_day_of_month(any_day):
 	next_month = any_day.replace(day=1)
@@ -22,32 +42,33 @@ def first_day_of_month(any_day):
 
 @frappe.whitelist()
 def debug_print_calendar():
-	print_calendar("2024-01-01","2024-01-12")
+	print_calendar("2024-01-01","2024-01-18")
 
 @frappe.whitelist()
 def print_calendar(str_start_date,str_end_date):
 	# PERLU PIP INSTALL FAKER
-	from faker import Faker
 	fake = Faker()
 
-	from datetime import datetime, timedelta
 	start_date = datetime.strptime(str(str_start_date), '%Y-%m-%d')
 	end_date = datetime.strptime(str(str_end_date), '%Y-%m-%d') - timedelta(days=1)
 
 	check = 0 
 
 	while check == 0:
-		final_date = fake.date_between(start_date=start_date, end_date=end_date)
+		# final_date = fake.date_between(start_date=start_date, end_date=end_date)
+		final_date = get_monday_of_date(str_end_date)
+		# print(final_date)
 		check_holiday = frappe.db.sql(""" SELECT name FROM `tabHoliday` WHERE holiday_date = "{}" """.format(str(final_date)))
 		if len(check_holiday) == 0:
 			check = 1
-
+	
+	print(final_date)
 	return(str(final_date))
 
 
 @frappe.whitelist()
 def debug_start_generate():
-	start_generate(2023,"May")
+	start_generate(2023,"May","SKS230501")
 
 @frappe.whitelist()
 def start_generate(year,month,bundle=None):
@@ -83,9 +104,9 @@ def start_generate(year,month,bundle=None):
 	year = int(year)
 	
 	print("-- Get Month Name '"+month_name+"' --")
-	first_day = first_day_of_month(datetime.date(year, month_number, 1))
+	first_day = first_day_of_month(date(year, month_number, 1))
 	print("-- Get First Day '"+str(first_day)+"' --")
-	last_day = last_day_of_month(datetime.date(year, month_number, 1))
+	last_day = last_day_of_month(date(year, month_number, 1))
 	print("-- Get Last Day '"+str(last_day)+"' --")
 
 	addons = ""
@@ -141,7 +162,11 @@ def start_generate(year,month,bundle=None):
 		if len(check_penyerahan) == 0:
 			new_doc.type = "New Stock"
 			# 1. ganti dengan posting date di bundle + 2. 
-			new_doc.date = bundle_doc.date
+			# frappe.throw("aaaa")
+			bundle_date = frappe.db.get_value("Sales Stock Bundle",row.bundle,"date")
+			bundle_date = datetime.strptime(str(bundle_date), '%Y-%m-%d')
+			# new_doc.date = print_calendar(first_day,bundle_date)
+			new_doc.date = bundle_date
 		else:
 			new_doc.type = "Add Stock"
 			# kalau penambahan liat dari Tanggal Gold Invoice
@@ -386,9 +411,9 @@ def start_generate_hanya_setor(year,month,bundle=None):
 	year = int(year)
 	
 	print("-- Get Month Name '"+month_name+"' --")
-	first_day = first_day_of_month(datetime.date(year, month_number, 1))
+	first_day = first_day_of_month(date(year, month_number, 1))
 	print("-- Get First Day '"+str(first_day)+"' --")
-	last_day = last_day_of_month(datetime.date(year, month_number, 1))
+	last_day = last_day_of_month(date(year, month_number, 1))
 	print("-- Get Last Day '"+str(last_day)+"' --")
 
 	addons = ""

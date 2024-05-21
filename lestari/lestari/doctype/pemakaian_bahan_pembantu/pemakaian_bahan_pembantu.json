@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "nama",
+  "item_code",
   "item"
  ],
  "fields": [
@@ -22,11 +23,18 @@
    "fieldtype": "Table",
    "label": "Item",
    "options": "Pemakaian Bahan Pembantu Item"
+  },
+  {
+   "fetch_from": "item_code.item_code",
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-28 13:34:26.491414",
+ "modified": "2024-05-16 10:52:27.184078",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Pemakaian Bahan Pembantu",

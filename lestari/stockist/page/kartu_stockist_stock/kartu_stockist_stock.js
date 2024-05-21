@@ -1,4 +1,4 @@
-frappe.pages['kartu-sales-stock'].on_page_load = function(wrapper) {
+frappe.pages['kartu-stockist-stock'].on_page_load = function(wrapper) {
 	var tema = frappe.boot.user.desk_theme
 	if(tema == "Dark"){
 		frappe.require('/assets/lestari/css/dx.dark.css',function() {
@@ -17,7 +17,7 @@ DevExtreme = Class.extend({
 		var me = this
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
-			title: 'Kartu Stock Sales',
+			title: 'Kartu Stock Stockist',
 			single_column: true
 		});
 		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
@@ -69,7 +69,7 @@ DevExtreme = Class.extend({
 		$("#dataGrid_"+this.page.wrapper.attr('id')).dxDataGrid({
 			dataSource: infoproses.message,
 			width: '100%',
-        	keyExpr: 'no',
+        	keyExpr: 'voucher',
 			// height: 650,
 			// width: '100%',
 			columnAutoWidth: true,
@@ -151,13 +151,13 @@ DevExtreme = Class.extend({
 			export: {
 				enabled: true
 			},
-			columns:[
-			{
-				dataField: 'no',
-				width: 50,
-				alignment: 'center',
-				caption: 'No.'
-			},
+			// columns:[
+			// {
+			// 	dataField: 'no',
+			// 	width: 50,
+			// 	alignment: 'center',
+			// 	caption: 'No.'
+			// },
 			// {
 		// 		dataField: 'customer',
 		// 		width: 120,
@@ -178,50 +178,50 @@ DevExtreme = Class.extend({
 		// 		alignment: 'center',
 		// 		caption: 'No Nota',
 		// 	},
-			{
-				dataField: 'posting_date',
-				width: 100,
-				alignment: 'center',
-				sort: 'ASC',
-				caption: 'Tanggal Posting',
-			},
-			{
-				dataField: 'proses',
-				width: 120,
-				alignment: 'center',
-				caption: 'Proses',
-			},
-			{
-				dataField: 'voucher_no',
-				width: 150,
-				alignment: 'center',
-				caption: 'Voucher No',
-			},
-			{
-				dataField: 'kadar',
-				width: 150,
-				alignment: 'center',
-				caption: 'Kadar',
-				groupIndex: 0
-			},
-			{
-				dataField: 'qty_in',
-				width: 150,
-				alignment: 'center',
-				caption: 'Masuk',
-			},
-			{
-				dataField: 'qty_out',
-				width: 150,
-				alignment: 'center',
-				caption: 'Keluar',
-			},
-			{
-				dataField: 'qty_balance',
-				width: 150,
-				alignment: 'center',
-				caption: 'Sisa',
-			},
+			// {
+			// 	dataField: 'posting_date',
+			// 	width: 100,
+			// 	alignment: 'center',
+			// 	sort: 'ASC',
+			// 	caption: 'Tanggal Posting',
+			// },
+			// {
+			// 	dataField: 'proses',
+			// 	width: 120,
+			// 	alignment: 'center',
+			// 	caption: 'Proses',
+			// },
+			// {
+			// 	dataField: 'voucher_no',
+			// 	width: 150,
+			// 	alignment: 'center',
+			// 	caption: 'Voucher No',
+			// },
+			// {
+			// 	dataField: 'kadar',
+			// 	width: 150,
+			// 	alignment: 'center',
+			// 	caption: 'Kadar',
+			// 	groupIndex: 0
+			// },
+			// {
+			// 	dataField: 'qty_in',
+			// 	width: 150,
+			// 	alignment: 'center',
+			// 	caption: 'Masuk',
+			// },
+			// {
+			// 	dataField: 'qty_out',
+			// 	width: 150,
+			// 	alignment: 'center',
+			// 	caption: 'Keluar',
+			// },
+			// {
+			// 	dataField: 'qty_balance',
+			// 	width: 150,
+			// 	alignment: 'center',
+			// 	caption: 'Sisa',
+			// },
 		// {
 		// 		dataField: 'berat_kotor',
 		// 		width: 150,
@@ -281,7 +281,7 @@ DevExtreme = Class.extend({
 		// 		alignment: 'center',
 		// 		caption: 'User',
 		// 	}	
-		],
+		// ],
 		// summary:{
 		// 	totalItems: [
 		// 		{
@@ -396,7 +396,7 @@ DevExtreme = Class.extend({
 	infoproses: function(){
 		var me = this
 		var data = frappe.call({
-			method: 'lestari.stockist.page.kartu_sales_stock.kartu_sales_stock.contoh_report',
+			method: 'lestari.stockist.page.kartu_stockist_stock.kartu_stockist_stock.contoh_report',
 			args: {
 				'doctype': 'Transfer Barang Jadi',
 				'posting_date': me.posting_date,

@@ -24,9 +24,9 @@ class RekapAktivitasSales(Document):
 						THEN 1
 						WHEN proses = 'Add Stock'
 						THEN 2
-						WHEN proses = 'Penyetoran'
-						THEN 3
 						WHEN proses = 'Penjualan'
+						THEN 3
+						WHEN proses = 'Penyetoran'
 						THEN 4
 						END,
 					posting_date ASC
@@ -145,7 +145,7 @@ class RekapAktivitasSales(Document):
 				"16k" : tot_16k,
 				"17k" : tot_17k,
 				"17kp" : tot_17kp,
-				#"total" : "{:03f}".format(grand_tot),
+				# "total" : "{:03f}".format(grand_tot),
 				"total" : grand_tot,
 			})
 			# frappe.msgprint(str(detail))
