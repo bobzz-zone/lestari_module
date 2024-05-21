@@ -6,6 +6,7 @@ from erpnext.accounts.utils import get_account_currency, get_fiscal_years, valid
 from frappe.utils import flt
 from frappe.model.naming import getseries
 from frappe.model.naming import make_autoname
+import math
 
 class GoldInvoice(Document):
 	def autoname(self):
@@ -33,7 +34,7 @@ class GoldInvoice(Document):
 			self.total_bruto=bruto
 			
 			self.grand_total=flt(self.total)
-			self.outstanding = self.grand_total
+			self.outstanding = self.grand_total - (math.floor(self.total_diskon*1000/self.tutupan)/1000)
 			if self.outstanding<0:
 				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
 		if self.customer == "NONCUST":
