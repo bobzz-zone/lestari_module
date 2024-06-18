@@ -22,21 +22,21 @@ class GoldInvoice(Document):
 		self.name = naming_series
 
 	def validate(self):
-		if(self.no_invoice):
+		#if(self.no_invoice):
 			#self.name = self.no_invoice
 			#total items
-			total=0
-			bruto=0
-			for row in self.items:
-				total=total+row.amount
-				bruto=bruto+row.qty
-			self.total=total
-			self.total_bruto=bruto
+		total=0
+		bruto=0
+		for row in self.items:
+			total=total+row.amount
+			bruto=bruto+row.qty
+		self.total=total
+		self.total_bruto=bruto
 			
-			self.grand_total=flt(self.total)
-			self.outstanding = self.grand_total - (math.floor(self.total_diskon*1000/self.tutupan)/1000)
-			if self.outstanding<0:
-				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
+		self.grand_total=flt(self.total)
+		self.outstanding = self.grand_total - (math.floor(self.total_diskon*1000/self.tutupan)/1000)
+		if self.outstanding<0:
+			frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
 		if self.customer == "NONCUST":
 			new_addr = frappe.new_doc("Address")
 			new_addr.address_title = self.contact_address
