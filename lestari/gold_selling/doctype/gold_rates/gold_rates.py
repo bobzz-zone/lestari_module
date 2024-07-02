@@ -10,7 +10,7 @@ class GoldRates(Document):
 @frappe.whitelist(allow_guest=True)
 def get_latest_rates(type = "LD"):
 	try:
-		return frappe.db.sql("select nilai from `tabGold Rates` where date<='{}' and type_emas='{}' order by date desc".format(now_datetime(),type),as_dict=True)[0]
+		return frappe.db.sql("select nilai from `tabGold Rates` where date>CURDATE() and type_emas='{}' order by date desc".format(type),as_dict=True)[0]
 	except:
 		return 0
 	#return "select nilai from `tabGold Rates` where date<='{}' order by date desc"

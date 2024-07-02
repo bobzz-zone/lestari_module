@@ -88,19 +88,20 @@ class GoldPayment(StockController):
                       and docstatus = 1
                       and 
                       customer = "{0}" {1}
-                      """.format(self.customer,condition),as_dict=1)
+                      """.format(self.customer,condition),as_dict=1, debug=1)
 		# frappe.msgprint(str(doc))
-		if self.tutupan > 0:
-			tutupan = self.tutupan
+		if self.tutupan:
+			if self.tutupan > 0:
+				tutupan = self.tutupan
 		else:
 			tutupan = frappe.db.sql("""
-                        SELECT nilai
+						SELECT nilai
 						FROM `tabGold Rates`
 						WHERE nilai > 0
 						AND DATE <= CURDATE() 
 						ORDER BY DATE DESC
 						LIMIT 1
-                           """, as_dict=1)
+						""", as_dict=1)
 			# frappe.msgprint(str())
 			tutupan = tutupan[0].nilai
 			self.tutupan = flt(tutupan)
