@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-24 05:04:18.671090",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "bahan_pembantu",
+  "item_code",
+  "list_department",
+  "section_break_skj4n",
+  "generate_pemakaian",
+  "detail"
+ ],
+ "fields": [
+  {
+   "fieldname": "bahan_pembantu",
+   "fieldtype": "Link",
+   "label": "Bahan Pembantu",
+   "options": "Pemakaian Bahan Pembantu"
+  },
+  {
+   "fetch_from": "bahan_pembantu.item_code",
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "list_department",
+   "fieldtype": "Table",
+   "label": "List Department",
+   "options": "Pemakaian Bahan Pembantu Item"
+  },
+  {
+   "fieldname": "section_break_skj4n",
+   "fieldtype": "Section Break",
+   "label": "Detail Per Pemakaian"
+  },
+  {
+   "fieldname": "detail",
+   "fieldtype": "Table",
+   "label": "Detail",
+   "options": "Generate Bahan Pembantu Detail"
+  },
+  {
+   "fieldname": "generate_pemakaian",
+   "fieldtype": "Button",
+   "label": "Generate Pemakaian"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-05-24 05:37:19.074658",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Generate Bahan Pembantu",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

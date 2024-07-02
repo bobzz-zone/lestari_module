@@ -9,7 +9,6 @@ from lestari.randomize import first_day_of_month, last_day_of_month, start_gener
 from lestari.gold_selling.doctype.gold_invoice.gold_invoice import submit_gold_ledger
 from frappe.model.naming import getseries
 from frappe.model.naming import make_autoname
-from frappe.model.mapper import get_mapped_doc
 
 class RekapAktivitasSales(Document):
     @frappe.whitelist()
@@ -140,66 +139,62 @@ class RekapAktivitasSales(Document):
         # from lestari.randomize2 import start_generate_multi
         # start_generate_multi(first_day, last_day)
 
-    @frappe.whitelist()
-    def get_transfer_salesman(self):
-        first_day, last_day = get_first_last_day(int(self.tahun), self.bulan)
-        
-        # from lestari.randomize2 import start_generate_multi
+   @frappe.whitelist()
+   def get_transfer_salesman(self):
+	first_day, last_day = get_first_last_day(int(self.tahun), self.bulan)
+	
+	# from lestari.randomize2 import start_generate_multi
 
-        start_generate(self.tahun, self.bulan)
+	start_generate(self.tahun, self.bulan)
 
-        list_ginv = frappe.db.get_list(
-            "Gold Invoice",
-            filters=[
-                ['posting_date', 'between', [first_day, last_day]]
-            ]
-        )
+	list_ginv = frappe.db.get_list(
+		"Gold Invoice",
+		filters=[
+			['posting_date', 'between', [first_day, last_day]]
+		]
+	)
 
-        for row in list_ginv:
-            submit_gold_ledger(row.name)
+	for row in list_ginv:
+		submit_gold_ledger(row.name)
 
-        list_bundle = frappe.db.sql(
-            """
-            SELECT DISTINCT(bundle), sales_partner FROM `tabGold Invoice`
-            WHERE DATE(posting_date) >= DATE("{}")
-            AND DATE(posting_date) <= DATE("{}")
-        
-            """.format(first_day, last_day), as_dict=1, debug=1
-        )
-        frappe.msgprint(list_bundle)
-        for row in list_bundle:
-            doc = ""
-            self.detail = []
-            # new_doc = frappe.new_doc("Aktivitas Sales")
-            self.sales = row.sales_partner
-            self.bundle = row.bundle
-            self.get_details()
-            self.save()
+	list_bundle = frappe.db.sql(
+		"""
+		SELECT name, sales FROM `tabSales Stock Bundle`
+		WHERE DATE(date) >= DATE("{}")
+		AND DATE(date) <= DATE("{}")
+	
+		""".format(first_day, last_day), as_dict=1, debug=1
+	)
+	frappe.msgprint(list_bundle)
+	for row in list_bundle:
+		new_doc = frappe.new_doc("Aktivitas Sales")
+		self.sales = row.sales
+		self.bundle = row.name
+		self.get_details()
+		self.save()
 
-            import time
-            time.sleep(1)
-            
-            source_name = row.bundle
-            
-            doc = get_mapped_doc(
-                "Rekap Aktivitas Sales",
-                source_name,
-                {
-                    "Rekap Aktivitas Sales": {
-                        "doctype": "Aktivitas Sales",
-                    },
-                    "Rekap Aktivitas Sales Details": {
-                        "doctype": "Aktivitas Sales Details",
-                    },
-                },
-            )
+		import time
+		time.sleep(1)
+		
+		source_name = row.name
+		doc = get_mapped_doc(
+			"Rekap Aktivitas Sales",
+			source_name,
+			{
+				"Rekap Aktivitas Sales": {
+					"doctype": "Aktivitas Sales",
+				},
+				"Rekap Aktivitas Sales Detail": {
+					"doctype": "Rekap Aktivitas Sales Detail",
+				},
+			},
+			target_doc,
+		)
 
-            doc.save()
+		frappe.msgprint(str(doc))
 
-            # frappe.msgprint(str(doc))
-
-        frappe.msgprint("Generate Done")
-
+	frappe.msgprint("Generate Done")
+add_custom_child_filters
 
     @frappe.whitelist()
     def get_transfer_salesman_bundle(self):

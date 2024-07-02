@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-06-25 15:45:55.618862",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id",
+  "tgl_rekap",
+  "aktivitas",
+  "6k",
+  "8k",
+  "8kp",
+  "16k",
+  "17k",
+  "17kp",
+  "total"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "ID",
+   "options": "Gold Ledger Entry"
+  },
+  {
+   "columns": 1,
+   "fieldname": "tgl_rekap",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tgl Rekap"
+  },
+  {
+   "columns": 1,
+   "fieldname": "aktivitas",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Aktivitas"
+  },
+  {
+   "columns": 1,
+   "fieldname": "6k",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "6K"
+  },
+  {
+   "columns": 1,
+   "fieldname": "8k",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "8K"
+  },
+  {
+   "columns": 1,
+   "fieldname": "8kp",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "8KP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "16k",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "16K"
+  },
+  {
+   "columns": 1,
+   "fieldname": "17k",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "17K"
+  },
+  {
+   "columns": 1,
+   "fieldname": "17kp",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "17KP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-06-25 15:45:55.618862",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Aktivitas Sales Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

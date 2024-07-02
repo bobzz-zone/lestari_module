@@ -25,7 +25,7 @@ def contoh_report(posting_date = None, bundle = None, kadar = None):
     if bundle:
         condition = """AND bundle = '{}'""".format(bundle)
     if kadar:
-        condition = """AND kadar = '{}'""".format(kadar)
+        condition = """ {} AND kadar = '{}'""".format(condition,kadar)
         
     list_doc = frappe.db.sql("""
         SELECT 
@@ -34,16 +34,29 @@ def contoh_report(posting_date = None, bundle = None, kadar = None):
         proses,
         voucher_no,
         kadar,
-        SUM(qty_in) AS masuk,
-        SUM(qty_out) AS keluar
+        qty_in AS masuk,
+        qty_out AS keluar,
+        CASE
+                    WHEN proses = 'Penyerahan'
+                    THEN 1
+                    WHEN proses = 'Penambahan'
+                    THEN 2
+                    WHEN proses = 'Penjualan'
+                    THEN 3
+                    WHEN proses = 'Penyetoran'
+                    THEN 4
+                END AS "urutan"
 
         FROM `tabGold Ledger Entry`
         WHERE
         posting_date BETWEEN "{0}" AND "{1}"
         {2}
-        GROUP BY kadar, proses, bundle, posting_date 
-        ORDER BY kadar ASC, posting_date ASC
-    """.format(json_data[0],json_data[1],condition),as_dict = 1)
+        ORDER BY kadar ASC, 
+                posting_date ASC,
+                urutan ASC
+    """.format(json_data[0],json_data[1],condition),as_dict = 1,debug=1)
+#GROUP BY kadar, proses, bundle, posting_date 
+        
     no = 0
     qty_balance = 0.000
     # kadar = row.kadar

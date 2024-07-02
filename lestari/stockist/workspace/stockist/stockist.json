@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-03-25 12:57:46.390697",
+ "modified": "2024-05-28 14:00:14.704101",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Stockist",
@@ -80,6 +80,18 @@
    "label": "Transfer Stockist",
    "link_to": "Transfer Stockist",
    "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Kartu Stock Sales",
+   "link_to": "kartu-sales-stock",
+   "type": "Page"
+  },
+  {
+   "doc_view": "",
+   "label": "Kartu Stock Stockist",
+   "link_to": "kartu-stockist-stock",
+   "type": "Page"
   }
  ]
 }

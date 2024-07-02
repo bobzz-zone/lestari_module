@@ -21,15 +21,77 @@ DevExtreme = Class.extend({
 			single_column: true
 		});
 		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
+
+		this.print_icon = this.page.add_action_icon(	
+			"printer",
+			async function () {
+				var infoproses = await me.infoproses()
+				var sales = ""
+				// frappe.db.get_value("Sales Stock Bundle", me.bundle, "sales").then(async (r) => {
+				// 	console.log(r.message)
+				// 	sales = await r.message.sales
+				// })
+				let { message } = await frappe.db.get_value("Sales Stock Bundle", me.bundle, "sales");
+				sales = message?.sales;
+				console.log(sales)
+				var html = '<div class="container-fluid">';
+				html += '<table class="table table-bordered">';
+				html += '<tr><td colspan="6"><h1 class="text-center">KARTU STOCK SALES</h1></td></tr>';
+				html += '<tr><td style="width:15%">SALES</td><td style="width:1%">:</td><td style="width:auto">'+sales+'</td><td style="width:15%">KADAR</td><td style="width:1%">:</td><td style="width:auto">'+me.kadar+'</td>';
+				html += "</tr>";
+				html += '<tr><td style="width:15%">BUNDLE</td><td style="width:1%">:</td><td style="width:auto">'+me.bundle+"</td></tr>";
+				html += "</table>";
+				html += '<table class="table table-bordered">';
+				html += '<thead><tr>';
+				html += '<th class="text-center">TANGGAL</th>';
+				html += '<th class="text-center">KETERANGAN</th>';
+				html += '<th class="text-center">MASUK</th>';
+				html += '<th class="text-center">KELUAR</th>';
+				html += '<th class="text-center">SISA</th>';
+				html += '</tr></thead>';
+				html += "<tbody>";
+				// console.log(infoproses.message)
+				
+				$.each(infoproses.message, function(i, g) {
+					html += "<tr>";
+					html += "<td>"+frappe.format(g.posting_date, { fieldtype: 'Date' })+"</td>";
+					html += "<td>"+g.proses+" No &nbsp"+g.voucher_no+"</td>";
+					html += "<td>"+g.qty_in.toFixed(2)+"</td>";
+					html += "<td>"+g.qty_out.toFixed(2)+"</td>";
+					html += "<td>"+g.qty_balance.toFixed(2)+"</td>";
+					html += "</tr>";
+
+				})
+				html += "</tbody>";
+				html += "</table>";
+				html += "</div>";
+				// console.log(html);
+				// frappe.msgprint(html);
+				// html += 
+				frappe.ui.get_print_settings(false, function (print_settings) {
+					var title =  me.page.title;
+					frappe.render_grid({
+						template: html,
+						title: title,
+						print_settings: print_settings,
+						data: "",
+						columns: []
+					});
+				})
+			},
+			"",
+			__("Print")
+		);
+
 		this.posting_date = ""
 		// this.sales = ""
 		this.bundle = ""
 		this.kadar = ""
-		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-01-31', frappe.datetime.now_date()],
 			"label": __("Posting Date"), "reqd": 1,
 			change: function() {
 				me.posting_date = this.value;
-				me.make()
+				
 			}
 		}),
 		// this.page.add_field({"fieldtype": "Link", "fieldname": "sales","options": "Sales Partner",
@@ -43,16 +105,23 @@ DevExtreme = Class.extend({
 			"label": __("Bundle"), "reqd": 0,
 			change: function() {
 				me.bundle = this.value;
-				me.make()
 			}
 		}),
 		this.page.add_field({"fieldtype": "Link", "fieldname": "kadar","options": "Data Logam",
 			"label": __("Kadar"), "reqd": 0,
 			change: function() {
 				me.kadar = this.value;
+			}
+		}),
+		this.page.add_field({"fieldtype": "Button", "fieldname": "searching-btn",
+			"label": __("Search"), "reqd": 0,
+			click: function() {
 				me.make()
 			}
 		}),
+		$("button[data-fieldname='searching-btn'").removeClass("btn-default")
+		$("button[data-fieldname='searching-btn'").css("width","auto")
+		$("button[data-fieldname='searching-btn'").addClass("btn-primary")
 		this.make()
 		// frappe.msgprint('Data Terload')
 	},

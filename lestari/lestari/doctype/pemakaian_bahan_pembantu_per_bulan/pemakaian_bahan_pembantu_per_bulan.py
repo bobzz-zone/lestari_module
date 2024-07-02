@@ -9,14 +9,11 @@ from datetime import datetime, timedelta
 from frappe.model.document import Document
 
 class PemakaianBahanPembantuPerBulan(Document):
-
-	def make_mr(self):
-		item_code = frappe.db.get_value('Pemakaian Bahan Pembantu', {'nama': self.pemakaian_bahan_pembantu}, ['item_code'])
-		generate_mr(item_code,self.bulan,self.tahun)
+	pass
 
 @frappe.whitelist()
 def debug_generate_mr():
-	generate_mr("WashBen",12,2023)
+	generate_mr("Bor41415",12,2023)
 
 @frappe.whitelist()	
 def generate_mr(item_code,bulan,tahun):
@@ -29,51 +26,87 @@ def generate_mr(item_code,bulan,tahun):
 		'tahun':tahun,
 		}, ['pemakaian'])
 	
-	jenis_dokumen = "Non Stock"
+	jenis_dokumen = "Stock"
 
 	for department in pbp.item:
 		pakai = department.persen * pemakaian / 100
-		pemakaian_mr = pecah_pemakaian(pakai)
+		pemakaian_mr = pecah_pemakaian(pakai, item_code)
 		for qty in pemakaian_mr:
 			tanggal = str(rand_tgl(bulan,tahun))
-			k = random.randint(0,1)
-			if k == 0:
-				material_request_type = "Material Transfer"
+			material_request_type = "Material Issue"
+			draf_mr = frappe.db.get_list('Material Request',
+								filters={'docstatus':0,'hasil_generate':1,'schedule_date':tanggal,'department':department.department},
+								fields=['name'],pluck='name')
+			
+			if len(draf_mr) == 0:			
+				print("make mr untuk department "+department.department+" qty "+str(qty)+" tanggal "+tanggal)
+				new_mr = frappe.get_doc({
+						'doctype': 'Material Request',
+						'material_request_type': material_request_type,
+						'jenis_dokumen': jenis_dokumen,
+						'transaction_date': tanggal,
+						'schedule_date': tanggal,
+						'department': department.department,
+						'hasil_generate': 1,
+						'items': [
+							{
+								'item_code': item_code,
+								'schedule_date': tanggal,
+								'qty': qty,
+								'warehouse': "inventory General - LMS"
+							}
+						]
+					})
+				new_mr.save()
 			else:
-				material_request_type = "Material Issue"
-			print("make mr untuk department "+department.department+" qty "+str(qty)+" tanggal "+tanggal)
-			new_mr = frappe.get_doc({
-					'doctype': 'Material Request',
-					'material_request_type': material_request_type,
-					'jenis_dokumen': jenis_dokumen,
-					'transaction_date': tanggal,
+				print("update draft mr department "+department.department+" qty "+str(qty)+" tanggal "+tanggal)
+				description = frappe.db.get_value('Item', {'item_code': item_code}, ['description'])
+				stock_uom = frappe.db.get_value('Item', {'item_code': item_code}, ['stock_uom'])
+				uom = frappe.db.get_list('UOM Conversion Detail',filters={'parent':item_code},fields=['uom','conversion_factor'])
+				add_mr = frappe.get_doc({
+					'doctype': 'Material Request Item',
+					'parent': draf_mr[0],
+					'parentfield': 'items',
+					'parenttype': 'Material Request',
+					'item_code': item_code,
 					'schedule_date': tanggal,
-					'department': department.department,
-					'items': [
-						{
-							'item_code': item_code,
-							'schedule_date': tanggal,
-							'qty': pemakaian,
-						}
-					]
+					'qty': qty,
+					'warehouse': "inventory General - LMS",
+					'description': description,
+					'stock_uom': stock_uom,
+					'uom': uom[0]['uom'],
+					'conversion_factor': uom[0]['conversion_factor']
 				})
-			new_mr.save()
+				add_mr.insert(ignore_permissions=True)
 
+			
 	frappe.db.commit()
 
-def pecah_pemakaian(pemakaian):
+def pecah_pemakaian(pemakaian, item_code):
 	data = []
-		
+	
 	jumlah_mr = random.randint(1, 5)
 	persen = 100 
+	import math
 	for i in range(0,jumlah_mr-1):
 		if persen > 1:
 			sub_persen = random.randint(1, persen)
-			data.append(sub_persen*pemakaian/100)
-			persen = persen - sub_persen
+			if frappe.get_doc("Item",item_code).stock_uom == "Pcs":
+				qty = math.ceil(sub_persen*pemakaian/100)
+				print(qty)
+				if qty != 0:
+					data.append(qty)
+			else:
+				data.append(sub_persen*pemakaian/100)
 			
 	if persen != 0:
-		data.append(persen*pemakaian/100)
+		if frappe.get_doc("Item",item_code).stock_uom == "Pcs":
+			qty = math.ceil(persen*pemakaian/100)
+			print(qty)
+			if qty != 0:
+				data.append(qty)
+		else:
+			data.append(persen*pemakaian/100)
 	
 	return data
 

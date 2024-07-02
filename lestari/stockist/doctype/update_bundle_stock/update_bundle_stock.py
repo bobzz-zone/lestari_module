@@ -81,6 +81,7 @@ class UpdateBundleStock(Document):
 
     def after_insert(self):
         self.create_gdle()
+        # pass
 
     def validate(self):
         frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "Draft" where name = "{0}" """.format(self.name))

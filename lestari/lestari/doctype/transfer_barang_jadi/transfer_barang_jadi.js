@@ -4,7 +4,7 @@
 frappe.ui.form.on('Transfer Barang Jadi', {
 	setup: function(frm){
 		if (cur_frm.is_new()){
-			frm.set_value('posting_time', frappe.datetime.now_time());
+			// frm.set_value('posting_time', frappe.datetime.now_time());
 			frm.set_value('posting_date', frappe.datetime.get_today());
 		}
 	},

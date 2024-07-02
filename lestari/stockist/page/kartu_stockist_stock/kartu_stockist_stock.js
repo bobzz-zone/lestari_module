@@ -10,49 +10,105 @@ frappe.pages['kartu-stockist-stock'].on_page_load = function(wrapper) {
 		})
 	}
 	DevExpress.viz.refreshTheme();
-frappe.breadcrumbs.add("Stockist");
+	
+	frappe.breadcrumbs.add("Stockist");
+	// frappe.breadcrumbs.add("Kartu Stock Sales");
 }
+
 DevExtreme = Class.extend({
 	init: function(wrapper){
 		var me = this
+				
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
 			title: 'Kartu Stock Stockist',
 			single_column: true
 		});
 		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
+
+		this.print_icon = this.page.add_action_icon(	
+			"printer",
+			async function () {
+				var infoproses = await me.infoproses()
+
+				var html = '<div class="container-fluid">';
+				html += '<table class="table table-bordered">';
+				html += '<tr><td colspan="3"><h1 class="text-center">KARTU STOCK STOCKIST</h1></td></tr>';
+				html += '<tr><td style="width:15%">PRODUK</td><td style="width:1%">:</td><td style="width:auto">'+me.produk+"</td></tr>";
+				html += '<tr><td style="width:15%">KADAR</td><td style="width:1%">:</td><td style="width:auto">'+me.kadar+"</td></tr>";
+				html += "</table>";
+				html += '<table class="table table-bordered">';
+				html += '<thead><tr>';
+				html += '<th class="text-center">TANGGAL</th>';
+				html += '<th class="text-center">KETERANGAN</th>';
+				html += '<th class="text-center">MASUK</th>';
+				html += '<th class="text-center">KELUAR</th>';
+				html += '<th class="text-center">SISA</th>';
+				html += '</tr></thead>';
+				html += "<tbody>";
+				// console.log(infoproses.message)
+				$.each(infoproses.message, function(i, g) {
+					html += "<tr>";
+					html += "<td>"+frappe.format(g.posting_date, { fieldtype: 'Date' })+"</td>";
+					html += "<td>"+g.proses+" No &nbsp"+g.voucher+"</td>";
+					html += "<td>"+g.masuk.toFixed(2) +"</td>";
+					html += "<td>"+g.keluar.toFixed(2)+"</td>";
+					html += "<td>"+g.saldo.toFixed(2)+"</td>";
+					html += "</tr>";
+
+				})
+				html += "</tbody>";
+				html += "</table>";
+				html += "</div>";
+				// console.log(html);
+				// frappe.msgprint(html);
+				// html += 
+				frappe.ui.get_print_settings(false, function (print_settings) {
+					var title =  me.page.title;
+					frappe.render_grid({
+						template: html,
+						title: title,
+						print_settings: print_settings,
+						data: "",
+						columns: []
+					});
+				})
+			},
+			"",
+			__("Print")
+		);
+		
 		this.posting_date = ""
 		// this.sales = ""
-		this.bundle = ""
+		this.produk = ""
 		this.kadar = ""
-		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-01-31', frappe.datetime.now_date()],
 			"label": __("Posting Date"), "reqd": 1,
 			change: function() {
 				me.posting_date = this.value;
-				me.make()
 			}
 		}),
-		// this.page.add_field({"fieldtype": "Link", "fieldname": "sales","options": "Sales Partner",
-		// 	"label": __("Sales"), "reqd": 0,
-		// 	change: function() {
-		// 		me.sales = this.value;
-		// 		me.make()
-		// 	}
-		// }),
-		this.page.add_field({"fieldtype": "Link", "fieldname": "bundle","options": "Sales Stock Bundle",
-			"label": __("Bundle"), "reqd": 0,
+		this.page.add_field({"fieldtype": "Link", "fieldname": "produk","options": "Item Group",
+			"label": __("Produk"), "reqd": 1,
 			change: function() {
-				me.bundle = this.value;
-				me.make()
+				me.produk = this.value;
 			}
 		}),
 		this.page.add_field({"fieldtype": "Link", "fieldname": "kadar","options": "Data Logam",
-			"label": __("Kadar"), "reqd": 0,
+			"label": __("Kadar"), "reqd": 1,
 			change: function() {
 				me.kadar = this.value;
+			}
+		}),
+		this.page.add_field({"fieldtype": "Button", "fieldname": "searching-btn",
+			"label": __("Search"), "reqd": 0,
+			click: function() {
 				me.make()
 			}
 		}),
+		$("button[data-fieldname='searching-btn'").removeClass("btn-default")
+		$("button[data-fieldname='searching-btn'").css("width","auto")
+		$("button[data-fieldname='searching-btn'").addClass("btn-primary")
 		this.make()
 		// frappe.msgprint('Data Terload')
 	},
@@ -401,7 +457,7 @@ DevExtreme = Class.extend({
 				'doctype': 'Transfer Barang Jadi',
 				'posting_date': me.posting_date,
 				// 'sales': me.sales,
-				'bundle': me.bundle,
+				'produk': me.produk,
 				'kadar': me.kadar,
 			}
 		});

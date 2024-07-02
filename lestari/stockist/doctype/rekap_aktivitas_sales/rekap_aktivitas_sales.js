@@ -197,5 +197,20 @@ frappe.ui.form.on('Rekap Aktivitas Sales', {
 			}
 		});
 	},
+	hapus_random_bulan: function(frm){
+		frm.clear_table("detail")
+		frm.refresh_fields()
+		frappe.call({
+			method: 'hapus_transfer_salesman',
+			freeze: true,
+			doc: frm.doc,
+			callback: function(r) {
+				if(r.message) {
+					// frm.set_value('generated_code', r.message);
+					// frm.refresh_field('generated_code');
+				}
+			}
+		});
+	},
 
 });

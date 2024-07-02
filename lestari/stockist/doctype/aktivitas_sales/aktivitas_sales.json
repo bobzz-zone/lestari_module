@@ -1,7 +1,8 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2023-09-26 15:19:06.010278",
+ "autoname": "naming_series:",
+ "creation": "2024-06-18 09:19:45.483318",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -13,10 +14,6 @@
   "posting_date",
   "bulan",
   "tahun",
-  "get_details",
-  "random_bundle",
-  "random_bulan",
-  "hapus_random_bulan",
   "detail_aktivitas_section",
   "detail",
   "detail_rekap",
@@ -25,7 +22,8 @@
   "total_barang_terjual",
   "column_break_10",
   "sisa_barang",
-  "lebih_kurang"
+  "lebih_kurang",
+  "naming_series"
  ],
  "fields": [
   {
@@ -54,10 +52,23 @@
    "options": "Sales Stock Bundle"
   },
   {
-   "fieldname": "get_details",
-   "fieldtype": "Button",
-   "label": "Get Details",
-   "options": "get_details"
+   "fetch_from": "bundle.date",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "bulan",
+   "fieldtype": "Select",
+   "label": "Bulan",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+  },
+  {
+   "fieldname": "tahun",
+   "fieldtype": "Select",
+   "label": "Tahun",
+   "options": "2020\n2021\n2022\n2023\n2024\n2025"
   },
   {
    "fieldname": "detail_aktivitas_section",
@@ -67,9 +78,14 @@
   {
    "fieldname": "detail",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": "Detail",
-   "options": "Rekap Aktivitas Sales Details"
+   "options": "Aktivitas Sales Details"
+  },
+  {
+   "fieldname": "detail_rekap",
+   "fieldtype": "HTML",
+   "label": "Detail Rekap",
+   "options": "<div id=\"gridContainer\" style=\"padding-bottom: 20px;\"></div>"
   },
   {
    "fieldname": "total_section",
@@ -101,54 +117,20 @@
    "label": "Lebih / Kurang"
   },
   {
-   "fieldname": "random_bundle",
-   "fieldtype": "Button",
-   "label": "Random Bundle"
-  },
-  {
-   "fieldname": "bulan",
+   "default": "AKS.YY..MM..DD..####",
+   "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Bulan",
-   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
-  },
-  {
-   "fieldname": "tahun",
-   "fieldtype": "Select",
-   "label": "Tahun",
-   "options": "2020\n2021\n2022\n2023\n2024\n2025"
-  },
-  {
-   "fieldname": "random_bulan",
-   "fieldtype": "Button",
-   "label": "Random Bulan"
-  },
-  {
-   "fetch_from": "bundle.date",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Posting Date"
-  },
-  {
-   "fieldname": "detail_rekap",
-   "fieldtype": "HTML",
-   "label": "Detail Rekap",
-   "options": "<div id=\"gridContainer\" style=\"padding-bottom: 20px;\"></div>"
-  },
-  {
-   "fieldname": "hapus_random_bulan",
-   "fieldtype": "Button",
-   "label": "Hapus Random Bulan"
+   "label": "Series",
+   "options": "AKS.YY..MM..DD..####"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
- "issingle": 1,
  "links": [],
- "modified": "2024-06-03 15:07:59.118756",
+ "modified": "2024-06-25 15:46:48.752409",
  "modified_by": "Administrator",
  "module": "Stockist",
- "name": "Rekap Aktivitas Sales",
+ "name": "Aktivitas Sales",
  "owner": "Administrator",
  "permissions": [
   {

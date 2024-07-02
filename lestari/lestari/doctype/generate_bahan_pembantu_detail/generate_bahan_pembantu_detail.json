@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-24 05:03:27.058500",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "bulan",
+  "tahun",
+  "pemakaian"
+ ],
+ "fields": [
+  {
+   "fieldname": "bulan",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Bulan"
+  },
+  {
+   "fieldname": "tahun",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Tahun"
+  },
+  {
+   "fieldname": "pemakaian",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Pemakaian"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-24 05:37:44.105618",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Generate Bahan Pembantu Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
