@@ -442,7 +442,7 @@ DevExtreme = Class.extend({
 				  autoFilterEnabled: true,
 				}).then(() => {
 				  workbook.xlsx.writeBuffer().then((buffer) => {
-					saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Pembayaran.xlsx');
+					saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Kartu Stock Sales.xlsx');
 				  });
 				});
 				e.cancel = true;

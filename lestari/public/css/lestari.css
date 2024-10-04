@@ -1,0 +1,16 @@
+/* .layout-side-section{
+  position: fixed;
+  top: 160px;
+  left: 20px; 
+  width: 300px;
+  height: calc(100vh - 100px);
+  background-color: rgb(67, 74, 82);
+  z-index: 999;
+  transition: all 0.3s ease;
+} */
+@media (min-width: 768px) {
+  body.full-width .container {
+      width: 99%;
+      max-width: 100%;
+  }
+}

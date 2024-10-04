@@ -20,11 +20,22 @@ from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 from erpnext.controllers.stock_controller import StockController
+from frappe.model.naming import getseries
+from frappe.model.naming import make_autoname
 
 form_grid_templates = {"invoice_table": "templates/item_grid.html"}
 #need to check GL
 #need check write off dan deposit
 class GoldPayment(StockController):
+	@frappe.whitelist()	
+	def autoname(self,method=None):
+		date = getdate(self.posting_date)
+		tahun = date.strftime("%y")
+		bulan = date.strftime("%m")
+		hari = date.strftime("%d")
+		# frappe.throw(str(self.naming_series))
+		self.naming_series = self.naming_series.replace(".YY.", tahun).replace(".MM.", bulan).replace(".DD.", hari)
+		self.name = self.naming_series.replace(".###", getseries(self.naming_series,3))
 	def validate(self):
 		total = self.total_idr_payment
 		if not self.warehouse:

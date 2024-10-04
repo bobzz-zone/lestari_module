@@ -29,6 +29,7 @@
   {
    "fieldname": "sales",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Sales",
    "options": "Sales Partner"
   },
@@ -48,6 +49,7 @@
   {
    "fieldname": "bundle",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Bundle",
    "options": "Sales Stock Bundle"
   },
@@ -61,12 +63,14 @@
   {
    "fieldname": "bulan",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Bulan",
    "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
   },
   {
    "fieldname": "tahun",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Tahun",
    "options": "2020\n2021\n2022\n2023\n2024\n2025"
   },
@@ -127,7 +131,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-25 15:46:48.752409",
+ "modified": "2024-08-12 14:46:45.118164",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Aktivitas Sales",

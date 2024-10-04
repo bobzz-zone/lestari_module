@@ -5,7 +5,8 @@ import frappe
 import datetime
 from frappe.model.document import Document
 from frappe.utils import cint, flt, now_datetime, now, getdate
-from lestari.randomize import first_day_of_month, last_day_of_month, start_generate
+# from lestari.randomize import first_day_of_month, last_day_of_month, start_generate
+from lestari.randomize_claude import first_day_of_month, last_day_of_month, start_generate
 from lestari.gold_selling.doctype.gold_invoice.gold_invoice import submit_gold_ledger
 from frappe.model.naming import getseries
 from frappe.model.naming import make_autoname
@@ -131,6 +132,10 @@ class RekapAktivitasSales(Document):
 
         frappe.db.commit()
 
+        list_aktivitas = frappe.db.sql("""SELECT name from `tabAktivitas Sales` where MONTHNAME(posting_date) = "{}" """.format(self.bulan),as_list=1)
+        for row in list_aktivitas:
+            frappe.delete_doc('Aktivitas Sales', row[0])
+
         frappe.msgprint("Delete Done!!")
 
         # for row in list_ts:
@@ -147,6 +152,8 @@ class RekapAktivitasSales(Document):
         # from lestari.randomize2 import start_generate_multi
 
         start_generate(self.tahun, self.bulan)
+
+        frappe.msgprint("Submitting Gold invoice")
 
         list_ginv = frappe.db.get_list(
             "Gold Invoice",

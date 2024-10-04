@@ -23,8 +23,8 @@ def generate_mr(doctype,filters,from_data=None):
 			po_get = frappe.get_doc("Purchase Order", po.name)
 			# print('== Purchase Order ==')
 			pr = make_purchase_receipt(po_get.name)
-			pr.transaction_date = po_get.transaction_date
-			pr.schedule_date = po_get.schedule_date
+			pr.set_posting_time = 1
+			pr.posting_date = po_get.schedule_date
 			pr.save()
 			pr.submit()
 			frappe.db.commit()
@@ -32,8 +32,8 @@ def generate_mr(doctype,filters,from_data=None):
 			poinv = frappe.get_doc("Purchase Order", po.name)
 			# print('== Purchase Invoice ==')
 			pinv = make_purchase_invoice(poinv.name)
-			pinv.transaction_date = poinv.transaction_date
-			pinv.schedule_date = poinv.schedule_date
+			pinv.set_posting_time = 1
+			pinv.posting_date = po_get.schedule_date
 			pinv.save()
 			pinv.submit()
 			frappe.db.commit()
@@ -51,8 +51,8 @@ def generate_mr(doctype,filters,from_data=None):
 		po_get = frappe.get_doc("Purchase Order", po.name)
 		# print('== Purchase Order ==')
 		pr = make_purchase_receipt(po_get.name)
-		pr.transaction_date = po_get.transaction_date
-		pr.schedule_date = po_get.schedule_date
+		pr.set_posting_time = 1
+		pr.posting_date = po_get.schedule_date
 		pr.save()
 		pr.submit()
 		frappe.db.commit()
@@ -60,8 +60,8 @@ def generate_mr(doctype,filters,from_data=None):
 		poinv = frappe.get_doc("Purchase Order", po.name)
 		# print('== Purchase Invoice ==')
 		pinv = make_purchase_invoice(poinv.name)
-		pinv.transaction_date = poinv.transaction_date
-		pinv.schedule_date = poinv.schedule_date
+		pinv.set_posting_time = 1
+		pinv.posting_date = po_get.schedule_date
 		pinv.save()
 		pinv.submit()
 		frappe.db.commit()
@@ -106,7 +106,10 @@ def make_purchase_receipt(source_name, target_doc=None):
 		{
 			"Purchase Order": {
 				"doctype": "Purchase Receipt",
-				"field_map": {"supplier_warehouse": "supplier_warehouse"},
+				"field_map": {
+					"supplier_warehouse": "supplier_warehouse",
+					"transaction_date": "posting_date"
+				},
 				"validation": {
 					"docstatus": ["=", 1],
 				},

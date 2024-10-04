@@ -272,6 +272,7 @@
    "label": "Bruto"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "bundle",
    "fieldtype": "Link",
    "label": "Bundle",
@@ -457,7 +458,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-26 12:30:50.187693",
+ "modified": "2024-08-12 14:51:26.220870",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

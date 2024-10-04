@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-05-28 14:00:14.704101",
+ "modified": "2024-07-23 13:01:55.706558",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Stockist",
@@ -92,6 +92,12 @@
    "label": "Kartu Stock Stockist",
    "link_to": "kartu-stockist-stock",
    "type": "Page"
+  },
+  {
+   "doc_view": "List",
+   "label": "Aktivitas Sales",
+   "link_to": "Aktivitas Sales",
+   "type": "DocType"
   }
  ]
 }

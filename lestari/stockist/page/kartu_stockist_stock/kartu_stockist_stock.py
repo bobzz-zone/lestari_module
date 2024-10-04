@@ -97,7 +97,7 @@ def contoh_report(posting_date = None, produk = None, kadar = None):
             {3}
             ORDER BY tanggal ASC,
             kadar DESC
-    """.format(json_data[0],json_data[1],condition,condition1),as_dict = 1, debug = 0)
+    """.format(json_data[0],json_data[1],condition,condition1),as_dict = 1, debug = 1)
     # frappe.msgprint(str(list_doc))
     no = 0
     # qty_balance = 0.000

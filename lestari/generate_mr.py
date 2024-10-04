@@ -78,9 +78,9 @@ def masukin_pbp():
 	import pandas as pd
 	
 	# read by default 1st sheet of an excel file
-	df = pd.read_excel('/home/frappe/lestari-bench/apps/lestari/lestari/PBP.xlsx')
+	df = pd.read_excel('/home/frappe/frappe-bench/apps/lestari/lestari/PBP.xlsx',engine='openpyxl')
 	
-	# print(df.columns.tolist())
+	print(df.columns.tolist())
 	counter = 0
 
 	for index, row in df.iterrows():
@@ -89,6 +89,7 @@ def masukin_pbp():
 		except:
 			pbp_baru = frappe.new_doc("Pemakaian Bahan Pembantu")
 			pbp_baru.nama = row[0]
+			print(pbp_baru.nama)
 			for nama in df.columns.tolist():
 				if row[0] != row[nama] and row[nama] and nama != "KETERANGAN":
 					pbp_baru.append("item",{

@@ -16,6 +16,7 @@ app_license = "MIT"
 # app_include_css = "/assets/lestari/css/lestari.css"
 # app_include_js = "/assets/lestari/js/lestari.js"
 app_include_css = ['/assets/lestari/css/dx.light.css',
+					'/assets/lestari/css/lestari.css'
                 #    '/assets/lestari/css/frappe-datatable.min.css'
 				]
 app_include_js = ['/assets/lestari/js/dx.all.js',
@@ -26,7 +27,8 @@ app_include_js = ['/assets/lestari/js/dx.all.js',
                 #   '/assets/lestari/js/Sortable.min.js',
                 #   '/assets/lestari/js/clusterize.min.js',
                 #   '/assets/lestari/js/frappe-datatable.min.js',
-                  '/assets/lestari/js/lestari.js']
+                #   '/assets/lestari/js/lestari.js'
+				  ]
 
 
 # include js, css files in header of web template
@@ -106,7 +108,7 @@ doctype_list_js = {
 # Hook on document methods and events
 
 doc_events = {
-    "Purchase Receipt" : { "autoname" : "lestari.purchase_receipt.autoname_prec"}
+    # "Purchase Receipt" : { "autoname" : "lestari.purchase_receipt.autoname_prec"}
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
@@ -115,9 +117,18 @@ doc_events = {
 	# "Form Berat Material Pohon": {
 	# 	"on_save": "lestari.lestari.doctype.form_berat_material_pohon.form_berat_material_pohon.on_save"
 	# }
-	# "Proses Pohonan Lilin":{
-	# 	"validate": "lestari.lestari.doctype.proses_pohona_lilin.proses_pohonan_lilin.validate"
-	# }
+	"Material Request":{
+		"autoname": "lestari.custom.custom_material_request.autoname"
+	},
+	"Purchase Order":{
+		"autoname": "lestari.custom.custom_purchase_order.autoname"
+	},
+	"Purchase Receipt":{
+		"autoname": "lestari.custom.custom_purchase_receipt.autoname"
+	},
+	"Purchase Invoice":{
+		"autoname": "lestari.custom.custom_purchase_invoice.autoname"
+	}
 }
 jenv = {
 	'filters':[
