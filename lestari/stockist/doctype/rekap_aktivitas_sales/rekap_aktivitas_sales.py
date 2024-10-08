@@ -6,7 +6,7 @@ import datetime
 from frappe.model.document import Document
 from frappe.utils import cint, flt, now_datetime, now, getdate
 # from lestari.randomize import first_day_of_month, last_day_of_month, start_generate
-from lestari.randomize_claude import first_day_of_month, last_day_of_month, start_generate
+from lestari.randomize import first_day_of_month, last_day_of_month, start_generate
 from lestari.gold_selling.doctype.gold_invoice.gold_invoice import submit_gold_ledger
 from frappe.model.naming import getseries
 from frappe.model.naming import make_autoname

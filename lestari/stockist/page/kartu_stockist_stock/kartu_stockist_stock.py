@@ -46,7 +46,7 @@ def contoh_report(posting_date = None, produk = None, kadar = None):
     #     condition = """AND sales = '{}'""".format(sales)
     if produk:
         condition += """AND b.sub_kategori = '{}'""".format(produk)
-        condition1 += """AND b.item LIKE '%{}%'""".format(produk)
+        condition1 += """AND b.item LIKE '%{}%'""".format(produk+"-"+kadar)
     if kadar:
         condition += """AND b.kadar = '{}'""".format(kadar)
         condition1 += """AND b.kadar = '{}'""".format(kadar)

@@ -491,7 +491,7 @@ def randomizer(input_warehouse,input_kadar,kebutuhan, type, kadar, bundle, tangg
 	item_group = "Pembayaran"
 	kadar = input_kadar
 
-	list_item = frappe.db.sql(""" 
+	list_item_temp = frappe.db.sql(""" 
 		SELECT tb.item_code,tb.qty_after_transaction FROM `tabStock Ledger Entry` tb
 		JOIN `tabItem` ti ON ti.name = tb.item_code
 		WHERE tb.qty_after_transaction > 0
@@ -500,9 +500,16 @@ def randomizer(input_warehouse,input_kadar,kebutuhan, type, kadar, bundle, tangg
 		AND ti.item_group = "{}"
 		AND ti.kadar = "{}"
 		AND tb.posting_date < "{}"
+		
+        ORDER BY TIMESTAMP(tb.posting_date,tb.posting_time) DESC
 	""".format(warehouse,1,item_group,kadar,tanggal),debug=1)
-	print("-- Get List Item "+str(len(list_item))+" --")
-	
+	print("-- Get List Item "+str(len(list_item_temp))+" --")
+	list_item=[]
+	item_added=[]
+	for row in list_item_temp:
+		if row[1] not in item_added:
+			list_item.append(row)
+			item_added.append(row[1])
 	total_item = 0
 	for row in list_item:
 		total_item = total_item+frappe.utils.flt(row[1])
@@ -511,6 +518,10 @@ def randomizer(input_warehouse,input_kadar,kebutuhan, type, kadar, bundle, tangg
 	kebutuhan_max = min(kebutuhan * 1.20, total_item)
 
 	if total_item < kebutuhan:
+		frappe.msgprint("Kebutuhan Kebutuhan = {}".format(kebutuhan))
+		frappe.msgprint("Kebutuhan Min = {}".format(kebutuhan_min))
+		frappe.msgprint("Kebutuhan Max = {}".format(kebutuhan_max))
+		frappe.msgprint("Total Item = {}".format(total_item))
 		frappe.throw("Item dengan kadar {} tidak cukup barang di gudang Stockist.".format(kadar))
 
 	if frappe.utils.flt(kebutuhan_min) == frappe.utils.flt(total_item):
